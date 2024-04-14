@@ -41,8 +41,8 @@ class DBStorage:
         if LIBLY_ENV == "test":
             Base.metadata.drop_all(self.__engine)
 
-        ''' Please be aware that you should call "self.reload()"
-        in order to initilize the class variable "__session"'''
+        if self.__session is None:
+            self.reload()
 
     def all(self, cls=None):
         """query on the current database session"""
