@@ -29,6 +29,18 @@ def not_found(error):
     return make_response(jsonify({'error': "Not found"}), 404)
 
 
+@app.errorhandler(400)
+def invalid_json(error):
+    ''' 400 Error
+    ---
+    responses:
+        400:
+        description: Invalid json in request
+    '''
+
+    return make_response(jsonify({'error': 'Invalid JSON'}), 415)
+
+
 if __name__ == "__main__":
     """ Main Function """
     host = environ.get('HBNB_API_HOST')
