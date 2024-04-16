@@ -3,6 +3,7 @@
 from api.v1.views import grand_view
 from models import storage
 from models.user import User
+from models.review import Review
 from flask import jsonify, abort, make_response, request
 
 
@@ -31,6 +32,17 @@ def get_user(user_id):
 
     del user.password
     return jsonify(user.to_dict()) 
+
+
+@grand_view.route('/users/<string:user_id>/reviews', methods=['GET'], strict_slashes=False)
+def get_user_reviews(user_id):
+    ''' get reviews made by a certain user from the database '''
+    user = storage.get(User, user_id)
+    if not user:
+        abort(404)
+
+    all_reviews = [i.to_dict() for i in storage.all(Review).values() if i.user_id == user_id]
+    return jsonify(all_reviews) if len(all_reviews) > 0 else abort(404)
 
 
 @grand_view.route('/users', methods=['POST'], strict_slashes=False)

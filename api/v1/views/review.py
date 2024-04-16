@@ -11,7 +11,15 @@ def get_reviews():
     ''' get all reviews from the database '''
 
     reviews = [i.to_dict() for i in storage.all(Review).values()]
-    return jsonify(reviews)
+    return jsonify(reviews) if len(reviews) > 0 else abort(404)
+
+
+@grand_view.route('/<string:book_id>/reviews', methods=['GET'], strict_slashes=False)
+def get_book_reviews(book_id):
+    ''' get all reviews on a certain book from the database '''
+
+    reviews = [i.to_dict() for i in storage.all(Review).values() if i.book_id == book_id]
+    return jsonify(reviews) if len(reviews) > 0 else abort(404)
 
 
 @grand_view.route('/reviews/<string:review_id>', methods=['GET'], strict_slashes=False)

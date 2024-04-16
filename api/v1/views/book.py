@@ -21,8 +21,8 @@ def get_books():
 @grand_view.route('/books/<string:book_id>', methods=['GET'], strict_slashes=False)
 def get_book(book_id):
     ''' get a certain book from the database '''
-    books = storage.get(Book, book_id)
-    return jsonify(books[0])
+    book = storage.get(Book, book_id)
+    return jsonify(book.to_dict())
 
 
 @grand_view.route('/books', methods=['POST'], strict_slashes=False)
