@@ -52,8 +52,18 @@ def create_user():
     if "email" not in request.get_json() or "password" not in request.get_json():
         return make_response(jsonify({"error": "Missing credential(s)"}), 400)
 
-    new_user = User(**request.get_json())
-    new_user.save()
+    if "user_type" in request.get_json():
+        admin = [i for i in storage.all(User).values() if i.user_type == "king"]
+        if "sign_password" in request.get_json() and request.get_json()["sign_password"] == admin[0].password:
+            new_user = User(**request.get_json())
+            new_user.user_type = 'king'
+            new_user.save()
+        else:
+            return make_response(jsonify({"error": "authentication failed"}), 403)
+
+    else:
+        new_user = User(**request.get_json())
+        new_user.save()
 
     return make_response(jsonify(new_user.to_dict()), 201)
 
