@@ -29,12 +29,12 @@ def not_found(error):
     return make_response(jsonify({'error': "Not found"}), 404)
 
 
-@app.errorhandler(400)
+@app.errorhandler(415)
 def invalid_json(error):
-    ''' 400 Error
+    ''' 415 Error
     ---
     responses:
-        400:
+        415:
         description: Invalid json in request
     '''
 
