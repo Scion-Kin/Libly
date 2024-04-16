@@ -8,7 +8,7 @@ from models.genre import Genre
 from models.review import Review
 from models.user import User
 from models import storage
-from api.v1.views import grand_view
+from flask_api.v1.views import grand_view
 from flask import jsonify
 
 

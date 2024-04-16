@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 ''' The reviews api handler '''
-from api.v1.views import grand_view
+from flask_api.v1.views import grand_view
 from models import storage
 from models.review import Review
 from flask import jsonify, abort, request, make_response

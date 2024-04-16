@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Flask Application """
 from models import storage
-from api.v1.views import grand_view
+from flask_api.v1.views import grand_view
 from os import environ
 from flask import Flask, render_template, make_response, jsonify
 from flask_cors import CORS
