@@ -15,7 +15,7 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/<string:user_id>/confirm', strict_slashes=False)
+@app.route('/confirm/<string:user_id>', strict_slashes=False)
 def confirm_email(user_id):
     ''' activates the account of a user '''
 
