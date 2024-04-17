@@ -18,14 +18,9 @@ app.post("/signup", (req, res) => {
 
     try {
         if (!req.body.email || !req.body.first_name || !req.body.last_name) {
-            console.log("Missing details");
             res.status(400).json({ error: "Missing name or email"});
         }
         else {
-            let data = fs.readFileSync('confirmation_email.html', 'utf8');
-            data = data.replace(/{% email %}/g, `${req.body.email}`);
-            data = data.replace(/{% name %}/g, `${req.body.first_name} ${req.body.last_name}`);
-
             fetch("http://0.0.0.0:5000/api/v1/users", {
                 headers: { 'Content-Type': 'application/json' },
                 method: "POST",
@@ -39,9 +34,13 @@ app.post("/signup", (req, res) => {
                 })
                 .then(function(response) {
                     if (response.error) {
-                        res.status(401).json({ error: "email already exists" });
+                        res.status(401).json({ error: response.error });
                     }
                     else {
+                        let data = fs.readFileSync('confirmation_email.html', 'utf8');
+                        data = data.replace(/{% id %}/g, `${response.id}`);
+                        data = data.replace(/{% name %}/g, `${response.first_name} ${response.last_name}`);
+
                         const transporter = nodemailer.createTransport({
                             host: 'smtp-relay.brevo.com',
                             port: 587,
@@ -54,7 +53,7 @@ app.post("/signup", (req, res) => {
                         const mailOptions = {
                             from: 'mugabo@centralbees.com',
                             to: req.body.email,
-                            subject: 'Welcome to Libly! Email confirmation needed',
+                            subject: 'Welcome to Libly! Please comfim your email.',
                             text: data
                         };
             
@@ -66,7 +65,7 @@ app.post("/signup", (req, res) => {
                             }
                         });
 
-                        res.json({ success: "Signup successfull!"});
+                        res.json({ success: "Sign up successful" });
                     }
                 })
                 .catch(error => {
@@ -75,7 +74,7 @@ app.post("/signup", (req, res) => {
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error reading HTML file');
+        res.status(500).json({ error: 'Error reading HTML file' });
     }
 });
 
