@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 ''' This defines a user class for SQLAlchemy modeling '''
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
 
@@ -12,6 +12,7 @@ class User(BaseModel, Base):
     email = Column(String(128), nullable=False)
     password = Column(String(128), nullable=False)
     user_type = Column(String(30), default="citizen")
+    confirmed = Column(Boolean, default=False)
     first_name = Column(String(128), nullable=True)
     middle_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
