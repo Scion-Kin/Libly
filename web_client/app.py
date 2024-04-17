@@ -1,35 +1,25 @@
 #!/usr/bin/python3
 ''' This is the web server '''
 
-from flask import Flask, render_template
-from models import storage
-from models.user import User
-import requests
+from web_client.views import client_view
+from flask import Flask, Blueprint, render_template, abort, session
+from itsdangerous import URLSafeSerializer
+
 
 app = Flask(__name__)
+
+app.secret_key = 'temporary_key'
+
+s = URLSafeSerializer(app.secret_key)
+
+app.register_blueprint(client_view)
+
 
 @app.route('/', strict_slashes=False)
 def home():
     ''' The home page route '''
 
     return render_template('index.html')
-
-
-@app.route('/confirm/<string:user_id>', strict_slashes=False)
-def confirm_email(user_id):
-    ''' activates the account of a user '''
-
-    req = requests.get('http://0.0.0.0:5000/api/v1/users/{}'.format(user_id))
-
-    if req.status_code == 200:
-        user = storage.get(User, user_id)
-        if user.confirmed is False:
-            user.confirmed = True
-            user.save()
-
-        return render_template('confirm_email.html', confirmed=True)
-
-    return render_template('confirm_email.html', confirmed=False)
 
 
 if __name__ == "__main__":

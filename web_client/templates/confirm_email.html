@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        {% if confirmed == True %}
-            Email confirmed
-        {% else %}
-            Confirmation failed
-        {% endif %}
-    </title>
-</head>
-<body>
-    {% if confirmed == True %}
+{% extends "index.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block body_content %}
+    {% if confirmed == True and already == False %}
         <h3>Email Confirmed!</h3>
         <h1>Welcome to Libly</h1>
+        <a href="/"><button>Go to home</button></a>
+    {% elif confirmed == True and already == True %}
+        <h1>This account has been already activated.</h1>
+        <a href="/"><button>Homepage</button></a>
     {% else %}
         <h3>Email Confirmation failed.</h3>
-        <button>Resend email</button>    
+        <button>Resend email</button>
     {% endif %}
-</body>
-</html>
+{% endblock body_content %}

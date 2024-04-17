@@ -3,9 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>{% block title %}{% endblock %} | Libly</title>
+    {% block head %}{% endblock %}
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: brown;
+            color: white;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button, input[type="submit"] {
+            background: rgb(63, 63, 255);
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 15px;
+            max-width: 150px;
+            margin: auto;
+            margin-top: 10px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 30%;
+            margin: auto;
+        }
+        input {
+            margin: 10px 0px;
+            border-radius: 10px;
+            border: none;
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello Libly!</h1>
+    {% block header %}
+    <header>
+        <h1>Libly</h1>
+        <nav>
+            <a href="/login"><button>Login</button></a>
+            <a href="/signup"><button>Signup</button></a>
+            <a href="/home"><button>Home</button></a>
+        </nav>
+    </header>
+    {% endblock %}
+    {% block body_content %}{% endblock %}
 </body>
 </html>

@@ -1,0 +1,12 @@
+{% extends "index.html" %}
+{% block title %}Login{% endblock %}
+{% block body_content %}
+<form method="POST" action="{{ url_for('client_view.login') }}">
+    <input type="email" name="email" placeholder="email">
+    <input type="password" name="password" placeholder="password">
+    <input type="submit">
+</form>
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}
+{% endblock %}
