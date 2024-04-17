@@ -78,33 +78,6 @@ app.post("/signup", (req, res) => {
     }
 });
 
-app.post("/login", (req, res) => {
-
-    const con = mysql.createConnection({
-        host: "localhost",
-        user: "libly_user",
-        password: "libDev",
-        database: "libly"
-    });
-      
-    con.connect(function(err) {
-      if (err) throw err;
-      con.query(`SELECT * FROM users WHERE email = '${req.body.email}'`, function (err, result, fields) {
-        if (err) {
-          res.json(err);
-        }
-        else {
-          if (result[0].password != req.body.password) {
-            res.status(401).json({ error: "Wrong credentials" });
-          }
-          else {
-            res.json({ success: "Login successful", user_details: result[0]});
-          }
-        }
-      });
-    });
-});
-
 // Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
