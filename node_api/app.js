@@ -46,8 +46,8 @@ app.post("/signup", (req, res) => {
                             host: 'smtp-relay.brevo.com',
                             port: 587,
                             auth: {
-                                user: 'dinturner17@gmail.com',
-                                pass: 'HzSB6UdyCMbsGwAX'
+                                user: process.argv[2],
+                                pass: process.argv[3]
                             }
                         });
             
