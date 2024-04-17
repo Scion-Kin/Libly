@@ -52,6 +52,10 @@ def create_user():
     if "email" not in request.get_json() or "password" not in request.get_json():
         return make_response(jsonify({"error": "Missing credential(s)"}), 400)
 
+    all_users = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
+    if len(all_users) > 0:
+        return make_response(jsonify({"error": "email already exists"}))
+
     if "user_type" in request.get_json():
         admin = [i for i in storage.all(User).values() if i.user_type == "king"]
         if "sign_password" in request.get_json() and request.get_json()["sign_password"] == admin[0].password:
@@ -59,7 +63,7 @@ def create_user():
             new_user.user_type = 'king'
             new_user.save()
         else:
-            return make_response(jsonify({"error": "authentication failed"}), 403)
+            return make_response(jsonify({"error": "authentication failed"}), 401)
 
     else:
         new_user = User(**request.get_json())
