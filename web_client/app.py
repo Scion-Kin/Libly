@@ -19,6 +19,9 @@ app.register_blueprint(client_view)
 def home():
     ''' The home page route '''
 
+    if session and session['logged'] == True:
+        return render_template('feed.html')
+
     return render_template('index.html')
 
 

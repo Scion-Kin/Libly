@@ -47,12 +47,12 @@
     <header>
         <h1>Libly</h1>
         <nav>
-            <a href="/login"><button>Login</button></a>
-            <a href="/signup"><button>Signup</button></a>
-            <a href="/home"><button>Home</button></a>
+            <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
+            <a href="{{ url_for('client_view.signup') }}"><button>Signup</button></a>
+            <a href="{{ url_for('home') }}"><button>Home</button></a>
         </nav>
     </header>
     {% endblock %}
-    {% block body_content %}{% endblock %}
+    {% block body %}{% endblock %}
 </body>
 </html>

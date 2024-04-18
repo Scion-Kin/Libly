@@ -1,0 +1,96 @@
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: white;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#user {
+    display: flex;
+    justify-content: space-evenly; 
+    width: 20%;
+}
+
+#main {
+    display: flex;
+    justify-content: space-between;
+    width: 40%;
+}
+
+#search {
+    display: flex;
+    justify-content: space-between; 
+    width: 20%;
+}
+
+#search input[type="search"] {
+    border-radius: 30px;
+    margin-top: 7px;
+    height: 60%;
+}
+
+nav button, input[type="submit"] {
+    background: #059e54;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 15px;
+    max-width: 150px;
+    margin: auto;
+    margin-top: 10px;
+}
+
+#site_logo {
+    background-image: url('../images/49e2b6a8-84a8-4423-89bb-cdbfa398311d.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60px;
+    height: 60px;
+}
+
+#main-icon, #trending-icon, #book-icon, #notification-icon, #avatar {
+    background-image: url('../images/home-icon.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 45px;
+    height: 45px;
+    border-radius: 22px;
+}
+
+#trending-icon {
+    background-image: url('../images/fire-icon.svg');
+}
+
+#book-icon {
+    background-image: url('../images/book-icon.svg'); 
+}
+
+#notification-icon {
+    background-image: url('../images/notification-icon.svg');
+    float: right;
+    margin-left: 50%;
+}
+
+#avatar {
+    background-image: url('https://cdn.dribbble.com/users/2317423/screenshots/19947331/media/5833ff69c500d5d103ddb863f16bf481.jpg');
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    margin: auto;
+}
+
+input {
+    margin: 10px 0px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+}

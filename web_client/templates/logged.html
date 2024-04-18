@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Libly</title>
+    <link rel="stylesheet" href="../static/styles/logged_in_header.css">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block header %}
+    <header>
+        <nav id="search">
+            <div id="site_logo"></div>
+            <input type="search" name="search">
+        </nav>
+        <nav id="main">
+            <div id="main-icon"></div>
+            <div id="trending-icon"></div>
+            <div id="book-icon"></div>
+        </nav>
+        <nav id="user">
+            <div id="notification-icon"></div>
+            <div id="avatar"></div>
+        </nav>
+    </header>
+    {% endblock %}
+    {% block body %}{% endblock %}
+</body>
+</html>
