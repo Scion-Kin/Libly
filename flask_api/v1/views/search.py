@@ -8,7 +8,7 @@ from models.book_genre import BookGenre
 from models.genre import Genre
 from models.user import User
 from flask_api.v1.views import grand_view
-from flask import request, jsonify
+from flask import request, jsonify, make_response
 
 
 @grand_view.route('/search', methods=['POST'], strict_slashes=False)
@@ -17,6 +17,8 @@ def search():
     for anything containing the passed keywords '''
 
     keywords = list(request.get_json()["keywords"].split(' '))
+    if len(keywords) <  1:
+        return make_response(jsonify({"error": "keywords required"}), 401)
 
     found = {
         "books": [],
@@ -26,10 +28,10 @@ def search():
     }
 
     for i in keywords:
-        in_books = [j.to_dict() for j in storage.all(Book).values() if i in j.title.lower()]
-        in_authors = [j.to_dict() for j in storage.all(Author).values() if i in j.first_name.lower() or i in j.last_name.lower()]
-        in_genres = [j.to_dict() for j in storage.all(Genre).values() if i in j.name.lower()]
-        in_users = [j.to_dict() for j in storage.all(User).values() if i in j.first_name.lower() or i in j.last_name.lower()]
+        in_books = [j.to_dict() for j in storage.all(Book).values() if i.lower() in j.title.lower()]
+        in_authors = [j.to_dict() for j in storage.all(Author).values() if i.lower() in j.first_name.lower() or i in j.last_name.lower()]
+        in_genres = [j.to_dict() for j in storage.all(Genre).values() if i.lower() in j.name.lower()]
+        in_users = [j.to_dict() for j in storage.all(User).values() if i.lower() in j.first_name.lower() or i in j.last_name.lower()]
 
         if len(in_books) > 0:
             for book in in_books:
@@ -52,4 +54,5 @@ def search():
                 if len([i for i in found["users"] if i["id"] == user["id"]]) < 1:
                     found["users"].append(user)
 
+    print(found)
     return jsonify(found)

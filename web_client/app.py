@@ -4,7 +4,7 @@
 from web_client.views import client_view
 from flask import Flask, Blueprint, render_template, abort, session, request
 from itsdangerous import URLSafeSerializer
-from requests import get
+import requests
 
 
 app = Flask(__name__)
@@ -20,8 +20,12 @@ app.register_blueprint(client_view)
 def home():
     ''' The home page route '''
     if request.method == 'POST':
-        keyword = request.form.get('keyword')
-        print('\n', keyword, '\n')
+        keywords = request.form.get('keywords')
+        
+        headers = {"Content-Type": "application/json"}
+        response = requests.post('http://0.0.0.0:5000/api/v1/search', headers=headers, json={"keywords": keywords})
+
+        print(response.json())
 
     if session and session['logged'] == True:
         return render_template('feed.html')
