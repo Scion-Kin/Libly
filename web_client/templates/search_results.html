@@ -14,14 +14,55 @@
     <h3>Filters</h3>
     <nav class="results_nav">
         <button>All</button>
-        <button>Books</button>
         <button>Authors</button>
+        <button>Books</button>
         <button>Genres</button>
         <button>Users</button>
     </nav>
 </aside>
-<section>
-    <h1>Results found!</h1>
+<section class="results">
+    {% if authors %}
+    <h3>Authors</h3>
+        {% for item in authors %}
+            <section class="item">
+                <p>{{ item.first_name }} {{ item.last_name }}</p>
+                <button>See books</button>
+            </section>
+        {% endfor %}
+    {% endif %}
+
+    {% if books %}
+    <h3>Books</h3>
+        {% for item in books %}
+            <section class="item">
+                <button>{{ item.title }}</button>
+                <select style="width: 20px;">
+                    <option value="borrow">Borrow</option>
+                    <option value="read">Read</option>
+                </select>
+            </section>
+        {% endfor %}
+    {% endif %}
+
+    {% if genres %}
+        <h3>Genres</h3>
+        {% for genre in genres %}
+            <section class="item">
+                <p>{{ genre.name }}</p>
+                <button>Check books</button>
+            </section>
+        {% endfor %}
+    {% endif %}
+
+    {% if users %}
+        <h3>Users</h3>
+        {% for user in users %}
+            <section class="item">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+                <button>See favs</button>
+            </section>
+        {% endfor %}
+    {% endif %}
 </section>
 {% endif %}
 {% endblock %}

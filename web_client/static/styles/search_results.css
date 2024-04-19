@@ -30,7 +30,16 @@ aside h3,  aside h2 {
     background-color: #e7e8e9;
 }
 
-section {
+.results {
     border: 1px solid grey;
     width: 70%;
+    background-color: #e7e8e9;
+}
+
+.item {
+    width: 80%;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: white;
 }
