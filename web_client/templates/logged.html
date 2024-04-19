@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock %} | Libly</title>
+    <title>{% block title %}{% endblock %}| Libly</title>
     <link rel="stylesheet" href="../static/styles/logged_in_header.css">
     {% block head %}{% endblock %}
 </head>
@@ -12,16 +12,20 @@
     <header>
         <nav id="search">
             <div id="site_logo"></div>
-            <input type="search" name="search">
+            <input type="search" id="search" name="search">
+            <div id="submit">
+                <input type="submit" id="book-grab" value="">
+                <label for="book-grab" id="grab"></label>
+            </div>            
         </nav>
         <nav id="main">
-            <div id="main-icon"></div>
-            <div id="trending-icon"></div>
-            <div id="book-icon"></div>
+            <button id="main-icon"></button>
+            <button id="trending-icon"></button>
+            <button id="book-icon"></button>
         </nav>
         <nav id="user">
-            <div id="notification-icon"></div>
-            <div id="avatar"></div>
+            <button id="notification-icon"></button>
+            <button id="avatar"></button>
         </nav>
     </header>
     {% endblock %}
