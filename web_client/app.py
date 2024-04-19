@@ -2,8 +2,9 @@
 ''' This is the web server '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort, session
+from flask import Flask, Blueprint, render_template, abort, session, request
 from itsdangerous import URLSafeSerializer
+from requests import get
 
 
 app = Flask(__name__)
@@ -15,9 +16,12 @@ s = URLSafeSerializer(app.secret_key)
 app.register_blueprint(client_view)
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/', methods=['GET', 'POST'], strict_slashes=False)
 def home():
     ''' The home page route '''
+    if request.method == 'POST':
+        keyword = request.form.get('keyword')
+        print('\n', keyword, '\n')
 
     if session and session['logged'] == True:
         return render_template('feed.html')

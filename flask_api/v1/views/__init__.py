@@ -10,3 +10,4 @@ from flask_api.v1.views.genre import *
 from flask_api.v1.views.author import *
 from flask_api.v1.views.review import *
 from flask_api.v1.views.user import *
+from flask_api.v1.views.search import *
