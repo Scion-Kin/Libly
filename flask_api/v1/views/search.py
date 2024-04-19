@@ -54,5 +54,4 @@ def search():
                 if len([i for i in found["users"] if i["id"] == user["id"]]) < 1:
                     found["users"].append(user)
 
-    print(found)
     return jsonify(found)
