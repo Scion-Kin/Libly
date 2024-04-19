@@ -1,0 +1,36 @@
+main {
+    display: flex;
+}
+
+aside {
+    width: 30%;
+    border: 1px solid grey;
+}
+
+aside h3,  aside h2 {
+    margin-top: 5px;
+    margin-left: 20px;
+}
+
+.results_nav {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 10px;
+}
+
+.results_nav button {
+    text-align: left;
+    padding: 10px 60px;
+    background: none;
+    border-radius: 15px;
+    border: none;
+}
+
+.results_nav button:hover {
+    background-color: #e7e8e9;
+}
+
+section {
+    border: 1px solid grey;
+    width: 70%;
+}

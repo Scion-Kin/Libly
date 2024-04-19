@@ -1,0 +1,27 @@
+{% extends 'logged.html' %}
+{% block title %} Home {% endblock %}
+{% block head %}
+<link rel="stylesheet" href="../static/styles/search_results.css">
+<link rel="icon" href="../static/images/logo-maybe.svg">
+<script src="../static/scripts/search_results.js"></script>
+{% endblock %}
+{% block body %}
+{% if error %}
+    <section class="error">{{ error }}</section>
+{% else %}
+<aside>
+    <h2>Search results</h2>
+    <h3>Filters</h3>
+    <nav class="results_nav">
+        <button>All</button>
+        <button>Books</button>
+        <button>Authors</button>
+        <button>Genres</button>
+        <button>Users</button>
+    </nav>
+</aside>
+<section>
+    <h1>Results found!</h1>
+</section>
+{% endif %}
+{% endblock %}

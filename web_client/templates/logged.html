@@ -13,7 +13,7 @@
         <nav id="search">
             <div id="site_logo"></div>
             <form method="POST">
-                <input type="search" id="search" name="keywords">
+                <input type="search" id="search" name="keywords" required>
                 <div id="submit">
                     <input type="submit" id="book-grab" value="">
                     <label for="book-grab" id="grab"></label>
@@ -31,6 +31,8 @@
         </nav>
     </header>
     {% endblock %}
+    <main>
     {% block body %}{% endblock %}
+    </main>
 </body>
 </html>

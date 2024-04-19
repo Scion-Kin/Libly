@@ -21,11 +21,18 @@ def home():
     ''' The home page route '''
     if request.method == 'POST':
         keywords = request.form.get('keywords')
-        
-        headers = {"Content-Type": "application/json"}
-        response = requests.post('http://0.0.0.0:5000/api/v1/search', headers=headers, json={"keywords": keywords})
 
-        print(response.json())
+        try:       
+            headers = {"Content-Type": "application/json"}
+            response = requests.post('http://0.0.0.0:5000/api/v1/search', headers=headers, json={"keywords": keywords})
+
+            if response.status_code == 200:
+                print('\n', response.json(), '\n')
+
+                return render_template('search_results.html')
+
+        except Exception:
+            return render_template('search_results.html', error="Failed to reach server")
 
     if session and session['logged'] == True:
         return render_template('feed.html')
