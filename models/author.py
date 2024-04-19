@@ -12,6 +12,7 @@ class Author(BaseModel, Base):
     __tablename__ = 'authors'
     first_name = Column(String(60), nullable=False)
     middle_name = Column(String(60), nullable=True)
+    pic = Column(String(128), default="author-avatar.jpeg")
     last_name = Column(String(60), nullable=False)
     book_author = relationship('BookAuthor',
                                backref="author",

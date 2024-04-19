@@ -13,18 +13,17 @@
     <h2>Search results</h2>
     <h3>Filters</h3>
     <nav class="results_nav">
-        <button>All</button>
-        <button>Authors</button>
-        <button>Books</button>
-        <button>Genres</button>
-        <button>Users</button>
+        <button id="all">All</button>
+        <button id="authors">Authors</button>
+        <button id="books">Books</button>
+        <button id="genres">Genres</button>
+        <button id="users">Users</button>
     </nav>
 </aside>
-<section class="results">
+<section id="results">
     {% if authors %}
-    <h3>Authors</h3>
         {% for item in authors %}
-            <section class="item">
+            <section class="author">
                 <p>{{ item.first_name }} {{ item.last_name }}</p>
                 <button>See books</button>
             </section>
@@ -32,9 +31,8 @@
     {% endif %}
 
     {% if books %}
-    <h3>Books</h3>
         {% for item in books %}
-            <section class="item">
+            <section class="book">
                 <button>{{ item.title }}</button>
                 <select style="width: 20px;">
                     <option value="borrow">Borrow</option>
@@ -45,9 +43,8 @@
     {% endif %}
 
     {% if genres %}
-        <h3>Genres</h3>
         {% for genre in genres %}
-            <section class="item">
+            <section class="genre">
                 <p>{{ genre.name }}</p>
                 <button>Check books</button>
             </section>
@@ -55,9 +52,8 @@
     {% endif %}
 
     {% if users %}
-        <h3>Users</h3>
         {% for user in users %}
-            <section class="item">
+            <section class="user">
                 <p>{{ user.first_name }} {{ user.last_name }}</p>
                 <button>See favs</button>
             </section>

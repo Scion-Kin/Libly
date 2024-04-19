@@ -12,6 +12,7 @@ class Genre(BaseModel, Base):
 
     __tablename__ = 'genres'
     name = Column(String(60), nullable=False)
+    pic = Column(String(128), default="genre.jpg")
     book_genre = relationship('BookGenre',
                               backref="genre",
                               cascade="all, delete, delete-orphan")

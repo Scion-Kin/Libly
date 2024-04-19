@@ -16,6 +16,7 @@ class User(BaseModel, Base):
     first_name = Column(String(128), nullable=True)
     middle_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
+    pic = Column(String(128), default="user-avatar.jpg")
     reviews = relationship("Review", backref="user")
 
     def __init__(self, *args, **kwargs):

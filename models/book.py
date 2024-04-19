@@ -12,6 +12,7 @@ class Book(BaseModel, Base):
     __tablename__ = 'books'
     title = Column(String(60), nullable=False)
     ISBN = Column(String(60), nullable=False)
+    pic = Column(String(128), default="vintage-book.png")
     book_genre = relationship('BookGenre',
                               backref="book",
                               cascade="all, delete, delete-orphan")
