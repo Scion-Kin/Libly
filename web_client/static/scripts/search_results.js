@@ -13,7 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
         let results = document.getElementById('results');
         let key = document.getElementById('search');
 
-        console.log(key.value);
+        let keywords = document.title.replace(/\|/g, '');
+        keywords = keywords.replace(/Libly/g, '');
+        keywords = keywords.replace(/Search:/g, '');
 
+        console.log(keywords);
     });
 });

@@ -1,5 +1,5 @@
 {% extends 'logged.html' %}
-{% block title %} Home {% endblock %}
+{% block title %} Search: {{ keywords }} {% endblock %}
 {% block head %}
 <link rel="stylesheet" href="../static/styles/search_results.css">
 <link rel="icon" href="../static/images/logo-maybe.svg">
@@ -22,22 +22,31 @@
 </aside>
 <section id="results">
     {% if authors %}
-        {% for item in authors %}
+        {% for author in authors %}
             <section class="author">
-                <p>{{ item.first_name }} {{ item.last_name }}</p>
-                <button>See books</button>
+                <section class="description">
+                    <p class="title">
+                        Author - <span class="naming">{{ author.first_name }} {{ author.last_name }}</span>
+                    </p>
+                    <button class="go">See books</button>                   
+                </section>
             </section>
         {% endfor %}
     {% endif %}
 
     {% if books %}
-        {% for item in books %}
+        {% for book in books %}
             <section class="book">
-                <button>{{ item.title }}</button>
-                <select style="width: 20px;">
-                    <option value="borrow">Borrow</option>
-                    <option value="read">Read</option>
-                </select>
+                <section class="description">
+                    <button class="title">
+                        <select style="width: 20px;">
+                            <option value="wish">Add to wishlist</option>
+                            <option value="borrow">Borrow</option>
+                            <option value="read">Read Now</option>
+                        </select>
+                        Book - <span class="naming">{{ book.title }}</span>
+                    </button>
+                </section>
             </section>
         {% endfor %}
     {% endif %}
@@ -45,8 +54,10 @@
     {% if genres %}
         {% for genre in genres %}
             <section class="genre">
-                <p>{{ genre.name }}</p>
-                <button>Check books</button>
+                <section class="description">
+                    <p class="title">Genre - <span class="naming">{{ genre.name }}</span></p>
+                    <button class="go">Check books</button>
+                </section>
             </section>
         {% endfor %}
     {% endif %}
@@ -54,8 +65,10 @@
     {% if users %}
         {% for user in users %}
             <section class="user">
-                <p>{{ user.first_name }} {{ user.last_name }}</p>
-                <button>See favs</button>
+                <section class="description">
+                    <p class="title">User - <span class="naming">{{ user.first_name }} {{ user.last_name }}</span></p>
+                    <button class="go">See favs</button>
+                </section>
             </section>
         {% endfor %}
     {% endif %}
