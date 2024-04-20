@@ -1,0 +1,122 @@
+main {
+    display: flex;
+    background-color: #e7e8e9;
+    border-radius: 25px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+aside {
+    position: fixed;
+    right: -30px;
+    width: 35%;
+    padding: 10px;
+}
+
+.feed {
+    width: 65%;
+    padding: 10px;
+}
+
+.random-quotes, .suggested {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.feed h2 {
+    margin: 15px 15px;
+}
+
+.quote {
+    width: 30%;
+    background-color: white;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.quote button, .suggested-book button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 20px 0px;
+    color: white;
+}
+
+.suggested-book {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 10px 10px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.history {
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+}
+
+.history h2 {
+    margin: 5px;
+}
+
+.history-book {
+    background-color: #e7e8e9;
+    background-image: url('../images/vintage-book.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 100px;
+    margin: 10px 0px;
+    border-radius: 15px;
+}
+
+.history-book button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 30px 10px;
+    color: white;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.options button {
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40px;
+    margin: 5px 0px;
+    background-color: inherit;
+}
+
+.options button:hover {
+    background-color: #e7e8e9;
+}
+
+#settings {
+    background-image: url('../images/settings-icon.svg');
+}
+
+#help {
+    background-image: url('../images/help-icon.svg');
+}
+
+#dark {
+    background-image: url('../images/dark-mode-icon.svg');
+}
+
+#log-out {
+    background-image: url('../images/logout-icon.svg');
+}

@@ -1,7 +1,66 @@
 {% extends 'logged.html' %}
 {% block title %} Home {% endblock %}
-{% block head %}<link rel="icon" href="../static/images/logo-maybe.svg">{% endblock %}
+{% block head %}
+    <link rel="icon" href="../static/images/logo-maybe.svg">
+    <link rel="stylesheet" href="../static/styles/feed.css">
+{% endblock %}
 {% block body %}
-<section></section>
-<section></section>
+<section class="feed">
+    <h2>Random quotes from books</h2>
+    <section class="random-quotes">
+        <section class="quote">
+            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+            <button>From: | Unknown</button>
+        </section>
+        <section class="quote">
+            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+            <button>From: | Unknown</button>
+        </section>
+        <section class="quote">
+            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+            <button>From: | Unknown</button>
+        </section>
+    </section>
+    <h2>Books you may like</h2>
+    <section class="suggested">
+        <section class="suggested-book">
+            <img>
+            <b>Description:</b>
+            <p>
+                A story of a thief who has a charming personality, bla bla bla. 
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+            </p>
+            <button>Arsene Lupin | -> </button>
+        </section>
+        <section class="suggested-book">
+            <img>
+            <b>Description:</b>
+            <p>
+                A story of a detective who has an admirable personality, bla bla bla. 
+                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+            </p>
+            <button>A Study in Scarlet | -> </button>
+        </section>
+    </section>
+    <section class="review-activity">
+        <h2>Recent activity</h2>
+    </section>
+</section>
+<aside>
+    <section class="history">
+        <h2>Continue reading</h2>
+        <section class="history-book">
+            <button>Arsene Lupin | -> </button>
+        </section>
+        <section class="history-book">
+            <button>A Study in Scarlet | -> </button>
+        </section>
+    </section>
+    <section class="options">
+        <button id="dark">Dark mode</button>
+        <button id="help">Help and support</button>
+        <button id="settings">Settings</button>
+        <button id="log-out">Log out</button>
+    </section>
+</aside>
 {% endblock %}

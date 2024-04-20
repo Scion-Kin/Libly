@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         e.preventDefault();
         hidden = true;
-        hide([booksArray, booksArray,genresArray, usersArray]);
+        hide([authorsArray, booksArray, genresArray, usersArray]);
     });
 
     authors.addEventListener('click', function(e) {
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         else {
-            for (let i of array) {
+            for (let i of [authorsArray, booksArray, genresArray, usersArray]) {
                 Array.from(i).forEach(element => {
                     element.style.display = 'block';
                 });

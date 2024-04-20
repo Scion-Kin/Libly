@@ -115,7 +115,7 @@ aside h3,  aside h2 {
     padding: 10px;
     background-color: #316FF6;
     color: white;
-    float: right;
+    margin-left: auto;
 }
 
 .description select {
