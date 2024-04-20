@@ -40,12 +40,36 @@ aside h3,  aside h2 {
     background-color: #e7e8e9;
 }
 
+#all, #authors, #books, #genres, #users {
+    background-image: url('../images/select-all.svg');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 10px 0px;
+}
+
+#authors {
+    background-image: url('../images/select-author.svg');
+}
+
+#books {
+    background-image: url('../images/select-books.svg')
+}
+
+#genres {
+    background-image: url('../images/select-genres.svg');
+}
+
+#users {
+    background-image: url('../images/select-users.svg');
+}
+
 #results {
     width: 70%;
     background-color: #e7e8e9;
 }
 
-.author, .book, .genre, .user {
+.author, .book, .genre, .user, .not-found {
     width: 60%;
     height: 200px;
     border-radius: 20px;
@@ -60,6 +84,11 @@ aside h3,  aside h2 {
 
 .book {
     background-image: url('../images/vintage-book.png');
+}
+
+.book .description {
+    position: relative;
+    top: 60px;
 }
 
 .genre {

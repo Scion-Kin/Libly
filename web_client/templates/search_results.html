@@ -21,6 +21,7 @@
     </nav>
 </aside>
 <section id="results">
+{% if found == True %}
     {% if authors %}
         {% for author in authors %}
             <section class="author">
@@ -72,6 +73,15 @@
             </section>
         {% endfor %}
     {% endif %}
+{% else %}
+<section class="not-found">
+    <section class="description">
+        <h4 class="title">
+            Sorry! Couldn't find anything related to your search.
+        </h4>
+    </section>
+</section>
+{% endif %}
 </section>
 {% endif %}
 {% endblock %}
