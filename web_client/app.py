@@ -45,7 +45,10 @@ def home():
         except Exception:
             raise
 
-    if session and session['logged'] == True:
+    if session and session['user_type'] == 'king' and session['logged'] == True:
+        return render_template('admin_panel.html')
+
+    elif session and session['logged'] == True:
         return render_template('feed.html')
 
     return render_template('index.html')

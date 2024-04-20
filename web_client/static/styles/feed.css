@@ -51,6 +51,10 @@ aside {
     padding: 20px;
 }
 
+.suggested-book img {
+    max-width: 200px;
+}
+
 .history {
     background-color: white;
     padding: 10px;

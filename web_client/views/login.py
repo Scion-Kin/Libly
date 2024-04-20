@@ -23,6 +23,7 @@ def login():
         if password == user[0].password:
             session["logged"] = True
             session["user_id"] = user[0].id
+            session["user_type"] = user[0].user_type
             session["user_name"] = user[0].first_name + user[0].last_name
 
             return redirect(url_for('home'))
