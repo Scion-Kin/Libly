@@ -11,13 +11,18 @@ from flask import jsonify, abort, make_response, request
 def get_users():
     ''' get all users from the database '''
 
-    users = [i.to_dict() for i in storage.all(User).values()]
+    all = [i.to_dict() for i in storage.all(User).values()]
 
-    if len(users) == 0:
+    if len(all) == 0:
         abort(404)
 
-    for i in users:
+    for i in all:
         del i["password"]
+
+    users = {}
+    for i in all:
+        users[i["first_name"]] = {}
+        users[i["first_name"]]["data"] = i
 
     return jsonify(users)
 
@@ -31,7 +36,11 @@ def get_user(user_id):
         abort(404)
 
     del user.password
-    return jsonify(user.to_dict()) 
+
+    users = {}
+    users[user.first_name] = {}
+    users[user.first_name]["data"] = user.to_dict()
+    return jsonify(users) 
 
 
 @grand_view.route('/users/<string:user_id>/reviews', methods=['GET'], strict_slashes=False)

@@ -1,10 +1,20 @@
 {% extends 'logged.html' %}
 {% block title %} Manage {{ title }} {% endblock %}
 {% block head %}
+    <link rel="stylesheet" href="../static/styles/manage_resource.css">
     <link rel="icon" href="../static/images/logo-maybe.svg">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="../static/scripts/manage.js"></script>
 {% endblock %}
-{% if users %}
-    {{ users }}
-{% endif %}
+{% block body %}
+<section id="results">
+    <nav>
+        <form method="POST">
+            <input type="search" name="search">
+        </form>
+        <button>+</button>
+    </nav>
+    <section class="results"></section>
+</section>
+<section id="nav"></section>
+{% endblock %}

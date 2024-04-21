@@ -14,7 +14,15 @@ from flask import jsonify, request, make_response, abort
 def get_books():
     ''' get all books from the database '''
 
-    books = [i.to_dict() for i in storage.all(Book).values()]
+    all = [i.to_dict() for i in storage.all(Book).values()]
+    if len(all) == 0:
+        abort(404)
+
+    books = {}
+    for i in all:
+        books[i["title"]] = {}
+        books[i["title"]]["data"] = i
+
     return jsonify(books)
 
 
@@ -22,7 +30,10 @@ def get_books():
 def get_book(book_id):
     ''' get a certain book from the database '''
     book = storage.get(Book, book_id)
-    return jsonify(book.to_dict())
+    books = {}
+    books[book.title] = {}
+    books[book.title]["data"] = book.to_dict()
+    return jsonify(books)
 
 
 @grand_view.route('/books', methods=['POST'], strict_slashes=False)

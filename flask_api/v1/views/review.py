@@ -10,8 +10,15 @@ from flask import jsonify, abort, request, make_response
 def get_reviews():
     ''' get all reviews from the database '''
 
-    reviews = [i.to_dict() for i in storage.all(Review).values()]
-    return jsonify(reviews) if len(reviews) > 0 else abort(404)
+    all = [i.to_dict() for i in storage.all(Review).values()]
+    if len(all) == 0:
+        abort(404)
+
+    reviews = {}
+    for i in all:
+        reviews[i["id"]] = {}
+        reviews[i["id"]]["data"] = i
+    return jsonify(reviews)
 
 
 @grand_view.route('/<string:book_id>/reviews', methods=['GET'], strict_slashes=False)
@@ -27,7 +34,12 @@ def get_review(review_id):
     ''' get a certain review from the database '''
 
     review = storage.get(Review, review_id)
-    return jsonify(review.to_dict()) if review else abort(404)
+    if not review:
+        abort(404)
+    reviews = {}
+    reviews[review.id] = {}
+    reviews[review.id]["data"] = review.to_dict()
+    return jsonify(reviews)
 
 
 @grand_view.route('/reviews', methods=['POST'], strict_slashes=False)
