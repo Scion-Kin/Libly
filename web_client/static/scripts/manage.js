@@ -52,6 +52,10 @@ $(function () {
                     }
                 }
 
+                else if (title === 'Users') {
+                    
+                }
+
                 $(button_container).append([edit, trash]);
                 $(edit).click(function () {
                     window.location.href = `${url}/${$(edit).parents()[2].id}`;
