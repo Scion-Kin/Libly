@@ -103,15 +103,33 @@ $(function () {
                 $(trash).click(function () {
                     let is = confirm('Are you sure you want to delete this? This is not reversible');
                     if (is === true) {
-                        $.ajax({
-                            type: 'DELETE',
-                            headers: { 'Content-Type': 'application/json'},
-                            data: JSON.stringify({ password: 'password' }),
-                            url: `${url}/${$(trash).parents()[2].id}`,
-                            success: function (data, textStatus) {
-                                console.log(data);
-                                console.log('Resource deleted');
-                            }
+                        let form = document.createElement('section');
+                        let passInput = document.createElement('input');
+                        let errorInfo = document.createElement('p');
+                        let button = document.createElement('button');
+                        $(passInput).attr('placeholder', 'Input your admin password');
+                        $(errorInfo).text('Wrong password. Try again.');
+                        $(errorInfo).css({'color': 'red', 'font-weight': 'bolder', 'display': 'none', 'margin': 'auto'});
+                        $(passInput).attr('type', 'password');
+                        $(button).text('Confirm');
+                        $(form).append([passInput, button,errorInfo]);
+                        $(form).attr('id', 'confirm');
+                        $(document.querySelector('main')).append(form);
+
+                        $(button).click(function () {
+                            $.ajax({
+                                type: 'DELETE',
+                                headers: { 'Content-Type': 'application/json'},
+                                data: JSON.stringify({ password: passInput.value }),
+                                url: `${url}/${$(trash).parents()[2].id}`,
+                                success: function (data, textStatus) {
+                                    alert('Data deleted');
+                                    location.reload();
+                                }
+                            });
+                            $(document).on('ajaxError', function () {
+                                $(errorInfo).css({'display': 'block'});
+                            });
                         });
                     }
                 });

@@ -19,7 +19,7 @@ main {
     margin: 10px;
 }
 
-#results input[type="search"] {
+input[type="search"] {
     border-radius: 30px;
     border: none;
     height: 40px;
@@ -53,7 +53,7 @@ main {
     border-radius: 75px;
 }
 
-.resource .data button {
+button {
     background-color: #316FF6;
     padding: 10px;
     margin: 20px 0px;
@@ -89,4 +89,25 @@ main {
     padding: 10px;
     background-color: white;
     border-radius: 15px;
+}
+
+#confirm {
+    width: 30%;
+    border-radius: 15px;
+    position: absolute;
+    top: 40%;
+    left: 33%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#confirm input {
+    border-radius: 30px;
+    border: none;
+    margin-top: 5px;
+    background-color: #F0F2F5;
+    padding: 20px;
+    margin: 10px;
 }
