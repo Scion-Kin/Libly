@@ -21,8 +21,9 @@ def get_users():
 
     users = {}
     for i in all:
-        users[i["first_name"]] = {}
-        users[i["first_name"]]["data"] = i
+        name = i["first_name"] + ' ' + i["last_name"]
+        users[name] = {}
+        users[name]["data"] = i
 
     return jsonify(users)
 
@@ -38,8 +39,9 @@ def get_user(user_id):
     del user.password
 
     users = {}
-    users[user.first_name] = {}
-    users[user.first_name]["data"] = user.to_dict()
+    name = user.first_name + ' ' + user.last_name
+    users[name] = {}
+    users[name]["data"] = user.to_dict()
     return jsonify(users) 
 
 

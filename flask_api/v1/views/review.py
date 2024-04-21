@@ -16,8 +16,8 @@ def get_reviews():
 
     reviews = {}
     for i in all:
-        reviews[i["id"]] = {}
-        reviews[i["id"]]["data"] = i
+        reviews[i["text"]] = {}
+        reviews[i["text"]]["data"] = i
     return jsonify(reviews)
 
 
@@ -37,8 +37,8 @@ def get_review(review_id):
     if not review:
         abort(404)
     reviews = {}
-    reviews[review.id] = {}
-    reviews[review.id]["data"] = review.to_dict()
+    reviews[review.text] = {}
+    reviews[review.text]["data"] = review.to_dict()
     return jsonify(reviews)
 
 
