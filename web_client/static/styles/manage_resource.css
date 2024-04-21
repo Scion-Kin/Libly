@@ -53,7 +53,7 @@ input[type="search"] {
     border-radius: 75px;
 }
 
-button {
+button, .confirm input[type="submit"] {
     background-color: #316FF6;
     padding: 10px;
     margin: 20px 0px;
@@ -91,19 +91,23 @@ button {
     border-radius: 15px;
 }
 
-#confirm {
+.confirm {
     width: 30%;
     border-radius: 15px;
     position: absolute;
     top: 35%;
     left: 33%;
     background-color: white;
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 20px;
 }
 
-#confirm input {
+.no_display {
+    display: none !important;
+}
+
+.confirm input {
     border-radius: 30px;
     border: none;
     margin-top: 5px;
@@ -117,4 +121,9 @@ button {
     background: red;
     margin: 0;
     margin-left: auto;
+}
+
+.edit-resource {
+    display: flex;
+    border-radius: 15px;
 }

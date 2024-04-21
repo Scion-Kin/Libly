@@ -4,6 +4,24 @@ $(function () {
     const url = `http://localhost:5000/api/v1/${title.toLowerCase()}`
 
     let displayed = false;
+
+    function editDatabase(json, editUrl, method) {
+        $.ajax({
+            type: method,
+            headers: { 'Content-Type': 'application/json'},
+            data: JSON.stringify(json),
+            url: editUrl,
+            success: function (data, textStatus) {
+                alert('Data updated');
+                location.reload();
+            }
+        });
+    }
+
+    $(document).on('ajaxError', function () {
+        $(errorInfo).css({'display': 'block'});
+    });
+
     $.ajax({
         type: 'GET',
         url: url,
@@ -95,48 +113,80 @@ $(function () {
                         }
                     });
                 }
+
+                const form = document.createElement('section');
+                let passInput = document.createElement('input');
+                let errorInfo = document.createElement('p');
+                $(passInput).attr('placeholder', 'Input your admin password');
+                $(errorInfo).text('Wrong password. Try again.');
+                $(errorInfo).css({'color': 'red', 'font-weight': 'bolder', 'display': 'none', 'margin': 'auto'});
+                $(passInput).attr('type', 'password');
+                $(form).attr({'id': 'confirm', 'class': 'confirm'});
+                $(document.querySelector('main')).append(form);
                 
                 $(edit).click(function () {
-                    window.location.href = `${url}/${$(edit).parents()[2].id}`;
+                    let requestData = {};
+                    const cancel = document.createElement('button');
+                    let submit = document.createElement('input');
+                    $(submit).attr('type', 'submit');
+                    $(submit).text('Confirm');
+                    $(cancel).attr('id', 'cancel');
+                    $(cancel).text('X');
+                    $(cancel).click(function () {
+                        $(form).css('display', 'none');
+                    });
+                    $.get(`${url}/${$(edit).parents()[2].id}`, function (data, textStatus) {
+                        if (textStatus === 'success') {
+                            let realForm = document.createElement('form');
+                            for (let i in data) {
+                                for (let j in data[i].data) {
+                                    let ignore = ['__class__', 'confirmed', 'id', 'created_at', 'updated_at'];
+                                    if (!ignore.includes(j)) {
+                                        let inputData = document.createElement('input');
+                                        inputData.required = true;
+                                        inputData.type = 'text';
+                                        inputData.placeholder = j;
+                                        inputData.id = j;
+                                        inputData.value = data[i].data[j];
+                                        $(realForm).append(inputData);
+                                        requestData[j] = '';
+                                    }
+                                }
+                            }
+                            $(form).css({
+                                'top': '80px', 'display': 'flex'
+                            });
+                            $(realForm).append(submit);
+                            $(form).html([cancel, realForm]);
+                        }
+                    });
+                    $(submit).click(function(e) {
+                        e.preventDefault();
+
+                        for (let i in requestData) {
+                            requestData[i] = $(`#${i}`).val();
+                        }
+                        editDatabase(requestData, `${url}/${$(trash).parents()[2].id}`, 'PUT');
+                    });
                 });
 
                 $(trash).click(function () {
                     let is = confirm('Are you sure you want to delete this resource? This is not reversible');
                     if (is === true) {
-                        let form = document.createElement('section');
-                        let passInput = document.createElement('input');
-                        let errorInfo = document.createElement('p');
                         let button = document.createElement('button');
-                        let cancel = document.createElement('button');
-                        $(cancel).text('X')
+                        const cancel = document.createElement('button');
                         $(cancel).attr('id', 'cancel');
-                        $(passInput).attr('placeholder', 'Input your admin password');
-                        $(errorInfo).text('Wrong password. Try again.');
-                        $(errorInfo).css({'color': 'red', 'font-weight': 'bolder', 'display': 'none', 'margin': 'auto'});
-                        $(passInput).attr('type', 'password');
-                        $(button).text('Confirm');
-                        $(form).append([cancel, passInput, button, errorInfo]);
-                        $(form).attr('id', 'confirm');
-                        $(document.querySelector('main')).append(form);
-
+                        $(cancel).text('X');
                         $(cancel).click(function () {
-                            $(document.querySelector('main').removeChild(form));
+                            $(form).css('display', 'none');
                         });
-
-                        $(button).click(function () {
-                            $.ajax({
-                                type: 'DELETE',
-                                headers: { 'Content-Type': 'application/json'},
-                                data: JSON.stringify({ password: passInput.value }),
-                                url: `${url}/${$(trash).parents()[2].id}`,
-                                success: function (data, textStatus) {
-                                    alert('Data deleted');
-                                    location.reload();
-                                }
-                            });
-                            $(document).on('ajaxError', function () {
-                                $(errorInfo).css({'display': 'block'});
-                            });
+                        $(button).text('Confirm');
+                        $(form).css({
+                            'top': '80px', 'display': 'flex'
+                        });
+                        $(form).html([cancel, passInput, button, errorInfo]);
+                        $(button).click(function() {
+                            editDatabase({ password: passInput.value }, `${url}/${$(trash).parents()[2].id}`, 'DELETE');
                         });
                     }
                 });
