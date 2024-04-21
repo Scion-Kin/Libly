@@ -20,7 +20,7 @@ def get_genres():
     for i in all:
         book_genres = [j for j in storage.all(BookGenre).values() if j.genre_id == i["id"]]
         genres[i["name"]] = {}
-        genres[i["name"]]["_genre_id"] = i["id"]
+        genres[i["name"]]["data"] = i
         genres[i["name"]]["book_list"] = []
         if len(book_genres) > 0:
             for book_genre in book_genres:
@@ -40,7 +40,7 @@ def get_genre(genre_id):
     genre = {}
     book_genres = [j for j in storage.all(BookGenre).values() if j.genre_id == genre_id]
     genre[got.name] = {}
-    genre[got.name]["_genre_id"] = got.id
+    genre[got.name]["data"] = got.to_dict()
     genre[got.name]["book_list"] = []
     if len(book_genres) > 0:
         for book_genre in book_genres:

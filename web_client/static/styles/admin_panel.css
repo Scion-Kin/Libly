@@ -1,0 +1,7 @@
+main {
+    display: flex;
+    background-color: #e7e8e9;
+    border-radius: 25px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}

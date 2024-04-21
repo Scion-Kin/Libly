@@ -1,0 +1,10 @@
+{% extends 'logged.html' %}
+{% block title %} Manage {{ title }} {% endblock %}
+{% block head %}
+    <link rel="icon" href="../static/images/logo-maybe.svg">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="../static/scripts/manage.js"></script>
+{% endblock %}
+{% if users %}
+    {{ users }}
+{% endif %}

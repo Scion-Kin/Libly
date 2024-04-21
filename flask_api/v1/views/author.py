@@ -23,7 +23,7 @@ def get_authors():
             i["middle_name"] is not None else (i["first_name"] + ' ' + i["last_name"])
 
         authors[name] = {}
-        authors[name]["_author_id"] = i["id"]
+        authors[name]["data"] = i
         authors[name]["book_list"] = []
         if len(book_authors) > 0:
             for book_author in book_authors:
@@ -46,7 +46,7 @@ def get_author(author_id):
             got.middle_name is not None else (got.first_name + ' ' + got.last_name)
 
     author[name] = {}
-    author[name]["_author_id"] = got.id
+    author[name]["data"] = got.to_dict()
     author[name]["book_list"] = []
     if len(book_authors) > 0:
         for book_author in book_authors:
