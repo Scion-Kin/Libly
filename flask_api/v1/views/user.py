@@ -107,12 +107,6 @@ def delete_user(user_id):
     ''' creates a new user in the database '''
 
     user = storage.get(User, user_id)
-    all_reviews = [i for i in storage.all(Review).values() if i.user_id == user_id]
-
-    if len(all_reviews) > 0:
-        for i in all_reviews:
-            storage.delete(i)
-            storage.save()
 
     if user is not None:
         if request.get_json()["password"] and user.password == request.get_json()["password"]:
