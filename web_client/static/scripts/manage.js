@@ -18,7 +18,18 @@ $(function () {
                 const img = document.createElement('img');
                 let resource_data = data[i].data;
 
-                $(img).attr('src', `/static/images/${resource_data.pic}`);
+                if (title === 'Authors' || title === "Genres" || title === "Users") {
+                    $(img).attr('src', `/static/images/${resource_data.pic}`);
+                }
+                else if (title === "Reviews") {
+                    let imgUrl = `http://localhost:5000/api/v1/users/${resource_data.user_id}`;
+                    $.get(imgUrl, function(data, textStatus) {
+                        for (let k in data) {
+                           $(img).attr('src', `/static/images/${data[k].data.pic}`);
+                        }
+                    });
+                }
+
                 $(edit).addClass('edit');
                 $(trash).addClass('trash');
                 $(resource_data_container).append(img, button_container);
@@ -53,10 +64,38 @@ $(function () {
                 }
 
                 else if (title === 'Users') {
-                    
-                }
+                    let review_list = document.createElement('ul');
+                    $(review_list).addClass('book_list');
 
-                $(button_container).append([edit, trash]);
+                    $.get(`${url}/${resource_data.id}/reviews`, function(data, textStatus) {
+
+                        if (textStatus == 'success') {
+                            for (let j of data) {
+                                let review = document.createElement('p');
+                                $(review).text(j.text);
+                                $(review_list).append(review);
+                            }
+    
+                            let review_displayer = document.createElement('button');
+                            $(review_displayer).click(function () {
+                                if (displayed == false) {
+                                    $('.book_list').css('display', 'block');
+                                    $(review_displayer).text('Hide review list');
+                                    displayed = true
+                                }
+                                else {
+                                    $('.book_list').css('display', 'none');
+                                    $(review_displayer).text('See review list');
+                                    displayed = false;
+                                }
+                            });
+                            $(review_displayer).text('See review list');
+                            $(resource_data_container).append(review_list);
+                            $(button_container).prepend(review_displayer);
+                        }
+                    });
+                }
+                
                 $(edit).click(function () {
                     window.location.href = `${url}/${$(edit).parents()[2].id}`;
                 });
@@ -65,6 +104,7 @@ $(function () {
                     window.location.href = `${url}/${$(trash).parents()[2].id}`;
                 });
 
+                $(button_container).append([edit, trash]);
                 $(button_container).addClass('button_container');
                 $(resource_data_container).addClass('data');
                 $(resource_title).text(i);
