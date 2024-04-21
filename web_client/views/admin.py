@@ -8,35 +8,35 @@ from itsdangerous import URLSafeSerializer
 import requests
 
 
-@client_view.route('/manage/authors', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/manage/authors', strict_slashes=False)
 def manage_authors():
     ''' manage authors '''
 
     return render_template('manage_resource.html', title="Authors")
 
 
-@client_view.route('/manage/books', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/manage/books', strict_slashes=False)
 def manage_books():
     ''' manage books '''
 
     return render_template('manage_resource.html', title="Books")
 
 
-@client_view.route('/manage/genres', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/manage/genres', strict_slashes=False)
 def manage_genres():
     ''' manage genres '''
 
     return render_template('manage_resource.html', title="Genres")
 
 
-@client_view.route('/manage/reviews', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/manage/reviews', strict_slashes=False)
 def manage_reviews():
     ''' manage reviews '''
 
     return render_template('manage_resource.html', title="Reviews")
 
 
-@client_view.route('/manage/users', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/manage/users', strict_slashes=False)
 def manage_users():
     ''' manage users '''
 
