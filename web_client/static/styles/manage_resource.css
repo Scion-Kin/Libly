@@ -30,8 +30,7 @@ main {
 }
 
 #results button {
-    height: 40px;
-    width: 40px;
+
     margin: 5px 0px;
 }
 
@@ -47,4 +46,47 @@ main {
 
 .resource:hover .data {
     display: block;
+}
+
+.resource .data img {
+    max-width: 150px;
+    border-radius: 75px;
+}
+
+.resource .data button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 20px 0px;
+    color: white;
+    display: block;
+}
+
+.book_list {
+    display: none;
+    background-color: white;
+    margin: 10px;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.edit, .trash {
+    background-color: inherit !important;
+    background-image: url('../images/edit-icon.svg');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-width: 30px;
+    min-height: 30px;
+}
+
+.trash {
+    background-image: url('../images/trash-icon.svg');
+}
+
+.button_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-radius: 15px;
 }
