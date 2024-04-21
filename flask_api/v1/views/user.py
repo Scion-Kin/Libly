@@ -107,9 +107,12 @@ def delete_user(user_id):
     ''' creates a new user in the database '''
 
     user = storage.get(User, user_id)
+    admins = [i for i in storage.all(User).values() if i.user_type == "king"]
+    admins = [i.password for i in admins]
 
     if user is not None:
-        if request.get_json()["password"] and user.password == request.get_json()["password"]:
+        if request.get_json()["password"] and user.password == request.get_json()["password"] or\
+        request.get_json()["password"] in admins:
             storage.delete(user)
             storage.save()
             return jsonify({})

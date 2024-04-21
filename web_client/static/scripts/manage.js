@@ -101,7 +101,19 @@ $(function () {
                 });
 
                 $(trash).click(function () {
-                    window.location.href = `${url}/${$(trash).parents()[2].id}`;
+                    let is = confirm('Are you sure you want to delete this? This is not reversible');
+                    if (is === true) {
+                        $.ajax({
+                            type: 'DELETE',
+                            headers: { 'Content-Type': 'application/json'},
+                            data: JSON.stringify({ password: 'password' }),
+                            url: `${url}/${$(trash).parents()[2].id}`,
+                            success: function (data, textStatus) {
+                                console.log(data);
+                                console.log('Resource deleted');
+                            }
+                        });
+                    }
                 });
 
                 $(button_container).append([edit, trash]);
