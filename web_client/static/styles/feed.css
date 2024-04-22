@@ -6,6 +6,11 @@ main {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+a {
+    text-decoration: none;
+    color: #316FF6;
+}
+
 aside {
     position: fixed;
     right: -30px;
@@ -16,23 +21,31 @@ aside {
 .feed {
     width: 65%;
     padding: 10px;
+
+}
+
+.manage-list {
+    width: 40%;
+    padding: 10px;
 }
 
 .random-quotes, .suggested {
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    flex-wrap: wrap;
 }
 
-.feed h2 {
-    margin: 15px 15px;
+.feed h2, .manage-list h2 {
+    margin: 15px 25px;
 }
 
 .quote {
-    width: 30%;
+    min-width: 30%;
     background-color: white;
     padding: 10px;
     border-radius: 10px;
+    margin: 10px;
 }
 
 .quote button, .suggested-book button {

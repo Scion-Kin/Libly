@@ -46,10 +46,10 @@ def home():
             raise
 
     if session and session['user_type'] == 'king' and session['logged'] == True:
-        return render_template('admin_panel.html')
+        return render_template('feed.html', admin=True)
 
     elif session and session['logged'] == True:
-        return render_template('feed.html')
+        return render_template('feed.html', admin=False)
 
     return render_template('index.html')
 

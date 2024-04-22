@@ -1,60 +1,94 @@
 {% extends 'logged.html' %}
-{% block title %} Home {% endblock %}
+{% block title %} 
+    {% if admin %}
+        Admin panel
+    {% else %}
+        Home 
+    {% endif %}
+{% endblock %}
+
 {% block head %}
     <link rel="icon" href="../static/images/logo-maybe.svg">
     <link rel="stylesheet" href="../static/styles/feed.css">
 {% endblock %}
 {% block body %}
-<section class="feed">
-    <h2>Random quotes from books</h2>
-    <section class="random-quotes">
-        <section class="quote">
-            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-            <button>From: | Unknown</button>
-        </section>
-        <section class="quote">
-            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-            <button>From: | Unknown</button>
-        </section>
-        <section class="quote">
-            <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-            <button>From: | Unknown</button>
-        </section>
-    </section>
-    <h2>Books you may like</h2>
-    <section class="suggested">
-        <section class="suggested-book">
-            <img src="../static/images/vintage-book.png">
-            <b>Description:</b>
-            <p>
-                A story of a thief who has a charming personality, bla bla bla. 
-                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-            </p>
-            <button>Arsene Lupin | -> </button>
-        </section>
-        <section class="suggested-book">
-            <img src="../static/images/vintage-book.png">
-            <b>Description:</b>
-            <p>
-                A story of a detective who has an admirable personality, bla bla bla. 
-                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-            </p>
-            <button>A Study in Scarlet | -> </button>
-        </section>
-        <section class="suggested-book">
-            <img src="../static/images/vintage-book.png">
-            <b>Description:</b>
-            <p>
-                A story of a detective who has an admirable personality, bla bla bla. 
-                bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-            </p>
-            <button>A Study in Scarlet | -> </button>
+{% if admin %}
+    <section class="manage-list">   
+        <h2>Click on any card to manage</h2>
+        <section class="random-quotes">
+            <a href="manage/authors"><section class="quote">
+                <h4>Manage Authors</h4>
+            </section></a>
+            <a href="manage/authors"><section class="quote">
+                <h4>Manage Books</h4>
+            </section></a>
+            <a href="manage/authors"><section class="quote">
+                <h4>Manage Genres</h4>
+            </section></a>
+            <a href="manage/authors"><section class="quote">
+                <h4>Manage Reviews</h4>
+            </section></a>
+            <a href="manage/authors"><section class="quote">
+                <h4>Manage Users</h4>
+            </section></a>
+            <a href="https://wa.me/+250787399841"><section class="quote">
+                <h4>Made with love</h4>
+            </section></a>
         </section>
     </section>
-    <section class="review-activity">
-        <h2>Recent activity</h2>
+{% else %}
+    <section class="feed">
+        <h2>Random quotes from books</h2>
+        <section class="random-quotes">
+
+            <section class="quote">
+                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+                <button>From: | Unknown</button>
+            </section>
+            <section class="quote">
+                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+                <button>From: | Unknown</button>
+            </section>
+            <section class="quote">
+                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
+                <button>From: | Unknown</button>
+            </section>
+        </section>
+        <h2>Books you may like</h2>
+        <section class="suggested">
+            <section class="suggested-book">
+                <img src="../static/images/vintage-book.png">
+                <b>Description:</b>
+                <p>
+                    A story of a thief who has a charming personality, bla bla bla. 
+                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                </p>
+                <button>Arsene Lupin | -> </button>
+            </section>
+            <section class="suggested-book">
+                <img src="../static/images/vintage-book.png">
+                <b>Description:</b>
+                <p>
+                    A story of a detective who has an admirable personality, bla bla bla. 
+                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                </p>
+                <button>A Study in Scarlet | -> </button>
+            </section>
+            <section class="suggested-book">
+                <img src="../static/images/vintage-book.png">
+                <b>Description:</b>
+                <p>
+                    A story of a detective who has an admirable personality, bla bla bla. 
+                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
+                </p>
+                <button>A Study in Scarlet | -> </button>
+            </section>
+        </section>
+        <section class="review-activity">
+            <h2>Recent activity</h2>
+        </section>
     </section>
-</section>
+{% endif %}
 <aside>
     <section class="history">
         <h2>Continue reading</h2>
