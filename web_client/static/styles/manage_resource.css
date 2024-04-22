@@ -97,12 +97,21 @@ button, .confirm input[type="submit"] {
     width: 30%;
     border-radius: 15px;
     position: absolute;
-    top: 35%;
+    top: 10%;
     left: 33%;
     background-color: white;
     display: none;
     flex-direction: column;
     padding: 20px;
+}
+
+#new_resource form {
+    display: block;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
 }
 
 .no_display {
@@ -112,13 +121,12 @@ button, .confirm input[type="submit"] {
 .confirm input {
     border-radius: 30px;
     border: none;
-    margin-top: 5px;
     background-color: #F0F2F5;
     padding: 10px;
-    margin: 5px;
+    margin: 5px 0px;
 }
 
-#cancel {
+.cancel {
     width: 40px;
     background: red;
     margin: 0;

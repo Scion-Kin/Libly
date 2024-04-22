@@ -5,21 +5,12 @@ $(function () {
 
     let displayed = false;
 
-    function editDatabase(json, editUrl, method) {
-        $.ajax({
-            type: method,
-            headers: { 'Content-Type': 'application/json'},
-            data: JSON.stringify(json),
-            url: editUrl,
-            success: function (data, textStatus) {
-                alert('Data updated');
-                location.reload();
-            }
-        });
-    }
+    $('#add-resource').click(function () {
+        $('#new_resource').css('display', 'block');
+    });
 
-    $(document).on('ajaxError', function () {
-        $(errorInfo).css({'display': 'block'});
+    $('button.cancel').click(function () {
+        $('#new_resource').css('display', 'none');
     });
 
     $.ajax({
@@ -118,8 +109,9 @@ $(function () {
                 let passInput = document.createElement('input');
                 let errorInfo = document.createElement('p');
                 $(passInput).attr('placeholder', 'Input your admin password');
-                $(errorInfo).text('Wrong password. Try again.');
+                $(errorInfo).text('An error code was returned. Make sure your password is right and try again.');
                 $(errorInfo).css({'color': 'red', 'font-weight': 'bolder', 'display': 'none', 'margin': 'auto'});
+                $(errorInfo).attr('id', 'error-info');
                 $(passInput).attr('type', 'password');
                 $(form).attr({'class': 'confirm'});
                 $(document.querySelector('main')).append(form);
@@ -130,7 +122,7 @@ $(function () {
                     let submit = document.createElement('input');
                     $(submit).attr('type', 'submit');
                     $(submit).text('Confirm');
-                    $(cancel).attr('id', 'cancel');
+                    $(cancel).attr('class', 'cancel');
                     $(cancel).text('X');
                     $(cancel).click(function () {
                         $(form).css('display', 'none');
@@ -175,7 +167,7 @@ $(function () {
                     if (is === true) {
                         let button = document.createElement('button');
                         const cancel = document.createElement('button');
-                        $(cancel).attr('id', 'cancel');
+                        $(cancel).attr('class', 'cancel');
                         $(cancel).text('X');
                         $(cancel).click(function () {
                             $(form).css('display', 'none');
@@ -202,4 +194,20 @@ $(function () {
             }
         }
     });
+
+    function editDatabase(json, editUrl, method) {
+        $.ajax({
+            type: method,
+            headers: { 'Content-Type': 'application/json'},
+            data: JSON.stringify(json),
+            url: editUrl,
+            success: function (data, textStatus) {
+                alert('Data updated');
+                location.reload();
+            }
+        });
+        $(document).on('ajaxError', function () {
+            $('#error-info').css({'display': 'block'});
+        });
+    }
 });

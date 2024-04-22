@@ -12,7 +12,30 @@
         <form method="POST">
             <input type="search" name="search">
         </form>
+        {% if title != "Users" and title != "Reviews" %}
+        <section id="new_resource" class="confirm">
+            <button class="cancel">X</button>
+            <form id="form">
+                {% if title == "Authors" %}
+                    <h4>Create a new author</h4>
+                    <input type="text" name="first_name" placeholder="Author's first name">
+                    <input type="text" name="middle" placeholder="Author's middle name">
+                    <input type="text" name="last_name" placeholder="Author's last name">
+                    <input type="text" name="pic" placeholder="Author's picture's file name">
+                {% elif title == "Books" %}
+                    <h4>Create a new book</h4>
+                    <input type="text" name="title" placeholder="Book title">
+                    <input type="text" name="ISBN" placeholder="ISBN">
+                    <input type="text" name="pic" placeholder="File name of Book's picture">
+                    <input type="file" name="file">
+                {% elif title == "Genres" %}
+                    <input type="text" name="name" placeholder="Genre's name">
+                {% endif %}
+            </form>
+            <button id="create-now">Submit</button>           
+        </section>
         <button id="add-resource">+</button>
+        {% endif %}
     </nav>
     <section class="results"></section>
 </section>
