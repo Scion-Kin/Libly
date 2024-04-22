@@ -24,7 +24,7 @@
 {% if found == True %}
     {% if authors %}
         {% for author in authors %}
-            <section class="author">
+            <section class="author result-box">
                 <section class="description">
                     <p class="title">
                         Author - <span class="naming">{{ author.first_name }} {{ author.last_name }}</span>
@@ -37,7 +37,7 @@
 
     {% if books %}
         {% for book in books %}
-            <section class="book">
+            <section class="book result-box">
                 <section class="description">
                     <button class="title">
                         <select style="width: 20px;">
@@ -54,7 +54,7 @@
 
     {% if genres %}
         {% for genre in genres %}
-            <section class="genre">
+            <section class="genre result-box">
                 <section class="description">
                     <p class="title">Genre - <span class="naming">{{ genre.name }}</span></p>
                     <button class="go">Check books</button>
@@ -65,7 +65,7 @@
 
     {% if users %}
         {% for user in users %}
-            <section class="user">
+            <section class="user result-box">
                 <section class="description">
                     <p class="title">User - <span class="naming">{{ user.first_name }} {{ user.last_name }}</span></p>
                     <button class="go">See favs</button>
@@ -74,7 +74,7 @@
         {% endfor %}
     {% endif %}
 {% else %}
-<section class="not-found">
+<section class="not-found result-box">
     <section class="description">
         <h4 class="title">
             Sorry! Couldn't find anything related to your search.

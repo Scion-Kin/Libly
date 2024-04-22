@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let results_nav = document.getElementsByClassName('results_nav');
     let history = document.getElementsByClassName('history');
     let options = document.getElementsByClassName('options');
+    let resultBoxes = document.getElementsByClassName('result-box');
+    let resource = document.getElementsByClassName('resource');
 
     if (!(sessionStorage.getItem('darkmode-state'))) {
         sessionStorage.setItem('darkmode-state', 'light');
@@ -49,6 +51,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.style.color = '#e7e8e9';
             });
 
+            Array.from(resultBoxes).forEach(element => {
+                element.style.backgroundColor = 'black';
+                element.style.color = '#e7e8e9';
+            });
+
             Array.from(sugBooks).forEach(element => {
                 element.style.backgroundColor = 'black';
             });
@@ -80,6 +87,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
             Array.from(history).forEach(element => {
                 element.style.backgroundColor = 'white';
+            });
+
+            Array.from(resultBoxes).forEach(element => {
+                element.style.backgroundColor = 'white';
+                element.style.color = '#181a1b';
             });
 
             Array.from(options).forEach(element => {

@@ -121,7 +121,7 @@ $(function () {
                 $(errorInfo).text('Wrong password. Try again.');
                 $(errorInfo).css({'color': 'red', 'font-weight': 'bolder', 'display': 'none', 'margin': 'auto'});
                 $(passInput).attr('type', 'password');
-                $(form).attr({'id': 'confirm', 'class': 'confirm'});
+                $(form).attr({'class': 'confirm'});
                 $(document.querySelector('main')).append(form);
                 
                 $(edit).click(function () {

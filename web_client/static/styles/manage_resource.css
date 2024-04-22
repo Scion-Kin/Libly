@@ -35,9 +35,10 @@ input[type="search"] {
 }
 
 .resource {
-    border: 3px solid white;
+    border: 3px solid #89a0b8;
     border-radius: 15px;
     padding: 10px;
+    margin: 15px 0px;
 }
 
 .resource .data {
@@ -63,14 +64,14 @@ button, .confirm input[type="submit"] {
 
 .book_list {
     display: none;
-    background-color: white;
+    background-color: inherit;
     margin: 10px;
     border-radius: 15px;
     padding: 10px;
 }
 
 .edit, .trash {
-    background-color: inherit !important;
+    background-color: white;
     background-image: url('../images/edit-icon.svg');
     background-size: contain;
     background-position: center;
@@ -81,13 +82,14 @@ button, .confirm input[type="submit"] {
 
 .trash {
     background-image: url('../images/trash-icon.svg');
+    border: 3px solid rgb(216, 49, 49);
 }
 
 .button_container {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    background-color: white;
+    background-color: inherit;
     border-radius: 15px;
 }
 
