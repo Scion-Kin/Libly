@@ -13,31 +13,29 @@
 {% endblock %}
 {% block body %}
 {% if admin %}
-    <section class="manage-list">   
+    <section id="manage-list">   
         <h2>Click on any card to manage</h2>
-        <section class="random-quotes">
-            <a href="manage/authors"><section class="quote">
+        <a href="manage/authors"><section class="quote">
                 <h4>Manage Authors</h4>
-            </section></a>
-            <a href="manage/authors"><section class="quote">
-                <h4>Manage Books</h4>
-            </section></a>
-            <a href="manage/authors"><section class="quote">
-                <h4>Manage Genres</h4>
-            </section></a>
-            <a href="manage/authors"><section class="quote">
-                <h4>Manage Reviews</h4>
-            </section></a>
-            <a href="manage/authors"><section class="quote">
-                <h4>Manage Users</h4>
-            </section></a>
-            <a href="https://wa.me/+250787399841"><section class="quote">
-                <h4>Made with love</h4>
-            </section></a>
-        </section>
+        </section></a>
+        <a href="manage/books"><section class="quote">
+            <h4>Manage Books</h4>
+        </section></a>
+        <a href="manage/genres"><section class="quote">
+            <h4>Manage Genres</h4>
+        </section></a>
+        <a href="manage/reviews"><section class="quote">
+            <h4>Manage Reviews</h4>
+        </section></a>
+        <a href="manage/users"><section class="quote">
+            <h4>Manage Users</h4>
+        </section></a>
+        <a href="https://wa.me/+250787399841"><section class="quote">
+            <h4>Made with love</h4>
+        </section></a>
     </section>
 {% else %}
-    <section class="feed">
+    <section id="feed">
         <h2>Random quotes from books</h2>
         <section class="random-quotes">
 

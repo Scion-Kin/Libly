@@ -1,6 +1,6 @@
 main {
     display: flex;
-    background-color: #e7e8e9;
+    background-color: #e0e0e0;
     border-radius: 25px;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
@@ -18,25 +18,24 @@ aside {
     padding: 10px;
 }
 
-.feed {
+#feed, #manage-list {
     width: 65%;
     padding: 10px;
-
 }
 
-.manage-list {
+#manage-list {
     width: 40%;
-    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .random-quotes, .suggested {
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    flex-wrap: wrap;
 }
 
-.feed h2, .manage-list h2 {
+#feed h2, #manage-list h2 {
     margin: 15px 25px;
 }
 
@@ -116,10 +115,12 @@ aside {
     height: 40px;
     margin: 5px 0px;
     background-color: inherit;
+    color: inherit;
 }
 
 .options button:hover {
     background-color: #e7e8e9;
+    color: black;
 }
 
 #settings {
