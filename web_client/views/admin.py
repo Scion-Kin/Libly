@@ -2,10 +2,10 @@
 ''' The admin manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort
+from flask import render_template, session, abort, request
 
 
-@client_view.route('/manage/authors', strict_slashes=False)
+@client_view.route('/manage/authors', methods=['GET', 'POST'], strict_slashes=False)
 def manage_authors():
     ''' manage authors '''
     if session and session['user_type'] == 'king':
@@ -13,7 +13,7 @@ def manage_authors():
     abort(404)
 
 
-@client_view.route('/manage/books', strict_slashes=False)
+@client_view.route('/manage/books', methods=['GET', 'POST'], strict_slashes=False)
 def manage_books():
     ''' manage books '''
     if session and session['user_type'] == 'king':
@@ -21,7 +21,7 @@ def manage_books():
     abort(404)
 
 
-@client_view.route('/manage/genres', strict_slashes=False)
+@client_view.route('/manage/genres', methods=['GET', 'POST'], strict_slashes=False)
 def manage_genres():
     ''' manage genres '''
     if session and session['user_type'] == 'king':
