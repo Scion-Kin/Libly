@@ -15,7 +15,7 @@
         {% if title != "Users" and title != "Reviews" %}
         <section id="new_resource" class="confirm">
             <button class="cancel">X</button>
-            <form id="form">
+            <form id="form" method="POST">
                 {% if title == "Authors" %}
                     <h4>Create a new author</h4>
                     <input type="text" name="first_name" placeholder="Author's first name">
