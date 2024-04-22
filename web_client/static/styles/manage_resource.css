@@ -29,8 +29,9 @@ input[type="search"] {
     padding: 20px;
 }
 
-#results button {
-
+#add-resource {
+    width: 40px;
+    height: 40px;
     margin: 5px 0px;
 }
 
@@ -65,7 +66,6 @@ button, .confirm input[type="submit"] {
 .book_list {
     display: none;
     background-color: inherit;
-    margin: 10px;
     border-radius: 15px;
     padding: 10px;
 }

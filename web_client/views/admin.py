@@ -2,10 +2,7 @@
 ''' The admin manager '''
 
 from web_client.views import client_view
-from flask import render_template, request, session, url_for, redirect, abort
-from models import storage
-from itsdangerous import URLSafeSerializer
-import requests
+from flask import render_template, session, abort
 
 
 @client_view.route('/manage/authors', strict_slashes=False)
