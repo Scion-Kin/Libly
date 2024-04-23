@@ -2,10 +2,12 @@
 ''' This is the web server '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort, session, request, abort
+from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
 from itsdangerous import URLSafeSerializer
+from models import storage
+from models.user import User
+from datetime import timedelta
 import requests
-
 
 app = Flask(__name__)
 
@@ -15,14 +17,17 @@ s = URLSafeSerializer(app.secret_key)
 
 app.register_blueprint(client_view)
 
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
+# app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
+app.config['SESSION_COOKIE_HTTPONLY'] = True  # Use HttpOnly cookies
+
 
 @app.route('/', methods=['GET', 'POST'], strict_slashes=False)
 def home():
     ''' The home page route '''
-    if request.method == 'POST':
+    
+    if request.method == 'POST' and session['logged'] == True:
         keywords = request.form.get('keywords')
-
-        print(keywords)
 
         try:       
             headers = {"Content-Type": "application/json"}
@@ -52,6 +57,32 @@ def home():
         return render_template('feed.html', admin=False)
 
     return render_template('index.html')
+
+
+@app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
+def login():
+    ''' log the user in '''
+
+    if request.method == "POST":
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        user = [i for i in storage.all(User).values() if i.email == email]
+        if len(user) < 1:
+            return render_template('login.html', error='User not found')
+
+        if password == user[0].password:
+            session.permanent = True
+            session["logged"] = True
+            session["user_id"] = user[0].id
+            session["user_type"] = user[0].user_type
+            session["user_name"] = user[0].first_name + user[0].last_name
+
+            return redirect(url_for('home'))
+        else:
+            return render_template('login.html', error='Invalid credentials')
+
+    return render_template("login.html")
 
 
 if __name__ == "__main__":
