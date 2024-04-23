@@ -68,6 +68,12 @@ def create_book():
                 storage.delete(new_book)
                 storage.save()
 
+                try:
+                    os.remove('web_client/books/' + new_book.file_name)
+
+                except FileNotFoundError:
+                    pass
+
                 return make_response(jsonify({"error": "author not found"}), 404)
 
             new_author_rel = BookAuthor(book_id=new_book.id, author_id=i)
@@ -96,13 +102,19 @@ def create_book():
 
             all_rels = [i for i in storage.all(BookAuthor).values() if i.book_id == new_book.id]
 
-            # No length check because if the loop got function got here, there is definitely a book authors relationship
+            # No length check since if the loop got function got here, there is definitely a book authors relationship
             for i in all_rels: 
                 storage.delete(i)
                 storage.save()
 
             storage.delete(new_book)
             storage.save()
+
+            try:
+                os.remove('web_client/books/' + new_book.file_name)
+
+            except FileNotFoundError:
+                pass
 
             return make_response(jsonify({"error": "genre not found"}), 404)
 

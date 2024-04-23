@@ -1,5 +1,5 @@
 main {
-    display: flex;
+    padding: 20px;
     background-color: #e7e8e9;
     border-radius: 25px;
     overflow: hidden;
@@ -7,7 +7,6 @@ main {
 }
 
 #results {
-    width: 100%;
     padding: 10px;
 }
 
@@ -140,4 +139,19 @@ form {
 .edit-resource {
     display: flex;
     border-radius: 15px;
+}
+
+#dark {
+    background-image: url('../images/dark-mode-icon.svg');
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 50px;
+    height: 50px;
+    margin: 5px 0px;
+    background-color: inherit;
+    color: inherit;
+    position: fixed;
+    top: 65px;
+    right: 10px;
 }

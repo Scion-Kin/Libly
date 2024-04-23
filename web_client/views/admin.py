@@ -44,6 +44,7 @@ def manage_books():
             response = requests.post('http://localhost:5000/api/v1/books',
                                      headers=headers, json={
                 "title": request.form.get('title'), "ISBN": request.form.get('ISBN'),
+                "authors": request.form.get('authors').split(','),
                 "genres": request.form.get('genres').split(','), 
                 "file_name": secure_filename(book_file.filename),
                 "pic": secure_filename(book_cover.filename)
@@ -56,8 +57,9 @@ def manage_books():
             return redirect(url_for('client_view.manage_books'))
 
         genres = requests.get('http://localhost:5000/api/v1/genres')
+        authors = requests.get('http://localhost:5000/api/v1/authors')
 
-        return render_template('manage_resource.html', title="Books", genres=genres.json())
+        return render_template('manage_resource.html', title="Books", genres=genres.json(), authors=authors.json())
     abort(404)
 
 

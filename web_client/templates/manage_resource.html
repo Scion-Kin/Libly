@@ -1,10 +1,10 @@
 {% extends 'logged.html' %}
 {% block title %} Manage {{ title }} {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="../static/styles/manage_resource.css">
-    <link rel="icon" href="../static/images/logo-maybe.svg">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="../static/scripts/manage.js"></script>
+    <link rel="stylesheet" href="../static/styles/manage_resource.css">
+    <link rel="icon" href="../static/images/logo-maybe.svg">
 {% endblock %}
 {% block body %}
 <section id="results">
@@ -27,14 +27,33 @@
                     <h4>Create a new book</h4>
                     <input type="text" name="title" placeholder="Book title" required>
                     <input type="text" name="ISBN" placeholder="ISBN" required>
+
+                    <h5>Check the boxes of the authors who wrote the book.
+                        If you see none, please first
+                        <a href="{{ url_for('client_view.manage_authors') }}#add-resource">
+                            create the author in the database
+                        </a>
+                    </h5>
+                    {% for author in authors %}
+                        <input type="checkbox" class="author-id" id="{{ authors[author].data.id }}">
+                        <label for="{{ authors[author].data.id }}">
+                            {{ authors[author].data.first_name }}
+                            {% if authors[author].data.middle_name %}{{ authors[author].data.middle_name }}{% endif %}
+                            {{ authors[author].data.last_name }}
+                        </label><br />
+                    {% endfor %}
+                    <br /><input type="text" id="authors" name="authors" placeholder="Author IDs" readonly>
+
                     <h5>Check the boxes of the genres in which the book is classified</h5>
                     {% for genre in genres %}
-                        <input type="checkbox" id="{{ genres[genre].data.id }}">
+                        <input type="checkbox" class="genre-id" id="{{ genres[genre].data.id }}">
                         <label for="{{ genres[genre].data.id }}">{{ genres[genre].data.name }}</label><br />
                     {% endfor %}
-                    <br /><input type="text" id="genres" name="genres" placeholder="genre list">
+                    <br /><input type="text" id="genres" name="genres" placeholder="Genre IDs" readonly>
+
                     <h6>Upload the book's cover picture below.</h6>
                     <input type="file" name="pic" placeholder="Book's cover picture" required>
+
                     <h6>Upload the book below. ( Required )</h6>
                     <input type="file" name="file" required>
                 {% elif title == "Genres" %}
@@ -49,5 +68,6 @@
     </nav>
     <section class="results"></section>
 </section>
-<section id="nav"></section>
+
+<button id="dark"></button>   
 {% endblock %}
