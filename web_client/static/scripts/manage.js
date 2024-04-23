@@ -27,7 +27,7 @@ $(function () {
                 const img = document.createElement('img');
                 let resource_data = data[i].data;
 
-                if (title === 'Authors' || title === "Genres" || title === "Users") {
+                if (title === 'Authors' || title === "Genres" || title === "Users" || title === "Books") {
                     $(img).attr('src', `/static/images/${resource_data.pic}`);
                 }
                 else if (title === "Reviews") {
