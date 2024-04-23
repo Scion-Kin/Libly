@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let history = document.getElementsByClassName('history');
     let options = document.getElementsByClassName('options');
     let resultBoxes = document.getElementsByClassName('result-box');
-    let resource = document.getElementsByClassName('resource');
 
     if (!(sessionStorage.getItem('darkmode-state'))) {
         sessionStorage.setItem('darkmode-state', 'light');
