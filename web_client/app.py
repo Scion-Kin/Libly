@@ -4,8 +4,6 @@
 from web_client.views import client_view
 from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
 from itsdangerous import URLSafeSerializer
-from models import storage
-from models.user import User
 from datetime import timedelta
 import requests
 
@@ -56,41 +54,8 @@ def home():
     elif session and session['logged'] == True:
         return render_template('feed.html', admin=False)
 
-    return redirect(url_for('login'))
+    return redirect(url_for('client_view.login'))
 
-
-@app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
-def login():
-    ''' log the user in '''
-
-    if request.method == "POST":
-        email = request.form.get('email')
-        password = request.form.get('password')
-
-        user = [i for i in storage.all(User).values() if i.email == email]
-        if len(user) < 1:
-            return render_template('login.html', error='User not found')
-
-        if password == user[0].password:
-            session.permanent = True
-            session["logged"] = True
-            session["user_id"] = user[0].id
-            session["user_type"] = user[0].user_type
-            session["user_name"] = user[0].first_name + user[0].last_name
-
-            return redirect(url_for('home'))
-        else:
-            return render_template('login.html', error='Invalid credentials')
-
-    return render_template("login.html")
-
-
-@app.route('/logout', methods=['GET'])
-def clear_data():
-
-    session.permanent = False
-    session.clear()
-    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(port=5050, debug=True)

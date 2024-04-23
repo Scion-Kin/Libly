@@ -14,6 +14,8 @@ class Book(BaseModel, Base):
     ISBN = Column(String(60), nullable=False)
     file_name = Column(String(128), nullable=False)
     pic = Column(String(128), default="vintage-book.png")
+    description = Column(String(1024), nullable=False)
+
     book_genre = relationship('BookGenre',
                               backref="book",
                               cascade="all, delete, delete-orphan")

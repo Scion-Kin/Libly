@@ -47,7 +47,8 @@ def manage_books():
                 "authors": request.form.get('authors').split(','),
                 "genres": request.form.get('genres').split(','), 
                 "file_name": secure_filename(book_file.filename),
-                "pic": secure_filename(book_cover.filename)
+                "pic": secure_filename(book_cover.filename),
+                "description": request.form.get('description')
             })
 
             if response.status_code < 400:

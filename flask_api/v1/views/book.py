@@ -50,7 +50,8 @@ def create_book():
     new_book = Book(title=request.get_json()["title"],
                     ISBN=request.get_json()["ISBN"],
                     file_name=request.get_json()["file_name"],
-                    pic=request.get_json()["pic"])
+                    pic=request.get_json()["pic"],
+                    description=request.get_json()["description"])
     new_book.save()
 
     # Let's make a book and authors relationship
@@ -132,8 +133,11 @@ def update_book(book_id):
     if not book:
         abort(404)
 
-    book.title = request.get_json()["title"] if "title" in request.get_json() else book.title
-    book.ISBN = request.get_json()["ISBN"] if "ISBN" in request.get_json() else book.ISBN
+    ignore = ['created_at', 'updated_at', 'id', '__class__']
+
+    for key, value in request.get_json().items():
+        if key not in ignore:
+            setattr(book, key, value)
 
     book.save()
     return jsonify(book.to_dict())
