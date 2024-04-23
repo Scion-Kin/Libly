@@ -1,0 +1,38 @@
+{% extends 'logged.html' %}
+{% block title %}
+    {% if info %} {{ info }} {% else %} Info {% endif %}
+{% endblock %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="../static/scripts/info.js"></script>
+    <link rel="stylesheet" href="../static/styles/info.css">
+{% endblock %}
+{% block body %}
+{% if info %}
+
+{% else %}
+<section>
+    <h2>Hi there! You haven't specified a book to view info on.</h2>
+    <h4>Here is a selection of books that might interest you.</h4>
+    <section id="search_results">
+    </section>
+</section>
+{% endif %}
+<aside>
+    <section class="history">
+        <h2>Continue reading</h2>
+        <section class="history-book">
+            <button>Arsene Lupin | -> </button>
+        </section>
+        <section class="history-book">
+            <button>A Study in Scarlet | -> </button>
+        </section>
+    </section>
+    <section class="options">
+        <button id="dark">Dark mode</button>
+        <button id="help">Help and support</button>
+        <button id="settings">Settings</button>
+        <button id="log-out">Log out</button>
+    </section>
+</aside>
+{% endblock %}

@@ -1,0 +1,115 @@
+main {
+    padding: 20px;
+    background-color: #e7e8e9;
+    border-radius: 25px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+    margin: 0px 15px;
+}
+
+aside {
+    position: fixed;
+    top: 70px;
+    right: -30px;
+    width: 35%;
+    padding: 10px;
+}
+
+#search_results {
+    padding: 10px;
+}
+
+.resource {
+    border-radius: 15px;
+    padding: 10px;
+    margin: 15px 0px;
+}
+
+.data {
+    display: flex;
+    justify-content: space-between;
+}
+
+.resource:hover .data {
+    display: block;
+}
+
+.resource .data img {
+    max-width: 150px;
+    border-radius: 25px;
+}
+
+.history {
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+}
+
+.history h2 {
+    margin: 5px;
+}
+
+.history-book {
+    background-color: #e7e8e9;
+    background-image: url('../images/vintage-book.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 100px;
+    margin: 10px 0px;
+    border-radius: 15px;
+}
+
+.history-book button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 30px 10px;
+    color: white;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.options button {
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40px;
+    margin: 5px 0px;
+    background-color: inherit;
+    color: inherit;
+}
+
+.options button:hover {
+    background-color: #e7e8e9;
+    color: black;
+}
+
+#settings {
+    background-image: url('../images/settings-icon.svg');
+}
+
+#help {
+    background-image: url('../images/help-icon.svg');
+}
+
+#dark {
+    background-image: url('../images/dark-mode-icon.svg');
+}
+
+#log-out {
+    background-image: url('../images/logout-icon.svg');
+}
