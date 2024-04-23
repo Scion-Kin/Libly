@@ -18,7 +18,7 @@ s = URLSafeSerializer(app.secret_key)
 app.register_blueprint(client_view)
 
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
-# app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
+app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Use HttpOnly cookies
 
 
@@ -56,7 +56,7 @@ def home():
     elif session and session['logged'] == True:
         return render_template('feed.html', admin=False)
 
-    return render_template('index.html')
+    return redirect(url_for('login'))
 
 
 @app.route('/login', methods=['GET', 'POST'], strict_slashes=False)
@@ -84,6 +84,13 @@ def login():
 
     return render_template("login.html")
 
+
+@app.route('/logout', methods=['GET'])
+def clear_data():
+
+    session.permanent = False
+    session.clear()
+    return redirect(url_for('home'))
 
 if __name__ == "__main__":
     app.run(port=5050, debug=True)
