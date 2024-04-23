@@ -203,7 +203,7 @@ $(function () {
             url: editUrl,
             success: function (data, textStatus) {
                 alert('Data updated');
-                location.reload();
+                window.location.href = `http://localhost:5050/manage/${title.toLowerCase()}`
             }
         });
         $(document).on('ajaxError', function () {

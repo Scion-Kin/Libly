@@ -46,7 +46,7 @@ def create_book():
     if "genres" not in request.get_json() or len(request.get_json()["genres"]) < 1:
         return make_response(jsonify({"error": "Missing genre(s)"}), 400)
 
-    new_book = Book(title=request.get_json()["title"], ISBN=request.get_json()["ISBN"])
+    new_book = Book(title=request.get_json()["title"], ISBN=request.get_json()["ISBN"], pic=request.get_json()["pic"])
     new_book.save()
 
     # Let's make a book and authors relationship

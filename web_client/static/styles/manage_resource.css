@@ -126,6 +126,10 @@ form {
     margin: 5px 0px;
 }
 
+#new_resource input[type="file"] {
+    width: 90%;
+}
+
 .cancel {
     width: 40px;
     background: red;
