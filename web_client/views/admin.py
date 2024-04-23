@@ -44,7 +44,9 @@ def manage_books():
             response = requests.post('http://localhost:5000/api/v1/books',
                                      headers=headers, json={
                 "title": request.form.get('title'), "ISBN": request.form.get('ISBN'),
-                "genres": [request.form.get('genre')], "pic": secure_filename(book_cover.filename)
+                "genres": request.form.get('genres').split(','), 
+                "file_name": secure_filename(book_file.filename),
+                "pic": secure_filename(book_cover.filename)
             })
 
             if response.status_code < 400:
@@ -53,7 +55,9 @@ def manage_books():
 
             return redirect(url_for('client_view.manage_books'))
 
-        return render_template('manage_resource.html', title="Books")
+        genres = requests.get('http://localhost:5000/api/v1/genres')
+
+        return render_template('manage_resource.html', title="Books", genres=genres.json())
     abort(404)
 
 

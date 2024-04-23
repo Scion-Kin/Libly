@@ -8,6 +8,7 @@ from models.genre import Genre
 from models.book_author import BookAuthor
 from models.book_genre import BookGenre
 from flask import jsonify, request, make_response, abort
+import os
 
 
 @grand_view.route('/books', methods=['GET'], strict_slashes=False)
@@ -46,7 +47,10 @@ def create_book():
     if "genres" not in request.get_json() or len(request.get_json()["genres"]) < 1:
         return make_response(jsonify({"error": "Missing genre(s)"}), 400)
 
-    new_book = Book(title=request.get_json()["title"], ISBN=request.get_json()["ISBN"], pic=request.get_json()["pic"])
+    new_book = Book(title=request.get_json()["title"],
+                    ISBN=request.get_json()["ISBN"],
+                    file_name=request.get_json()["file_name"],
+                    pic=request.get_json()["pic"])
     new_book.save()
 
     # Let's make a book and authors relationship
@@ -129,6 +133,12 @@ def delete_book(book_id):
     book = storage.get(Book, book_id)
     if not book:
         abort(404)
+
+    try:
+        os.remove('web_client/books/' + book.file_name)
+
+    except FileNotFoundError:
+        pass
 
     storage.delete(book)
     storage.save()

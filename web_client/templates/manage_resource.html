@@ -27,7 +27,12 @@
                     <h4>Create a new book</h4>
                     <input type="text" name="title" placeholder="Book title" required>
                     <input type="text" name="ISBN" placeholder="ISBN" required>
-                    <input type="text" name="genre" placeholder="genre id" required>
+                    <h5>Check the boxes of the genres in which the book is classified</h5>
+                    {% for genre in genres %}
+                        <input type="checkbox" id="{{ genres[genre].data.id }}">
+                        <label for="{{ genres[genre].data.id }}">{{ genres[genre].data.name }}</label><br />
+                    {% endfor %}
+                    <br /><input type="text" id="genres" name="genres" placeholder="genre list">
                     <h6>Upload the book's cover picture below.</h6>
                     <input type="file" name="pic" placeholder="Book's cover picture" required>
                     <h6>Upload the book below. ( Required )</h6>

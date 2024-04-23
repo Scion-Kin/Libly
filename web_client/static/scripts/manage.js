@@ -9,6 +9,19 @@ $(function () {
         $('#new_resource').css('display', 'block');
     });
 
+    let genres = [];
+
+    $('#new_resource form input[type=checkbox]').on('change', function () {
+        if ($(this).is(':checked') && !genres.includes($(this).attr('id'))) {
+            genres.push($(this).attr('id'));
+            $('#genres').val(genres);
+        }
+        else if (!$(this).is(':checked') && genres.includes($(this).attr('id'))) {
+            genres.splice(genres.indexOf($(this).attr('id')), 1);
+            $('#genres').val(genres);
+        }
+    });
+
     $('button.cancel').click(function () {
         $('#new_resource').css('display', 'none');
     });
