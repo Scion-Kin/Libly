@@ -1,0 +1,48 @@
+{% extends 'logged.html' %}
+{% block title %}
+    {{ type }}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="../static/styles/author_genre.css">
+{% endblock %}
+{% block body %}
+<section id="about-book">
+    <section id="book_list">    
+        {% for i in all %}
+            <section class="book history">
+                <img src="/static/images/{{ i.pic }}"><br>
+
+                {% if type == "Authors" %}
+                    <a href="/author/{{ i.id }}"><button>See the author's books</button></a>
+                {% elif type == "Books" %}
+                    <a href="/read/{{ i.id }}"><button><span>Read</span>{{ i.title }}</button></a>
+                    <form method="POST" action="{{ url_for('client_view.book_info') }}">
+                        <button name="id" value="{{ i.id }}">Book info & reviews</button>
+                    </form>
+                {% else %}
+                    <a href="/genre/{{ i.id }}"><button>See all books in this genre</button></a>
+                {% endif %}
+
+            </section>
+        {% endfor %}  
+    </section> 
+</section>
+<aside>
+    <section class="history">
+        <h2>Continue reading</h2>
+        <section class="history-book">
+            <button>Arsene Lupin | -> </button>
+        </section>
+        <section class="history-book">
+            <button>A Study in Scarlet | -> </button>
+        </section>
+    </section>
+    <section class="options">
+        <button id="dark">Dark mode</button>
+        <button id="help">Help and support</button>
+        <button id="settings">Settings</button>
+        <button id="log-out">Log out</button>
+    </section>
+</aside>
+{% endblock %}

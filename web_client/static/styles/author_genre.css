@@ -38,10 +38,11 @@ button span {
 
 .book {
     max-width: 33%;
+    margin: 20px !important;
 }
 
 #about-book {
-    max-width: 65%;
+    width: 65%;
     margin: 0;
 }
 
@@ -57,6 +58,7 @@ button span {
 
 #book_list {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     padding: 10px;
     border-radius: 15px;
@@ -85,15 +87,6 @@ button span {
     height: 100px;
     margin: 10px 0px;
     border-radius: 15px;
-}
-
-button {
-    background-color: #316FF6;
-    padding: 10px;
-    margin: 10px;
-    color: white;
-    height: 40px;
-    overflow: hidden;
 }
 
 .options {

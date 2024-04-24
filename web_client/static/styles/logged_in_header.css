@@ -12,6 +12,21 @@ header {
 
 main {
     margin-top: 70px;
+    word-wrap: break-word;
+}
+
+button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 10px;
+    height: 40px;
+    color: white !important;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: white !important;
 }
 
 #user {
@@ -140,4 +155,8 @@ button {
 
 #avatar {
     background-image: url('../images/avatar.svg');
+}
+
+.options button {
+    color: inherit !important;
 }

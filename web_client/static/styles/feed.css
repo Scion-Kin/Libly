@@ -29,6 +29,12 @@ aside {
     flex-wrap: wrap;
 }
 
+#views-menu {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}
+
 .random-quotes, .suggested {
     display: flex;
     justify-content: space-between;

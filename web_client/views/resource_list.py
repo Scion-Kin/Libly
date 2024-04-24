@@ -1,0 +1,56 @@
+#!/usr/bin/python3
+''' The author or genre page '''
+
+from web_client.views import client_view
+from flask import render_template, abort, session
+import requests
+
+
+@client_view.route('/authors', strict_slashes=False)
+def authors():
+    ''' The all authors page  '''
+    if session and session['logged'] == True:
+        response = requests.get('http://localhost:5000/api/v1/authors/')
+
+        if response.status_code == 200:
+            data = [response.json()[i]["data"] for i in response.json()]
+            print(data)
+            return render_template('resource_list.html',
+                                       all=data,
+                                       type="Authors") 
+
+        abort(500)
+
+    return redirect(url_for('home'))
+
+@client_view.route('/books', strict_slashes=False)
+def books():
+    ''' The author page  '''
+    if session and session['logged'] == True:
+        response = requests.get('http://localhost:5000/api/v1/books/')
+
+        if response.status_code == 200:
+            data = [response.json()[i]["data"] for i in response.json()]
+            return render_template('resource_list.html',
+                                       all=data,
+                                       type="Books") 
+
+        abort(500)
+
+    return redirect(url_for('home'))
+
+@client_view.route('/genres', strict_slashes=False)
+def genres():
+    ''' The author page  '''
+    if session and session['logged'] == True:
+        response = requests.get('http://localhost:5000/api/v1/genres/')
+
+        if response.status_code == 200:
+            data = [response.json()[i]["data"] for i in response.json()]
+            return render_template('resource_list.html',
+                                       all=data,
+                                       type="Genres") 
+
+        abort(500)
+
+    return redirect(url_for('home'))
