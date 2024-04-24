@@ -6,6 +6,7 @@ from flask import Flask, Blueprint, render_template, abort, session, request, ab
 from itsdangerous import URLSafeSerializer
 from datetime import timedelta
 import requests
+import base64
 
 app = Flask(__name__)
 
@@ -18,6 +19,12 @@ app.register_blueprint(client_view)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
 app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Use HttpOnly cookies
+
+
+# Custom filter for Base64 encoding
+@app.template_filter('b64encode')
+def b64encode_filter(s):
+    return base64.b64encode(s).decode('utf-8')
 
 
 @app.route('/', methods=['GET', 'POST'], strict_slashes=False)

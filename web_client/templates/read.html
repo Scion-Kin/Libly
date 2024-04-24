@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View PDF</title>
+</head>
+<body>
+    {% for image_data in data %}
+        <img src="data:image/png;base64,{{ image_data|b64encode }}" alt="Page {{ loop.index }}">
+    {% endfor %}
+</body>
+</html>
