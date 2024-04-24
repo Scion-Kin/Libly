@@ -10,3 +10,4 @@ from web_client.views.signup import signup
 from web_client.views.admin import *
 from web_client.views.login import *
 from web_client.views.info import *
+from web_client.views.author_genre import *
