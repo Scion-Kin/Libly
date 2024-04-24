@@ -1,6 +1,6 @@
 {% extends 'logged.html' %}
 {% block title %}
-    {% if info %} {{ info }} {% else %} Info {% endif %}
+    {% if info %} {{ info.title }} {% else %} Info {% endif %}
 {% endblock %}
 {% block head %}
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -9,7 +9,29 @@
 {% endblock %}
 {% block body %}
 {% if info %}
+<section id="about-book" class="history">
 
+    <section id="description">
+       <img src="/static/images/{{ info.pic }}">
+        <h4> {{ info.title }} </h4> 
+        <p>
+            {{ info.description }}
+        </p>
+    </section>
+    {% if reviews %}
+        <h4>Reviews</h4>
+        <section id="reviews">
+            {% for i in reviews %}
+                <section class="review"><img id="{{ i.user_id }}" /><p>{{ i.text }}</p></section>
+            {% endfor %}
+        </section>
+    {% endif %}
+    <section id="make-review">
+        <h4>Have you read this book?<br>Other readers will love your review!</h4>
+        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
+        <button id="create">Comment</button>
+    </section>
+</section>
 {% else %}
 <section>
     <h2>Hi there! You haven't specified a book to view info on.</h2>

@@ -40,13 +40,12 @@
             <section class="book result-box">
                 <section class="description">
                     <button class="title">
-                        <select style="width: 20px;">
-                            <option value="wish">Add to wishlist</option>
-                            <option value="borrow">Borrow</option>
-                            <option value="read">Read Now</option>
-                        </select>
                         Book - <span class="naming">{{ book.title }}</span>
-                    </button>
+                    </button><br>
+                    <button class="go"><a href="/read/{{ book.id }}">Read book</a></button>
+                    <form method="POST" action="{{ url_for('client_view.book_info') }}">
+                        <button name="id" value="{{ book.id }}" class="go">Info & reviews</button>
+                    </form>
                 </section>
             </section>
         {% endfor %}

@@ -10,6 +10,11 @@ aside {
     width: 30%;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 aside h2 {
     padding-top: 20px;
     padding-bottom: 20px;
@@ -90,11 +95,6 @@ aside h3,  aside h2 {
     background-image: url('../images/vintage-book.png');
 }
 
-.book .description {
-    position: relative;
-    top: 60px;
-}
-
 .genre {
     background-image: url('../images/genre.jpg');
 }
@@ -120,6 +120,7 @@ aside h3,  aside h2 {
     background-color: #316FF6;
     color: white;
     margin-left: auto;
+    margin: 10px;
 }
 
 .description select {

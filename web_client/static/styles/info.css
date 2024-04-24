@@ -10,6 +10,42 @@ h2 {
     margin: 0px 15px;
 }
 
+#about-book {
+    max-width: 65%;
+    margin: 0;
+}
+
+#about-book img {
+    max-width: 200px;
+    border-radius: 10px;
+}
+
+#reviews img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    margin: 0px 10px;
+}
+
+.review {
+    display: flex;
+}
+
+textarea {
+    border-radius: 15px;
+    border: 1px solid grey;
+    background-color: inherit;
+    color: inherit;
+    width: 60%;
+    padding: 20px;
+    font-size: 17px;
+    font-family: inherit;
+}
+
+textarea:focus {
+    outline: none;
+}
+
 aside {
     position: fixed;
     top: 70px;
@@ -20,17 +56,15 @@ aside {
 
 #search_results {
     padding: 10px;
+    width: 60%;
 }
 
 .resource {
+    display: flex;
+    justify-content: space-between;
     border-radius: 15px;
     padding: 10px;
     margin: 15px 0px;
-}
-
-.data {
-    display: flex;
-    justify-content: space-between;
 }
 
 .resource:hover .data {
@@ -65,7 +99,7 @@ aside {
     border-radius: 15px;
 }
 
-.history-book button {
+button {
     background-color: #316FF6;
     padding: 10px;
     margin: 30px 10px;
