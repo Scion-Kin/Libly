@@ -2,10 +2,14 @@
 ''' The login manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort, request, jsonify, redirect, url_for
+from flask import render_template, session, abort, request, jsonify, redirect, url_for, make_response
 from itsdangerous import URLSafeSerializer
 from models import storage
 from models.user import User
+from uuid import uuid4
+
+#secret_key = str(uuid4())
+#s = URLSafeSerializer(secret_key)
 
 
 @client_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
@@ -27,7 +31,11 @@ def login():
             session["user_type"] = user[0].user_type
             session["user_name"] = user[0].first_name + user[0].last_name
 
-            return redirect(url_for('home'))
+            # Create a response object with the redirection and set the cookie
+            resp = make_response(redirect(url_for('home')))
+            resp.set_cookie('user_id', user[0].id, max_age=2592000)
+
+            return resp
         else:
             return render_template('login.html', error='Invalid credentials')
 

@@ -1,7 +1,6 @@
 $(function () {
 
     const title = document.title.split(' ')[0];
-
     if (title === 'Info') {
 
         const url = `http://localhost:5000/api/v1/books`;
@@ -42,6 +41,7 @@ $(function () {
                 }
             }
         });
+        
     }
 
     else {
@@ -49,12 +49,44 @@ $(function () {
             let reviews = $('#reviews').children();
             for (let i = 0; i < reviews.length; i++) {
                 let imgId = $(reviews[i]).find('img').attr('id');
-                $.get(`http://localhost:5000/api/v1/users/${imgId}`, function(data, textStatus) {
+                let user_id = imgId.split('_')[1];
+                $.get(`http://localhost:5000/api/v1/users/${user_id}`, function(data, textStatus) {
                     for (let j in data) {
                         $(`#${imgId}`).attr('src', '/static/images/' + data[j].data.pic);
                         break;
                     }
                 });
+            }
+        }
+    }
+
+    $('#create').click(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            url: 'http://localhost:5000/api/v1/reviews',
+            data: JSON.stringify({ 
+                "user_id": getCookie(),
+                "book_id": $('#make-review form').attr('id'),
+                "text": $('#message').val()
+            }),
+            success: function (data, textStatus) {
+                location.reload();
+            }
+        });
+        $(document).on('ajaxError', function () {
+            alert('Something went wrong, please try again later. If the problem persists, please let us know as soon as possible.');
+        });
+    });
+
+    function getCookie() {
+        let cookieArray = document.cookie.split(';');
+
+        for (let i = 0; i < cookieArray.length; i++) {
+            let cookie = cookieArray[i].trim();
+            if (cookie.indexOf('user_id') == 0) {
+                return cookie.substring(('=user_id').length, cookie.length);
             }
         }
     }

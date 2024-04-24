@@ -10,6 +10,16 @@ h2 {
     margin: 0px 15px;
 }
 
+#description {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 50px;
+}
+
+#description article {
+    width: 60%;
+}
+
 #about-book {
     max-width: 65%;
     margin: 0;
@@ -18,6 +28,13 @@ h2 {
 #about-book img {
     max-width: 200px;
     border-radius: 10px;
+}
+
+#reviews {
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #059e5421;
+    backdrop-filter: blur(10px);
 }
 
 #reviews img {
@@ -29,6 +46,15 @@ h2 {
 
 .review {
     display: flex;
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #316ff652;
+    backdrop-filter: blur(10px);
+}
+
+#make-review {
+    margin: 10px;
 }
 
 textarea {

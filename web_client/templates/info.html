@@ -12,24 +12,32 @@
 <section id="about-book" class="history">
 
     <section id="description">
-       <img src="/static/images/{{ info.pic }}">
-        <h4> {{ info.title }} </h4> 
-        <p>
-            {{ info.description }}
-        </p>
+        <img src="/static/images/{{ info.pic }}">
+        <article>
+            <h4> Title: {{ info.title }} </h4> 
+            <h5>Description</h5>
+            <p>
+                {{ info.description }}
+            </p>
+        </article>
     </section>
     {% if reviews %}
-        <h4>Reviews</h4>
+        <h4 style="margin-left: 10px;">Reviews</h4>
         <section id="reviews">
-            {% for i in reviews %}
-                <section class="review"><img id="{{ i.user_id }}" /><p>{{ i.text }}</p></section>
+            {% for i in range(reviews|length) %}
+                <section class="review">
+                    <img id="{{ i }}_{{ reviews[i].user_id }}" />
+                    <p>{{ reviews[i].text }}</p>
+                </section>
             {% endfor %}
         </section>
     {% endif %}
     <section id="make-review">
         <h4>Have you read this book?<br>Other readers will love your review!</h4>
-        <textarea id="message" name="message" rows="4" cols="50"></textarea><br>
-        <button id="create">Comment</button>
+        <form id="{{ info.id }}">
+            <textarea id="message" rows="4" cols="50"></textarea><br>
+            <button id="create">Comment</button>   
+        </form>
     </section>
 </section>
 {% else %}

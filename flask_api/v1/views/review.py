@@ -49,6 +49,12 @@ def create_review():
     if "text" not in request.get_json():
         return make_response(jsonify({"error": "Missing text"}), 400)
 
+    if "user_id" not in request.get_json():
+        return make_response(jsonify({"error": "Missing user id"}), 400)
+
+    if "book_id" not in request.get_json():
+        return make_response(jsonify({"error": "Missing book id"}), 400)
+
     new_review = Review(**request.get_json())
     new_review.save()
 
