@@ -59,6 +59,10 @@ a {
     padding: 20px;
 }
 
+input[type="search"]:focus {
+    outline: none;
+}
+
 #submit {
     display: flex;
     position: absolute;
