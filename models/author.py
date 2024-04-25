@@ -17,6 +17,9 @@ class Author(BaseModel, Base):
     book_author = relationship('BookAuthor',
                                backref="author",
                                cascade="all, delete, delete-orphan")
+    fav_author = relationship("FavoriteAuthor",
+                              backref="author",
+                              cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """ initializes an author instance """

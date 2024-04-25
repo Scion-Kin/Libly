@@ -18,6 +18,9 @@ class User(BaseModel, Base):
     last_name = Column(String(128), nullable=True)
     pic = Column(String(128), default="user-avatar.jpg")
     reviews = relationship("Review", backref="user", cascade="all, delete, delete-orphan")
+    fav_books = relationship("FavoriteBook", backref="user", cascade="all, delete, delete-orphan")
+    fav_authors = relationship("FavoriteAuthor", backref="user", cascade="all, delete, delete-orphan")
+    fav_genres = relationship("FavoriteGenre", backref="user", cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """ initializes a user instance """
