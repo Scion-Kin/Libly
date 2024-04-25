@@ -65,6 +65,10 @@ aside {
     padding: 10px;
 }
 
+.suggested {
+    flex-wrap: wrap
+}
+
 #feed h2, #manage-list h2 {
     margin: 15px 25px;
 }
@@ -85,6 +89,7 @@ aside {
 }
 
 .suggested-book {
+    min-width: 35%;
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -95,6 +100,8 @@ aside {
 
 .suggested-book img {
     max-width: 200px;
+    border-radius: 10px;
+    margin: 10px 0px;
 }
 
 .history {
@@ -150,7 +157,7 @@ aside {
 
 .options button:hover {
     background-color: #e7e8e9;
-    color: black;
+    color: black !important;
 }
 
 #settings {

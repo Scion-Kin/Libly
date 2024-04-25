@@ -55,11 +55,23 @@ def home():
         except Exception:
             raise
 
+
     if session and session['user_type'] == 'king' and session['logged'] == True:
         return render_template('feed.html', admin=True)
 
     elif session and session['logged'] == True:
-        return render_template('feed.html', admin=False)
+
+        books = requests.get('http://localhost:5000/api/v1/books').json()
+        random = []
+
+        count = 0
+        for i in books:
+            if count == 2:
+                break
+            random.append(books[i]["data"])
+            count += 1
+
+        return render_template('feed.html', admin=False, books=random)
 
     return redirect(url_for('client_view.login'))
 

@@ -43,7 +43,6 @@
         </nav>       
         <h2>Random quotes from books</h2>
         <section class="random-quotes">
-
             <section class="quote">
                 <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
                 <button>From: | Unknown</button>
@@ -59,37 +58,21 @@
         </section>
         <h2>Books you may like</h2>
         <section class="suggested">
-            <section class="suggested-book">
-                <img src="../static/images/vintage-book.png">
-                <b>Description:</b>
-                <p>
-                    A story of a thief who has a charming personality, bla bla bla. 
-                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-                </p>
-                <button>Arsene Lupin | -> </button>
-            </section>
-            <section class="suggested-book">
-                <img src="../static/images/vintage-book.png">
-                <b>Description:</b>
-                <p>
-                    A story of a detective who has an admirable personality, bla bla bla. 
-                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-                </p>
-                <button>A Study in Scarlet | -> </button>
-            </section>
-            <section class="suggested-book">
-                <img src="../static/images/vintage-book.png">
-                <b>Description:</b>
-                <p>
-                    A story of a detective who has an admirable personality, bla bla bla. 
-                    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla.
-                </p>
-                <button>A Study in Scarlet | -> </button>
-            </section>
+            {% for book in books %}
+                <section class="suggested-book">
+                    <img src="../static/images/{{ book.pic }}">
+                    <h4>Title: {{ book.title }}</h4>
+                    <b>Description:</b>
+                    <p>
+                        {{ book.description }}
+                    </p>
+                        <button>Arsene Lupin | -> </button>
+                </section>
+            {% endfor %}
         </section>
-        <section class="review-activity">
+        <!--<section class="review-activity">
             <h2>Recent activity</h2>
-        </section>
+        </section>-->
     </section>
 {% endif %}
 <aside>
