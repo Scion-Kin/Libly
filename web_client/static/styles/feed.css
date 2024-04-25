@@ -23,6 +23,30 @@ aside {
     padding: 10px;
 }
 
+#authors, #books, #genres {
+    background-color: inherit;
+    background-image: url('../images/select-author.svg');
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-width: 200px;
+    color: inherit !important;
+    border-right: 1px solid #316FF6;
+    border-radius: 20px;
+}
+
+#authors a, #books a, #genres a {
+    color: inherit !important;
+}
+
+#books {
+    background-image: url('../images/select-books.svg');
+}
+
+#genres {
+    background-image: url('../images/select-genres.svg');
+}
+
 #manage-list {
     width: 40%;
     display: flex;

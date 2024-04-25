@@ -20,13 +20,13 @@ button {
     padding: 10px;
     margin: 10px;
     height: 40px;
-    color: white !important;
+
     overflow: hidden;
 }
 
 a {
     text-decoration: none;
-    color: white !important;
+
 }
 
 #user {
