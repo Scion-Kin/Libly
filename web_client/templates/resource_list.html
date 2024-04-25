@@ -14,6 +14,10 @@
                 <img src="/static/images/{{ i.pic }}"><br>
 
                 {% if type == "Authors" %}
+                    <h4> Author: {{ i.first_name }}
+                        {% if i.middle_name %} {{ i.middle_name }} {% endif %}
+                        {{ i.last_name }}
+                    </h4>
                     <a href="/author/{{ i.id }}"><button>See the author's books</button></a>
                 {% elif type == "Books" %}
                     <a href="/read/{{ i.id }}"><button><span>Read</span>{{ i.title }}</button></a>
@@ -21,6 +25,7 @@
                         <button name="id" value="{{ i.id }}">Book info & reviews</button>
                     </form>
                 {% else %}
+                    <h4> Genre: {{ i.name }} </h4>
                     <a href="/genre/{{ i.id }}"><button>See all books in this genre</button></a>
                 {% endif %}
 
