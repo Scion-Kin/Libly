@@ -3,9 +3,10 @@
 <head>
     <title>View PDF</title>
 </head>
-<body>
+<body style="text-align: center;">
     {% for image_data in data %}
-        <img src="data:image/png;base64,{{ image_data|b64encode }}" alt="Page {{ loop.index }}">
+        <img src="data:image/png;base64,{{ image_data|b64encode }}" alt="Page {{ loop.index }}"">
+        <br>
     {% endfor %}
 </body>
 </html>
