@@ -15,7 +15,7 @@
     <header>
         <nav id="search">
             <a id="site_logo" href="/"><div></div></a>
-            <form method="POST">
+            <form method="POST" action="{{ url_for('home') }}">
                 <input type="search" name="keywords" placeholder="search for anything" required>
                 <div id="submit">
                     <input type="submit" id="book-grab" value="">
