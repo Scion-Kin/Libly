@@ -1,6 +1,7 @@
 ''' This defines a book class for SQLAlchemy modeling '''
 import models
 from models.base_model import BaseModel, Base
+from models.favorite_book import FavoriteBook
 import sqlalchemy
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship

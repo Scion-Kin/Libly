@@ -2,6 +2,7 @@
 ''' This defines an Author class for SQLAlchemy modeling '''
 import models
 from models.base_model import BaseModel, Base
+from models.favorite_author import FavoriteAuthor
 import sqlalchemy
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship

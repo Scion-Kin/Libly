@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' This defines a favorites model '''
+''' This defines an Genre class for SQLAlchemy modeling '''
 import models
 from models.base_model import BaseModel, Base
 import sqlalchemy
@@ -7,8 +7,11 @@ from sqlalchemy import Column, String, ForeignKey
 
 
 class FavoriteGenre(BaseModel, Base):
-    ''' This defines a favorite genre SQL model '''
+    ''' This defines a genre favorite relationship '''
+    __tablename__ = 'favorite_genres'
+    user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
+    genre_id = Column(String(60), ForeignKey('genres.id'), nullable=True)
 
-    __tablename__ = "favorite_genres"
-    genre_id = Column(String(128), ForeignKey('genres.id'), nullable=False)
-    user_id = Column(String(128), ForeignKey('users.id'), nullable=False)
+    def __init__(self, *args, **kwargs):
+        """ initializes instance """
+        super().__init__(*args, **kwargs)

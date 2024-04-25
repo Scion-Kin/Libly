@@ -1,6 +1,9 @@
 #!/usr/bin/python3
 ''' This defines a user class for SQLAlchemy modeling '''
 from models.base_model import BaseModel, Base
+from models.favorite_author import FavoriteAuthor
+from models.favorite_book import FavoriteBook
+from models.favorite_genre  import FavoriteGenre
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
