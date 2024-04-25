@@ -37,7 +37,7 @@
 
     {% if books %}
         {% for book in books %}
-            <section class="book result-box">
+            <section class="book result-box" style="background-image: url('../static/images/{{ book.pic }}');">
                 <section class="description">
                     <button class="title">
                         Book - <span class="naming">{{ book.title }}</span>
