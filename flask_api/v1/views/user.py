@@ -65,7 +65,7 @@ def create_user():
 
     all_users = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
     if len(all_users) > 0:
-        return make_response(jsonify({"error": "email already exists"}))
+        return make_response(jsonify({"error": "email already exists"}), 400)
 
     if "user_type" in request.get_json():
         admin = [i for i in storage.all(User).values() if i.user_type == "king"]

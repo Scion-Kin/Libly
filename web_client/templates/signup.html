@@ -1,11 +1,14 @@
 {% extends 'index.html' %}
 {% block body %}
-<form>
-    <input type="email" name="email">
-    <input type="text" name="first_name" placeholder="First name">
+<form method="POST">
+    <input type="email" name="email" required>
+    <input type="text" name="first_name" placeholder="First name" required>
     <input type="text" name="middle_name" placeholder="Middle name">
-    <input type="text" name="last_name" placeholder="Surname">
-    <input type="password" name="password" placeholder="password">
-    <input type="submit" value="Sign up">
+    <input type="text" name="last_name" placeholder="Surname" required>
+    <input type="password" name="password" placeholder="password" required>
+    <button type="submit">Sign up</button>
 </form>
+{% if error %}
+    <br>{{ error }}
+{% endif %}
 {% endblock %}

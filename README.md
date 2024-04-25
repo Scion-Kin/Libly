@@ -32,5 +32,5 @@ To access libly, users have to
 
 ### Contributing
 For updates or newly requested features, please send a mail to [Admin](mailto://dinturner17@gmail.com), 
-or to [Admin](mailto://oreoluwaakinbo.oa@gmail.com)
+or to [Moderator](mailto://oreoluwaakinbo.oa@gmail.com)
 For bugs, please open an Issue
