@@ -12,13 +12,13 @@ document.addEventListener('DOMContentLoaded', function () {
     let options = document.getElementsByClassName('options');
     let resultBoxes = document.getElementsByClassName('result-box');
 
-    if (!(sessionStorage.getItem('darkmode-state'))) {
-        sessionStorage.setItem('darkmode-state', 'light');
+    if (!(localStorage.getItem('darkmode-state'))) {
+        localStorage.setItem('darkmode-state', 'light');
     }
-    switchMode(sessionStorage.getItem('darkmode-state'));
+    switchMode(localStorage.getItem('darkmode-state'));
 
     switcher.addEventListener('click', function () {
-        sessionStorage.getItem('darkmode-state') === 'light' ? switchMode('dark') : switchMode('light');
+        localStorage.getItem('darkmode-state') === 'light' ? switchMode('dark') : switchMode('light');
     });
 
     function switchMode (mode) {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.style.backgroundColor = 'rgb(37, 40, 42)';
                 element.style.color = '#e7e8e9';
             });
-            sessionStorage.setItem('darkmode-state', 'dark');
+            localStorage.setItem('darkmode-state', 'dark');
         }
         else {
             header.style.backgroundColor = '#e0e0e0';
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 element.style.backgroundColor = '#F0F2F5';
                 element.style.color = '#181a1b';
             });
-            sessionStorage.setItem('darkmode-state', 'light');
+            localStorage.setItem('darkmode-state', 'light');
         }
     }
 });

@@ -8,8 +8,7 @@ Libly is an online library that provides royalty-free books. This is done with t
 
 ## How to use
 Libly is widely accessible as a online web application. 
-This is provided as a libray where users can download favored books, add favored books to bookmarks and
-mark favorite authors.
+This is provided as a libray where users can read books, mark favorite books, authors and genres.
 
 To access libly, users have to
 * visit [Libly](https://libly.usernet.com)
@@ -22,8 +21,6 @@ To access libly, users have to
 * NodeJS
 * HTML & CSS
 * jQuery & vanilla Javascript
-* Nginx - reverse proxy
-* HAProxy - Load Balancer
 
 ### Authors
 * Mugabo Gusenga - [Scion-kin](https://github.com/Scion-Kin)
