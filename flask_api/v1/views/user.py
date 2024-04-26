@@ -94,6 +94,8 @@ def update_user(user_id):
             for key, value in request.get_json().items():
                 if key not in ignore:
                     setattr(user, key, value)
+            if request.get_json()["new_password"]:
+                user.password = request.get_json()["new_password"]
             user.save()
             return jsonify(user.to_dict())
         else:

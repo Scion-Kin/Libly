@@ -22,21 +22,29 @@
             padding: 10px;
             margin: 5px 0px;
         }
+
+        .error {
+            background-color: rgba(255, 0, 0, 0.233);
+        }
     </style>
 {% endblock %}
 
 {% block body %}
+    {% if error %}
+        <h3 class="error">{{ error }}</h3>
+    {% endif %}
     <form id="confirm" method="POST" enctype="multipart/form-data">
-        <h4>Hello {{ first_name }} {{ last_name }} </h4>
-        <input type="email" name="email" placeholder="your email" autocomplete="off">
-        <input type="text" name="first_name" placeholder="first name">
-        <input type="text" name="middle" placeholder="middle name">
-        <input type="text" name="last_name" placeholder="last name">
+        <h4>Hello {{ first_name }} {{ last_name }}!</h4>
+        <h5> Let's set up your account details </h5>
+        <input type="email" name="email" placeholder="your email" autocomplete="off" required>
+        <input type="text" name="first_name" placeholder="first name" required>
+        <input type="text" name="middle_name" placeholder="middle name">
+        <input type="text" name="last_name" placeholder="last name" required>
         <h6>Wanna have your own profile picture? Upload it here.</h6>
-        <input type="file" name="pic">
+        <input type="file" name="pic" required>
         <h6>If you want to change your password, insert your new password here</h6>
-        <input type="password" name="old_password" placeholder="current password" autocomplete="off">
-        <input type="password" name="password" placeholder="new password" autocomplete="off">
+        <input type="password" name="old_password" placeholder="current password" autocomplete="off" required>
+        <input type="password" name="new_password" placeholder="new password" autocomplete="off" required>
         <button type="submit">Done!</button>
     </form>
     <button id="dark"></button>
