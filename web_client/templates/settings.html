@@ -3,59 +3,41 @@
    {{ first_name }} {{ last_name }}
 {% endblock %}
 {% block head %}
+    <link rel="stylesheet" href="../static/styles/manage_resource.css">
     <style>
-        .confirm {
+        #confirm {
             width: 30%;
-            box-shadow: 0px 64px 120px -40px;
             border-radius: 15px;
-            position: absolute;
-            top: 10%;
-            left: 33%;
             background-color: none;
             backdrop-filter: blur(10px);
-
+            display: flex;
             flex-direction: column;
             padding: 20px;
         }
 
-        #new_resource form {
-            display: block;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .no_display {
-            display: none !important;
-        }
-
-        .confirm input {
+        #confirm input {
             border-radius: 30px;
             border: none;
             background-color: #F0F2F5;
             padding: 10px;
             margin: 5px 0px;
         }
-
-        #new_resource input[type="file"] {
-            width: 90%;
-        }
     </style>
 {% endblock %}
 
 {% block body %}
-    <form class="confirm" id="form" method="POST" enctype="multipart/form-data">
+    <form id="confirm" method="POST" enctype="multipart/form-data">
         <h4>Hello {{ first_name }} {{ last_name }} </h4>
-        <input type="email" name="email" placeholder="{{ user_email }}" autofill="off">
-        <input type="text" name="first_name" placeholder="{{ first_name }}" required>
-        <input type="text" name="middle" placeholder="{{ middle_name }}">
-        <input type="text" name="last_name" placeholder="{{ last_name }}" required>
+        <input type="email" name="email" placeholder="your email" autocomplete="off">
+        <input type="text" name="first_name" placeholder="first name">
+        <input type="text" name="middle" placeholder="middle name">
+        <input type="text" name="last_name" placeholder="last name">
         <h6>Wanna have your own profile picture? Upload it here.</h6>
         <input type="file" name="pic">
         <h6>If you want to change your password, insert your new password here</h6>
+        <input type="password" name="old_password" placeholder="current password" autocomplete="off">
         <input type="password" name="password" placeholder="new password" autocomplete="off">
         <button type="submit">Done!</button>
     </form>
+    <button id="dark"></button>
 {% endblock %}
