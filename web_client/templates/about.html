@@ -1,0 +1,59 @@
+{% extends 'index.html' %}
+{% block title %}Sign up{% endblock %}
+{% block header %}
+    <a href="{{ url_for('home') }}"><button>Home</button></a>
+    <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
+    <a href="{{ url_for('client_view.signup') }}"><button>Sign up</button></a>
+{% endblock %}
+{% block body %}
+<section style="
+    background-color: rgba(4, 4, 78, 0.459);
+    width: 70%;
+    margin: auto;
+    backdrop-filter: blur(35px);
+    padding: 20px;
+    border-radius: 20px;
+    color: white;">
+    <section>
+        <h2>Connecting Readers with Books</h2>
+        <p>Libly is more than just a digital library. It's a vibrant community where book lovers come together to
+            discover, discuss, and delve into the world of literature. Our extensive collection spans genres, from
+            timeless classics to contemporary bestsellers, ensuring there's something for everyone.</p>
+    </section>
+    <section>
+        <h2>Personalized Recommendations</h2>
+        <p>What sets Libly apart is our personalized recommendation system. We understand that every reader has
+            distinct tastes and preferences. That's why we use advanced algorithms to analyze reading patterns,
+            genre preferences, and user feedback to curate custom book recommendations that resonate with each
+            individual user.</p>
+    </section>
+    <section>
+        <h2>Engaging Features</h2>
+        <ul>
+            <li><strong>Reading History:</strong> Keep track of your reading journey and revisit your favorite
+                books.</li><br>
+            <li><strong>Author Insights:</strong> Gain insights into your favorite authors' works, writing styles,
+                and upcoming releases.</li><br>
+            <li><strong>Interactive Reviews:</strong> Share your thoughts on books, rate them, and read reviews
+                from other users.</li>
+        </ul>
+    </section>
+    <section>
+        <h2>User-Centric Design</h2>
+        <p>Our platform is designed with the user in mind. The intuitive interface ensures seamless navigation,
+            while the responsive design allows you to access Libly from any device, anytime, anywhere.</p>
+    </section>
+    <section>
+        <h2>Empowering Readers</h2>
+        <p>At Libly, we empower readers to explore, expand their literary horizons, and engage with books in
+            meaningful ways. Whether you're a casual reader, an avid bibliophile, or a lifelong learner, Libly is
+            your companion on the journey of literary discovery.</p>
+    </section>
+    <section>
+        <h2>Join the Libly Community</h2>
+        <p>We invite you to join the Libly community and embark on a literary adventure like never before.
+            Discover new books, connect with fellow readers, and immerse yourself in the world of storytelling.
+            Libly is where reading comes to life.</p>
+    </section>
+</section>
+{% endblock %}

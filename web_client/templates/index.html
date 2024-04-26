@@ -21,6 +21,10 @@
             justify-content: space-between;
         }
 
+        main {
+            margin-bottom: 70px;
+        }
+
         #site_logo {
             background-image: url('../static/images/logo-maybe.svg');
             background-position: center;
@@ -32,7 +36,7 @@
             margin: 5px 10px;
         }
 
-        button, input[type="submit"] {
+        button {
             background: rgb(63, 63, 255);
             color: white;
             padding: 10px;
@@ -73,6 +77,17 @@
             backdrop-filter: blur(10px);
         }
 
+        footer {
+            background-color: rgba(63, 63, 255, 0.589);
+            color: white;
+            border-radius: 20px 20px 0px 0px;
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+            backdrop-filter: blur(20px);
+        }
     </style>
 </head>
 <body>
@@ -85,13 +100,18 @@
             {% endblock %}
         </nav>
     </header>
+    <main>
     {% block body %}
         <section id="intro">
             <h3>Welcome to</h3>
             <h1>Libly</h1>
             <h4>Explore, read, connect</h4>
-            <button><a href="/about">Learn more</a></button>
+            <a href="/about"><button>Learn more</button></a>
         </section>
-    {% endblock %}
+    {% endblock %}        
+    </main>
+    <footer>
+        <h4>Copyright &copy; Liby 2024</h4> 
+    </footer>
 </body>
 </html>
