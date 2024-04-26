@@ -11,8 +11,9 @@ a {
     color: #316FF6;
 }
 
-aside {
+#user-menu {
     position: fixed;
+    display: none;
     right: -30px;
     width: 35%;
     padding: 10px;

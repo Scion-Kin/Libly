@@ -72,8 +72,9 @@ textarea:focus {
     outline: none;
 }
 
-aside {
+#user-menu {
     position: fixed;
+    display: none;
     top: 70px;
     right: -30px;
     width: 35%;

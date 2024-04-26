@@ -10,8 +10,9 @@ h2 {
     margin: 0px 15px;
 }
 
-aside {
+#user-menu {
     position: fixed;
+    display: none;
     top: 70px;
     right: -30px;
     width: 35%;
