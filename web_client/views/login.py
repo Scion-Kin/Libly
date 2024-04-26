@@ -27,9 +27,14 @@ def login():
         if password == user[0].password:
             session.permanent = True
             session["logged"] = True
+            session["user_email"] = user[0].email
             session["user_id"] = user[0].id
             session["user_type"] = user[0].user_type
-            session["user_name"] = user[0].first_name + user[0].last_name
+            session["first_name"] = user[0].first_name
+            session["middle_name"] = user[0].middle_name if user[0].middle_name else ' '
+            session["last_name"] = user[0].last_name
+            session["user_pic"] = user[0].pic
+            session["confirmed"] = user[0].confirmed
 
             # Create a response object with the redirection and set the cookie
             resp = make_response(redirect(url_for('home')))

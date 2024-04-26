@@ -3,6 +3,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const logOut = document.getElementById('log-out');
     const showMenu = document.getElementById('user-menu');
     const user = document.getElementById('user');
+    const settings = document.getElementById('settings');
+    const help = document.getElementById('help');
+
+    settings.addEventListener('click', function () {
+        window.location.href = '/settings';
+    });
+
+    help.addEventListener('click', function () {
+        window.location.href = 'https://wa.me/+250787399841';
+    });
 
     let displayed = false;
 
