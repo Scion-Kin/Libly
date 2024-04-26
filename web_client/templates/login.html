@@ -1,10 +1,14 @@
 {% extends "index.html" %}
 {% block title %}Login{% endblock %}
+{% block header %}
+    <a href="{{ url_for('home') }}"><button>Home</button></a>
+    <a href="{{ url_for('client_view.signup') }}"><button>Sign up</button></a>
+{% endblock %}
 {% block body%}
 <form method="POST" action="{{ url_for('client_view.login') }}">
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
-    <input type="submit">
+    <button type="submit">Log in</button>
 </form>
 {% if error %}
 <p>{{ error }}</p>

@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %} | Libly</title>
-    {% block head %}{% endblock %}
+    <link rel="icon" href="/static/images/logo-maybe.svg">
     <style>
         body {
-            text-align: center;
+            background-color: white;
             font-family: Arial, Helvetica, sans-serif;
-            background-color: brown;
-            color: white;
+            background-image: url('https://img.freepik.com/free-vector/people-library-flat-vector-illustration_74855-6607.jpg');
+            background-position: right;
+            background-repeat: no-repeat;
+            background-size: contain;
+            color: black;
         }
 
         header {
             display: flex;
             justify-content: space-between;
+        }
+
+        #site_logo {
+            background-image: url('../static/images/logo-maybe.svg');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 20px;
+            width: 40px;
+            height: 40px;
+            margin: 5px 10px;
         }
 
         button, input[type="submit"] {
@@ -25,14 +39,20 @@
             border: none;
             border-radius: 15px;
             max-width: 150px;
-            margin: auto;
             margin-top: 10px;
         }
         form {
             display: flex;
             flex-direction: column;
             width: 30%;
-            margin: auto;
+            color: rgb(63, 63, 255);
+            margin: 30px;
+            font-weight: bolder;
+            font-size: larger;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: rgba(202, 202, 243, 0.459);
+            backdrop-filter: blur(10px);
         }
         input {
             margin: 10px 0px;
@@ -40,19 +60,38 @@
             border: none;
             padding: 10px;
         }
+
+        #intro {
+            width: 30%;
+            color: rgb(63, 63, 255);
+            margin: 100px 20px;
+            font-weight: bolder;
+            font-size: larger;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: rgba(202, 202, 243, 0.459);
+            backdrop-filter: blur(10px);
+        }
+
     </style>
 </head>
 <body>
-    {% block header %}
     <header>
-        <h1>Libly</h1>
+        <a id="site_logo" href="/"><div></div></a>
         <nav>
-            <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
-            <a href="{{ url_for('client_view.signup') }}"><button>Signup</button></a>
-            <a href="{{ url_for('home') }}"><button>Home</button></a>
+            {% block header %}
+                <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
+                <a href="{{ url_for('client_view.signup') }}"><button>Signup</button></a>
+            {% endblock %}
         </nav>
     </header>
+    {% block body %}
+        <section id="intro">
+            <h3>Welcome to</h3>
+            <h1>Libly</h1>
+            <h4>Explore, read, connect</h4>
+            <button><a href="/about">Learn more</a></button>
+        </section>
     {% endblock %}
-    {% block body %}{% endblock %}
 </body>
 </html>

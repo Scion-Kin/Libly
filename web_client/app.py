@@ -79,7 +79,7 @@ def home():
             return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
         return render_template('feed.html', error="No books found in the database.")
 
-    return redirect(url_for('client_view.login'))
+    return render_template('index.html')
 
 
 if __name__ == "__main__":
