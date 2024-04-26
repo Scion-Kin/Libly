@@ -35,45 +35,43 @@
         </section></a>
     </section>
 {% else %}
-    <section id="feed">
-        <nav id="views-menu">
-            <button id="authors"><a href="/authors">All Authors</a></button>
-            <button id="books"><a href="/books">All Books</a></button>
-            <button id="genres"><a href="/genres">All Genres</a></button>
-        </nav>       
-        <h2>Random quotes from books</h2>
-        <section class="random-quotes">
-            <section class="quote">
-                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-                <button>From: | Unknown</button>
-            </section>
-            <section class="quote">
-                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-                <button>From: | Unknown</button>
-            </section>
-            <section class="quote">
-                <p>This is some mockup quote that has no meaning at all, for the sake of static design</p>
-                <button>From: | Unknown</button>
-            </section>
-        </section>
-        <h2>Books you may like</h2>
+    {% if error %}
         <section class="suggested">
-            {% for book in books %}
-                <section class="suggested-book">
-                    <img src="../static/images/{{ book.pic }}">
-                    <h4>Title: {{ book.title }}</h4>
-                    <b>Description:</b>
-                    <p>
-                        {{ book.description }}
-                    </p>
-                        <button><a href="/read/{{ book.id }}">Read</a></button>
-                </section>
-            {% endfor %}
+            <h3>{{ error }}</h3>
         </section>
-        <!--<section class="review-activity">
-            <h2>Recent activity</h2>
-        </section>-->
-    </section>
+    {% else %}
+        <section id="feed">
+            <nav id="views-menu">
+                <button id="authors"><a href="/authors">All Authors</a></button>
+                <button id="books"><a href="/books">All Books</a></button>
+                <button id="genres"><a href="/genres">All Genres</a></button>
+            </nav>       
+            <h2>Books you may like</h2>
+            <section class="suggested">
+                {% for book in books %}
+                    <section class="suggested-book">
+                        <img src="../static/images/{{ book.pic }}">
+                        <h4>Title: {{ book.title }}</h4>
+                        <b>Description:</b>
+                        <p>
+                            {{ book.description }}
+                        </p>
+                            <button><a href="/read/{{ book.id }}">Read</a></button>
+                    </section>
+                {% endfor %}
+            </section>
+            <h2>Quotes from books</h2>
+            <section class="random-quotes">
+                <section class="quote">
+                    <p>This feature is not yet ready. Coming soon.</p>
+                    <button><a href="/books">Go to books</a></button>
+                </section>
+            </section>
+            <!--<section class="review-activity">
+                <h2>Recent activity</h2>
+            </section>-->
+        </section>
+    {% endif %}
 {% endif %}
 <aside id="user-menu">
     <section class="history">

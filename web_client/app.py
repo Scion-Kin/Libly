@@ -48,30 +48,36 @@ def home():
                 users = [item for item in results if item["__class__"] == "User"]               
 
                 if len(results) > 0:
-                    return render_template('search_results.html', authors=authors, books=books, genres=genres, users=users, keywords=keywords, found=True)
+                    return render_template('search_results.html', authors=authors, books=books,
+                                            genres=genres, users=users, keywords=keywords,
+                                            found=True, pic=session["user_pic"])
 
-                return render_template('search_results.html', authors=authors, books=books, genres=genres, users=users, keywords=keywords, found=False)
+                return render_template('search_results.html', authors=authors, books=books,
+                                        genres=genres, users=users, keywords=keywords,
+                                        found=False, pic=session["user_pic"])
 
         except Exception:
-            raise
+            pass
 
 
     if session and session['user_type'] == 'king' and session['logged'] == True:
-        return render_template('feed.html', admin=True)
+        return render_template('feed.html', admin=True, pic=session["user_pic"])
 
     elif session and session['logged'] == True:
 
         books = requests.get('http://localhost:5000/api/v1/books').json()
-        random = []
+        if "error" not in books:
+            random = []
 
-        count = 0
-        for i in books:
-            if count == 2:
-                break
-            random.append(books[i]["data"])
-            count += 1
+            count = 0
+            for i in books:
+                if count == 2:
+                    break
+                random.append(books[i]["data"])
+                count += 1
 
-        return render_template('feed.html', admin=False, books=random)
+            return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
+        return render_template('feed.html', error="No books found in the database.")
 
     return redirect(url_for('client_view.login'))
 

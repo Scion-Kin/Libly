@@ -157,10 +157,6 @@ button {
     margin-left: 50%;
 }
 
-#avatar {
-    background-image: url('../images/avatar.svg');
-}
-
 .options button {
     color: inherit !important;
 }

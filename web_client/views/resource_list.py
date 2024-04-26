@@ -16,8 +16,8 @@ def authors():
             data = [response.json()[i]["data"] for i in response.json()]
             print(data)
             return render_template('resource_list.html',
-                                       all=data,
-                                       type="Authors") 
+                                    all=data,
+                                    type="Authors", pic=session["user_pic"]) 
 
         abort(500)
 
@@ -33,7 +33,7 @@ def books():
             data = [response.json()[i]["data"] for i in response.json()]
             return render_template('resource_list.html',
                                        all=data,
-                                       type="Books") 
+                                       type="Books", pic=session["user_pic"]) 
 
         abort(500)
 
@@ -49,7 +49,7 @@ def genres():
             data = [response.json()[i]["data"] for i in response.json()]
             return render_template('resource_list.html',
                                        all=data,
-                                       type="Genres") 
+                                       type="Genres", pic=session["user_pic"]) 
 
         abort(500)
 

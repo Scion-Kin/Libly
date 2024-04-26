@@ -17,6 +17,7 @@ a {
     right: -30px;
     width: 35%;
     padding: 10px;
+    backdrop-filter: blur(10px);
 }
 
 #feed, #manage-list {

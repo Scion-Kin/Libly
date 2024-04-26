@@ -17,6 +17,8 @@ def confirmed_email(user_id):
     if user.confirmed is False:
         user.confirmed = True
         user.save()
-        return render_template('confirm_email.html', confirmed=True, already=False, title="Welcome!")
+        return render_template('confirm_email.html', confirmed=True, already=False,
+                               title="Welcome!", pic=session["user_pic"])
 
-    return render_template('confirm_email.html', confirmed=True, already=True, title="Already Activated")
+    return render_template('confirm_email.html', confirmed=True, already=True,
+                            title="Already Activated", pic=session["user_pic"])

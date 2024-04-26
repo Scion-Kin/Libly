@@ -27,7 +27,9 @@ def manage_user():
 
             for key, value in details.items():
                 if key not in ["middle_name", "new_password"] and len(value) == 0:
-                    return render_template('settings.html', error="Missing {}".format(value))
+                    return render_template('settings.html', first_name=session["first_name"], last_name=session["last_name"],
+                                            error="Missing {}".format(value),
+                                            pic=session["user_pic"])
 
             headers = {"Content-Type": "application/json"}
             response = requests.put('http://localhost:5000/api/v1/users/{}'.format(session['user_id']),
@@ -38,7 +40,9 @@ def manage_user():
 
                 return redirect(url_for('home'))
 
-            return render_template('settings.html', error=response.json()["error"])
+            return render_template('settings.html', first_name=session["first_name"], last_name=session["last_name"],
+                                   error=response.json()["error"].capitalize(), pic=session["user_pic"])
 
-        return render_template('settings.html', first_name=session["first_name"], last_name=session["last_name"])
+        return render_template('settings.html', first_name=session["first_name"],
+                               last_name=session["last_name"], pic=session["user_pic"])
     return redirect(url_for('home'))

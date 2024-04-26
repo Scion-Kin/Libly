@@ -22,9 +22,10 @@ def book_info():
                     reviews = requests.get('http://localhost:5000/api/v1/{}/reviews'.format(request.form.get('id')))
 
                     if reviews.status_code == 200:
-                        return render_template('info.html', info=response.json()[i]["data"], reviews=reviews.json())
-                    return render_template('info.html', info=response.json()[i]["data"]) 
+                        return render_template('info.html', info=response.json()[i]["data"],
+                                                reviews=reviews.json(), pic=session["user_pic"])
+                    return render_template('info.html', info=response.json()[i]["data"], pic=session["user_pic"]) 
 
-        return render_template('info.html')
+        return render_template('info.html', pic=session["user_pic"])
 
     return redirect(url_for('home'))
