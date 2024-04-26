@@ -8,8 +8,8 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="icon" href="../static/images/logo-maybe.svg">
-    <link rel="stylesheet" href="../static/styles/feed.css">
+    <link rel="icon" href="/static/images/logo-maybe.svg">
+    <link rel="stylesheet" href="/static/styles/feed.css">
 {% endblock %}
 {% block body %}
 {% if admin %}
@@ -50,7 +50,7 @@
             <section class="suggested">
                 {% for book in books %}
                     <section class="suggested-book">
-                        <img src="../static/images/{{ book.pic }}">
+                        <img src="/static/images/{{ book.pic }}">
                         <h4>Title: {{ book.title }}</h4>
                         <b>Description:</b>
                         <p>

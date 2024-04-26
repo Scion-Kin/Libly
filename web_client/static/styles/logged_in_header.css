@@ -76,7 +76,7 @@ input[type="search"]:focus {
 
 #book-grab {
     background-color: inherit;
-    background-image: url('../images/book-grab.svg');
+    background-image: url('/static/images/book-grab.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -87,7 +87,7 @@ input[type="search"]:focus {
 }
 
 #grab {
-    background-image: url('../images/finger.svg');
+    background-image: url('/static/images/finger.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -121,7 +121,7 @@ button {
 }
 
 #site_logo {
-    background-image: url('../images/logo-maybe.svg');
+    background-image: url('/static/images/logo-maybe.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -132,7 +132,7 @@ button {
 
 #main-icon, #trending-icon, #book-icon, #notification-icon, #avatar {
     background-color: inherit;
-    background-image: url('../images/home-icon.svg');
+    background-image: url('/static/images/home-icon.svg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -142,16 +142,16 @@ button {
 }
 
 #trending-icon {
-    background-image: url('../images/fire-icon.svg');
+    background-image: url('/static/images/fire-icon.svg');
 }
 
 #book-icon {
-    background-image: url('../images/book-icon.svg');
+    background-image: url('/static/images/book-icon.svg');
     border-radius: 0;
 }
 
 #notification-icon {
-    background-image: url('../images/notification-icon.svg');
+    background-image: url('/static/images/notification-icon.svg');
     float: right;
     margin-left: 50%;
 }

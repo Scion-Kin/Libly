@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>View PDF</title>
+    <title>Happy reading</title>
+    <link rel="icon" href="/static/images/logo-maybe.svg">
 </head>
-<body style="text-align: center;">
+<body style="text-align: center; background-color: rgba(34, 32, 32, 0.61);">
     {% for image_data in data %}
-        <img src="data:image/png;base64,{{ image_data|b64encode }}" alt="Page {{ loop.index }}"">
+        <img src="data:image/png;base64,{{ image_data|b64encode }}" alt="Page {{ loop.index }}">
         <br>
     {% endfor %}
 </body>

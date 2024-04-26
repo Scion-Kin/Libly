@@ -27,7 +27,7 @@ a {
 
 #authors, #books, #genres {
     background-color: inherit;
-    background-image: url('../images/select-author.svg');
+    background-image: url('/static/images/select-author.svg');
     background-position: left;
     background-repeat: no-repeat;
     background-size: contain;
@@ -42,11 +42,11 @@ a {
 }
 
 #books {
-    background-image: url('../images/select-books.svg');
+    background-image: url('/static/images/select-books.svg');
 }
 
 #genres {
-    background-image: url('../images/select-genres.svg');
+    background-image: url('/static/images/select-genres.svg');
 }
 
 #manage-list {
@@ -162,17 +162,17 @@ a {
 }
 
 #settings {
-    background-image: url('../images/settings-icon.svg');
+    background-image: url('/static/images/settings-icon.svg');
 }
 
 #help {
-    background-image: url('../images/help-icon.svg');
+    background-image: url('/static/images/help-icon.svg');
 }
 
 #dark {
-    background-image: url('../images/dark-mode-icon.svg');
+    background-image: url('/static/images/dark-mode-icon.svg');
 }
 
 #log-out {
-    background-image: url('../images/logout-icon.svg');
+    background-image: url('/static/images/logout-icon.svg');
 }

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}| Libly</title>
-    <script src="../static/scripts/dark_mode.js"></script>
-    <script src="../static/scripts/user_manager.js"></script>
-    <link rel="icon" href="../static/images/logo-maybe.svg">
-    <link rel="stylesheet" href="../static/styles/logged_in_header.css">
+    <script src="/static/scripts/dark_mode.js"></script>
+    <script src="/static/scripts/user_manager.js"></script>
+    <link rel="icon" href="/static/images/logo-maybe.svg">
+    <link rel="stylesheet" href="/static/styles/logged_in_header.css">
     {% block head %}{% endblock %}
 </head>
 <body>
@@ -28,7 +28,7 @@
         </nav>
         <nav id="user">
             <button id="notification-icon"></button>
-            <button id="avatar" style="background-image: url('../static/images/{{ pic }}');"></button>
+            <button id="avatar" style="background-image: url('/static/images/{{ pic }}');"></button>
         </nav>
     </header>
     {% endblock %}

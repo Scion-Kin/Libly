@@ -1,10 +1,10 @@
 {% extends 'logged.html' %}
 {% block title %} Search: {{ keywords }} {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="../static/styles/search_results.css">
-<link rel="stylesheet" href="../static/styles/feed.css">
-<link rel="icon" href="../static/images/logo-maybe.svg">
-<script src="../static/scripts/search_results.js"></script>
+<link rel="stylesheet" href="/static/styles/search_results.css">
+<link rel="stylesheet" href="/static/styles/feed.css">
+<link rel="icon" href="/static/images/logo-maybe.svg">
+<script src="/static/scripts/search_results.js"></script>
 {% endblock %}
 {% block body %}
 {% if error %}
@@ -38,7 +38,7 @@
 
     {% if books %}
         {% for book in books %}
-            <section class="book result-box" style="background-image: url('../static/images/{{ book.pic }}');">
+            <section class="book result-box" style="background-image: url('/static/images/{{ book.pic }}');">
                 <section class="description">
                     <button class="title">
                         Book - <span class="naming">{{ book.title }}</span>

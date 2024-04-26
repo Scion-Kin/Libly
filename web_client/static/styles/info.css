@@ -117,7 +117,7 @@ textarea:focus {
 
 .history-book {
     background-color: #e7e8e9;
-    background-image: url('../images/vintage-book.png');
+    background-image: url('/static/images/vintage-book.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
@@ -160,17 +160,17 @@ button {
 }
 
 #settings {
-    background-image: url('../images/settings-icon.svg');
+    background-image: url('/static/images/settings-icon.svg');
 }
 
 #help {
-    background-image: url('../images/help-icon.svg');
+    background-image: url('/static/images/help-icon.svg');
 }
 
 #dark {
-    background-image: url('../images/dark-mode-icon.svg');
+    background-image: url('/static/images/dark-mode-icon.svg');
 }
 
 #log-out {
-    background-image: url('../images/logout-icon.svg');
+    background-image: url('/static/images/logout-icon.svg');
 }

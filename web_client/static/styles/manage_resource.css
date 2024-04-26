@@ -75,7 +75,7 @@ button, .confirm input[type="submit"] {
 
 .edit, .trash {
     background-color: white;
-    background-image: url('../images/edit-icon.svg');
+    background-image: url('/static/images/edit-icon.svg');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -84,7 +84,7 @@ button, .confirm input[type="submit"] {
 }
 
 .trash {
-    background-image: url('../images/trash-icon.svg');
+    background-image: url('/static/images/trash-icon.svg');
     border: 3px solid rgb(216, 49, 49);
 }
 
@@ -148,7 +148,7 @@ form {
 }
 
 #dark {
-    background-image: url('../images/dark-mode-icon.svg');
+    background-image: url('/static/images/dark-mode-icon.svg');
     background-position: right;
     background-repeat: no-repeat;
     background-size: contain;
