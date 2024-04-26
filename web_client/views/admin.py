@@ -11,7 +11,7 @@ import os
 @client_view.route('/manage/authors', methods=['GET', 'POST'], strict_slashes=False)
 def manage_authors():
     ''' manage authors '''
-    if session and session['user_type'] == 'king':
+    if session and session['user_type'] == 'librarian':
         
         if request.method == 'POST':
             file = request.files['pic']
@@ -34,7 +34,7 @@ def manage_authors():
 def manage_books():
     ''' manage books '''
 
-    if session and session['user_type'] == 'king':
+    if session and session['user_type'] == 'librarian':
 
         if request.method == 'POST':
             book_file = request.files['file']
@@ -68,7 +68,7 @@ def manage_books():
 @client_view.route('/manage/genres', methods=['GET', 'POST'], strict_slashes=False)
 def manage_genres():
     ''' manage genres '''
-    if session and session['user_type'] == 'king':
+    if session and session['user_type'] == 'librarian':
         if request.method == 'POST':
             headers = {"Content-Type": "application/json"}
             response = requests.post('http://localhost:5000/api/v1/genres',
@@ -82,7 +82,7 @@ def manage_genres():
 @client_view.route('/manage/reviews', strict_slashes=False)
 def manage_reviews():
     ''' manage reviews '''
-    if session and session['user_type'] == 'king':
+    if session and session['user_type'] == 'librarian':
         return render_template('manage_resource.html', title="Reviews", pic=session["user_pic"])
     abort(404)
 
@@ -90,6 +90,6 @@ def manage_reviews():
 @client_view.route('/manage/users', strict_slashes=False)
 def manage_users():
     ''' manage users '''
-    if session and session['user_type'] == 'king':
+    if session and session['user_type'] == 'librarian':
         return render_template('manage_resource.html', title="Users", pic=session["user_pic"])
     abort(404)

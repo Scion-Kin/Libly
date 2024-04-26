@@ -1,6 +1,7 @@
 {% extends "index.html" %}
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
+<section id="intro">
     {% if confirmed == True and already == False %}
         <h3>Email Confirmed!</h3>
         <h1>Welcome to Libly</h1>
@@ -12,4 +13,5 @@
         <h3>Email Confirmation failed.</h3>
         <button>Resend email</button>
     {% endif %}
+</section>
 {% endblock %}

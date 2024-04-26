@@ -60,7 +60,7 @@ def home():
             pass
 
 
-    if session and session['user_type'] == 'king' and session['logged'] == True:
+    if session and session['user_type'] == 'librarian' and session['logged'] == True:
         return render_template('feed.html', admin=True, pic=session["user_pic"])
 
     elif session and session['logged'] == True:
