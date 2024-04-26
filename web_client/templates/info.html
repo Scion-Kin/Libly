@@ -21,6 +21,11 @@
             </p>
         </article>
     </section>
+    <button>
+        <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+            Read book
+        </a>
+    </button>
     {% if reviews %}
         <h4 style="margin-left: 10px;">Reviews</h4>
         <section id="reviews">
@@ -49,14 +54,8 @@
 </section>
 {% endif %}
 <aside id="user-menu">
-    <section class="history">
+    <section id="history" class="history">
         <h2>Continue reading</h2>
-        <section class="history-book">
-            <button>Arsene Lupin | -></button>
-        </section>
-        <section class="history-book">
-            <button>A Study in Scarlet | -></button>
-        </section>
     </section>
     <section class="options">
         <button id="dark">Dark mode</button>

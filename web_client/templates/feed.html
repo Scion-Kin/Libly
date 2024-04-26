@@ -56,7 +56,9 @@
                         <p>
                             {{ book.description }}
                         </p>
-                            <button><a href="/read/{{ book.id }}">Read</a></button>
+                        <button>
+                            <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read</a>
+                        </button>
                     </section>
                 {% endfor %}
             </section>
@@ -74,14 +76,8 @@
     {% endif %}
 {% endif %}
 <aside id="user-menu">
-    <section class="history">
+    <section id="history" class="history">
         <h2>Continue reading</h2>
-        <section class="history-book">
-            <button>Arsene Lupin | -> </button>
-        </section>
-        <section class="history-book">
-            <button>A Study in Scarlet | -> </button>
-        </section>
     </section>
     <section class="options">
         <button id="dark">Dark mode</button>

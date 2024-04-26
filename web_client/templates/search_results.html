@@ -43,7 +43,9 @@
                     <button class="title">
                         Book - <span class="naming">{{ book.title }}</span>
                     </button><br>
-                    <button class="go"><a href="/read/{{ book.id }}">Read book</a></button>
+                    <button class="go">
+                        <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read book</a>
+                    </button>
                     <form method="POST" action="{{ url_for('client_view.book_info') }}">
                         <button name="id" value="{{ book.id }}" class="go">Info & reviews</button>
                     </form>
