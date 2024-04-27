@@ -30,11 +30,12 @@ def b64encode_filter(s):
 @app.route('/', methods=['GET', 'POST'], strict_slashes=False)
 def home():
     ''' The home page route '''
-    
-    if request.method == 'POST' and session['logged'] == True:
-        keywords = request.form.get('keywords')
 
-        try:       
+    if session and session["logged"] == True:
+
+        if request.method == 'POST':
+            keywords = request.form.get('keywords')
+
             headers = {"Content-Type": "application/json"}
             response = requests.post('https://usernet.tech/api/v1/search', headers=headers, json={"keywords": keywords})
 
@@ -56,28 +57,24 @@ def home():
                                         genres=genres, users=users, keywords=keywords,
                                         found=False, pic=session["user_pic"])
 
-        except Exception:
-            pass
 
+        if session['user_type'] == 'librarian':
+            return render_template('feed.html', admin=True, pic=session["user_pic"])
 
-    if session and session['user_type'] == 'librarian' and session['logged'] == True:
-        return render_template('feed.html', admin=True, pic=session["user_pic"])
+        else:
+            books = requests.get('https://usernet.tech/api/v1/books').json()
+            if "error" not in books:
+                random = []
 
-    elif session and session['logged'] == True:
+                count = 0
+                for i in books:
+                    if count == 2:
+                        break
+                    random.append(books[i]["data"])
+                    count += 1
 
-        books = requests.get('https://usernet.tech/api/v1/books').json()
-        if "error" not in books:
-            random = []
-
-            count = 0
-            for i in books:
-                if count == 2:
-                    break
-                random.append(books[i]["data"])
-                count += 1
-
-            return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
-        return render_template('feed.html', error="No books found in the database.")
+                return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
+            return render_template('feed.html', error="No books found in the database.")
 
     return render_template('index.html')
 
