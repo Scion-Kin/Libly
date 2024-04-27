@@ -16,7 +16,7 @@ def manage_authors():
         if request.method == 'POST':
             file = request.files['pic']
             headers = {"Content-Type": "application/json"}
-            response = requests.post('http://localhost:5000/api/v1/authors',
+            response = requests.post('https://usernet.tech/api/v1/authors',
                                      headers=headers, json={
                 "first_name": request.form.get('first_name'), "middle_name": request.form.get('middle_name'),
                 "last_name": request.form.get('last_name'), "pic": secure_filename(file.filename)
@@ -41,7 +41,7 @@ def manage_books():
             book_cover = request.files['pic']
 
             headers = {"Content-Type": "application/json"}
-            response = requests.post('http://localhost:5000/api/v1/books',
+            response = requests.post('https://usernet.tech/api/v1/books',
                                      headers=headers, json={
                 "title": request.form.get('title'), "ISBN": request.form.get('ISBN'),
                 "authors": request.form.get('authors').split(','),
@@ -57,8 +57,8 @@ def manage_books():
 
             return redirect(url_for('client_view.manage_books'))
 
-        genres = requests.get('http://localhost:5000/api/v1/genres')
-        authors = requests.get('http://localhost:5000/api/v1/authors')
+        genres = requests.get('https://usernet.tech/api/v1/genres')
+        authors = requests.get('https://usernet.tech/api/v1/authors')
 
         return render_template('manage_resource.html', title="Books", pic=session["user_pic"],
                                genres=genres.json(), authors=authors.json())
@@ -71,7 +71,7 @@ def manage_genres():
     if session and session['user_type'] == 'librarian':
         if request.method == 'POST':
             headers = {"Content-Type": "application/json"}
-            response = requests.post('http://localhost:5000/api/v1/genres',
+            response = requests.post('https://usernet.tech/api/v1/genres',
                                      headers=headers,
                                      json={"name": request.form.get('name')})
 

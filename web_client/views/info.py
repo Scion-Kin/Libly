@@ -14,12 +14,12 @@ def book_info():
     if session and session['logged'] == True:
         if request.method == 'POST':
 
-            response = requests.get('http://localhost:5000/api/v1/books/{}'.format(request.form.get('id')))
+            response = requests.get('https://usernet.tech/api/v1/books/{}'.format(request.form.get('id')))
 
             if response.status_code == 200:
                 for i in response.json():
 
-                    reviews = requests.get('http://localhost:5000/api/v1/{}/reviews'.format(request.form.get('id')))
+                    reviews = requests.get('https://usernet.tech/api/v1/{}/reviews'.format(request.form.get('id')))
 
                     if reviews.status_code == 200:
                         return render_template('info.html', info=response.json()[i]["data"],

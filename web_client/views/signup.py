@@ -23,7 +23,7 @@ def signup():
             "last_name": request.form.get('last_name'),
             "password": request.form.get('password')
         }
-        response = requests.post('http://localhost:5000/api/v1/users', json=details, headers=headers)
+        response = requests.post('https://usernet.tech/api/v1/users', json=details, headers=headers)
 
         if response.status_code == 201:
 
@@ -35,7 +35,7 @@ def signup():
             }
 
             # send request to the node api to send the confirmation email
-            response = requests.post('http://localhost:3000/signup', json=details, headers=headers)
+            response = requests.post('https://usernet.tech/signup', json=details, headers=headers)
             print(response.json())
 
             return redirect(url_for('client_view.login'))

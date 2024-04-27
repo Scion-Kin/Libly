@@ -15,7 +15,7 @@ def read_book(book_id):
 
     if session and session['logged'] == True:
 
-        data = requests.get(f'http://localhost:5000/api/v1/books/{book_id}')
+        data = requests.get(f'https://usernet.tech/api/v1/books/{book_id}')
 
         if data.status_code == 200:
             for i in data.json():

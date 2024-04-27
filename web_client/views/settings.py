@@ -32,7 +32,7 @@ def manage_user():
                                             pic=session["user_pic"])
 
             headers = {"Content-Type": "application/json"}
-            response = requests.put('http://localhost:5000/api/v1/users/{}'.format(session['user_id']),
+            response = requests.put('https://usernet.tech/api/v1/users/{}'.format(session['user_id']),
                                      headers=headers, json=details)
 
             if response.status_code == 200:

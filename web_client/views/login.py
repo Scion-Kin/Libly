@@ -8,9 +8,6 @@ from models import storage
 from models.user import User
 from uuid import uuid4
 
-#secret_key = str(uuid4())
-#s = URLSafeSerializer(secret_key)
-
 
 @client_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login():
@@ -37,7 +34,7 @@ def login():
             session["confirmed"] = user[0].confirmed
 
             # Create a response object with the redirection and set the cookie
-            resp = make_response(redirect(url_for('home')))
+            resp = make_response(redirect('/'))
             resp.set_cookie('user_id', user[0].id, max_age=2592000)
 
             return resp

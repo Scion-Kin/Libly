@@ -10,7 +10,7 @@ import requests
 def author(author_id):
     ''' The author page  '''
     if session and session['logged'] == True:
-        response = requests.get(f'http://localhost:5000/api/v1/authors/{author_id}')
+        response = requests.get(f'https://usernet.tech/api/v1/authors/{author_id}')
 
         if response.status_code == 200:
             for i in response.json():
@@ -28,7 +28,7 @@ def author(author_id):
 def genre(genre_id):
     ''' The genre page '''
     if session and session['logged'] == True:
-        response = requests.get(f'http://localhost:5000/api/v1/genres/{genre_id}')
+        response = requests.get(f'https://usernet.tech/api/v1/genres/{genre_id}')
 
         if response.status_code == 200:
             

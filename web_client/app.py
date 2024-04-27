@@ -4,19 +4,19 @@
 from web_client.views import client_view
 from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
 from itsdangerous import URLSafeSerializer
-from datetime import timedelta
+from uuid import uuid4
 import requests
 import base64
 
 app = Flask(__name__)
 
-app.secret_key = 'temporary_key'
+app.secret_key = str(uuid4())
 
 s = URLSafeSerializer(app.secret_key)
 
 app.register_blueprint(client_view)
 
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
+# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
 app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Use HttpOnly cookies
 
@@ -36,7 +36,7 @@ def home():
 
         try:       
             headers = {"Content-Type": "application/json"}
-            response = requests.post('http://0.0.0.0:5000/api/v1/search', headers=headers, json={"keywords": keywords})
+            response = requests.post('https://usernet.tech/api/v1/search', headers=headers, json={"keywords": keywords})
 
             if response.status_code == 200:
                 results = [i for i in response.json().values() if len(i) > 0]
@@ -65,7 +65,7 @@ def home():
 
     elif session and session['logged'] == True:
 
-        books = requests.get('http://localhost:5000/api/v1/books').json()
+        books = requests.get('https://usernet.tech/api/v1/books').json()
         if "error" not in books:
             random = []
 
