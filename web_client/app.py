@@ -9,7 +9,7 @@ import base64
 
 app = Flask(__name__)
 
-app.secret_key = 'helloliblyhowareyou'
+app.secret_key = ''
 
 app.register_blueprint(client_view)
 
