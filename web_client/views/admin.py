@@ -19,7 +19,8 @@ def manage_authors():
             response = requests.post('https://usernet.tech/api/v1/authors',
                                      headers=headers, json={
                 "first_name": request.form.get('first_name'), "middle_name": request.form.get('middle_name'),
-                "last_name": request.form.get('last_name'), "pic": secure_filename(file.filename)
+                "last_name": request.form.get('last_name'), "pic": secure_filename(file.filename),
+                "password": request.form.get('password')
             })
 
             file.save(os.path.join('web_client/static/images', secure_filename(file.filename)))
@@ -48,14 +49,17 @@ def manage_books():
                 "genres": request.form.get('genres').split(','), 
                 "file_name": secure_filename(book_file.filename),
                 "pic": secure_filename(book_cover.filename),
-                "description": request.form.get('description')
+                "description": request.form.get('description'),
+                "password": request.form.get('password')
             })
 
-            if response.status_code < 400:
+            print(response.status_code)
+
+            if response.status_code == 201:
                 book_file.save(os.path.join('web_client/books/', secure_filename(book_file.filename)))
                 book_cover.save(os.path.join('web_client/static/images/', secure_filename(book_cover.filename)))
 
-            return redirect(url_for('client_view.manage_books'))
+                return redirect(url_for('client_view.manage_books'))
 
         genres = requests.get('https://usernet.tech/api/v1/genres')
         authors = requests.get('https://usernet.tech/api/v1/authors')
@@ -73,7 +77,7 @@ def manage_genres():
             headers = {"Content-Type": "application/json"}
             response = requests.post('https://usernet.tech/api/v1/genres',
                                      headers=headers,
-                                     json={"name": request.form.get('name')})
+                                     json={"name": request.form.get('name'), "password": request.form.get('password')})
             if response.status_code != 201:
                 return render_template('manage_resource.html', title="Genres", error=response.json()[0]["error"], pic=session["user_pic"])
 

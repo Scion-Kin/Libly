@@ -90,7 +90,7 @@ def update_user(user_id):
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}, 401))
 
-    admins = [i for i in storage.all("User").values() if i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values() if i.user_type == "librarian" and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}, 401))
@@ -98,11 +98,11 @@ def update_user(user_id):
     user = storage.get(User, user_id)
     if user is not None:
         ignore = ['id', 'created_at', 'updated_at']
-        if request.get_json()["password"] and user.password == request.get_json()["password"]:
+        if user.password == request.get_json()["password"] or len(admins) > 0:
             for key, value in request.get_json().items():
                 if key not in ignore:
                     setattr(user, key, value)
-            if request.get_json()["new_password"]:
+            if "new_password" in request.get_json():
                 user.password = request.get_json()["new_password"]
             user.save()
             return jsonify(user.to_dict())

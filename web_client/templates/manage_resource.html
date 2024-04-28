@@ -8,7 +8,7 @@
 {% endblock %}
 {% block body %}
     {% if error %}
-        <h4 style="display: block">The password you entered was incorrect.</h4>
+        <h4 class="error" style="display: block">The password you entered was incorrect.</h4>
     {% endif %}
 <h2>Manage {{ title }}</h2>
 <section id="results">
@@ -26,12 +26,14 @@
                     <input type="text" name="middle" placeholder="Author's middle name">
                     <input type="text" name="last_name" placeholder="Author's last name" required>
                     <h6>Upload the author's picture below. If you don't have any, don't upload anything.</h6>
-                    <input type="file" name="pic">
+                    <input type="file" name="pic" required>
+		    <input type="password" name="password" placeholder="Input your admin password" required>
                 {% elif title == "Books" %}
                     <h4>Create a new book</h4>
                     <input type="text" name="title" placeholder="Book title" required>
                     <input type="text" name="ISBN" placeholder="ISBN" required>
-                    <input type="text" name="description" placeholder="Write the books description here" required>
+		    <h5> Write the book's description here </h5>
+		    <textarea rows=5 columns=15 name="description" required></textarea>
 
                     <h5>Check the boxes of the authors who wrote the book.
                         If you see none, please first
@@ -61,9 +63,11 @@
 
                     <h6>Upload the book below. ( Required )</h6>
                     <input type="file" name="file" required>
+		    <input type="password" name="password" placeholder="Input your admin password" required>
                 {% elif title == "Genres" %}
                     <h4>Create a new Genre</h4>
                     <input type="text" name="name" placeholder="Genre name" required>
+		    <input type="password" name="password" placeholder="Input your admin password" required>
                 {% endif %}
                 <button id="create-now">Submit</button> 
             </form>
