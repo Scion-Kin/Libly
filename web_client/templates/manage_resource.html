@@ -7,11 +7,11 @@
     <link rel="icon" href="/static/images/logo-maybe.svg">
 {% endblock %}
 {% block body %}
+    {% if error %}
+        <h4 style="display: block">The password you entered was incorrect.</h4>
+    {% endif %}
 <h2>Manage {{ title }}</h2>
 <section id="results">
-    {% if error %}
-        <h4>{{ error }}</h4>
-    {% endif %}
     <nav>
         <form method="POST">
             <input type="search" name="search">

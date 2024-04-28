@@ -75,7 +75,7 @@ def manage_genres():
                                      headers=headers,
                                      json={"name": request.form.get('name')})
             if response.status_code != 201:
-                return render_template('manage_resource.html', title="Genres", error=response.json(), pic=session["user_pic"])
+                return render_template('manage_resource.html', title="Genres", error=response.json()[0]["error"], pic=session["user_pic"])
 
         return render_template('manage_resource.html', title="Genres", pic=session["user_pic"])
     abort(404)
