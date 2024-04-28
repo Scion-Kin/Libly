@@ -3,7 +3,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const cors = require("cors");
 const fs = require('fs');
@@ -19,8 +18,6 @@ app.post("/signup", (req, res) => {
         let data = fs.readFileSync('confirmation_email.html', 'utf8');
         data = data.replace(/{% id %}/g, req.body.id);
         data = data.replace(/{% name %}/g, `${req.body.first_name} ${req.body.last_name}`);
-
-        console.log(data)
 
         const transporter = nodemailer.createTransport({
             host: 'smtp-relay.brevo.com',
@@ -40,14 +37,13 @@ app.post("/signup", (req, res) => {
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                console.log(error);
+                console.error(error);
                 res.json({ error: "Email sending failed" });
             } else {
                 console.log('Email sent: ' + info.response);
                 res.json({ success: "Email sent successfully" });
             }
         });
-        
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'Error reading HTML file' });

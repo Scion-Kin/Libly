@@ -57,6 +57,14 @@ def create_genre():
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     genres = [i for i in storage.all(Genre).values() if i.name.lower() == request.get_json()["name"].lower()]
     if len(genres) > 0:
         return make_response(jsonify({"error": "genre exists"}), 403)
@@ -74,6 +82,14 @@ def update_genre(genre_id):
     if "name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name"}), 400)
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     genre = storage.get(Genre, genre_id)
     if genre is not None:
         genre.name = request.get_json()["name"]
@@ -86,6 +102,14 @@ def update_genre(genre_id):
 @grand_view.route('/genres/<string:genre_id>', methods=['DELETE'], strict_slashes=False)
 def delete_genre(genre_id):
     ''' creates a new genre in the database '''
+
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
 
     genre = storage.get(Genre, genre_id)
     if genre is not None:

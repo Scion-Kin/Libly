@@ -68,10 +68,10 @@ def create_user():
         return make_response(jsonify({"error": "email already exists"}), 400)
 
     if "user_type" in request.get_json():
-        admin = [i for i in storage.all(User).values() if i.user_type == "king"]
+        admin = [i for i in storage.all(User).values() if i.user_type == "librarian"]
         if "sign_password" in request.get_json() and request.get_json()["sign_password"] == admin[0].password:
             new_user = User(**request.get_json())
-            new_user.user_type = 'king'
+            new_user.user_type = 'librarian'
             new_user.save()
         else:
             return make_response(jsonify({"error": "authentication failed"}), 401)
@@ -86,6 +86,14 @@ def create_user():
 @grand_view.route('/users/<string:user_id>', methods=['PUT'], strict_slashes=False)
 def update_user(user_id):
     ''' creates a new user in the database '''
+
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
 
     user = storage.get(User, user_id)
     if user is not None:
@@ -109,7 +117,7 @@ def delete_user(user_id):
     ''' creates a new user in the database '''
 
     user = storage.get(User, user_id)
-    admins = [i for i in storage.all(User).values() if i.user_type == "king"]
+    admins = [i for i in storage.all(User).values() if i.user_type == "librarian"]
     admins = [i.password for i in admins]
 
     if user is not None:

@@ -3,16 +3,13 @@
 
 from web_client.views import client_view
 from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
-from itsdangerous import URLSafeSerializer
 from uuid import uuid4
 import requests
 import base64
 
 app = Flask(__name__)
 
-app.secret_key = str(uuid4())
-
-s = URLSafeSerializer(app.secret_key)
+app.secret_key = 'helloliblyhowareyou'
 
 app.register_blueprint(client_view)
 
@@ -46,7 +43,7 @@ def home():
                 authors = [item for item in results if item["__class__"] == "Author"]
                 books = [item for item in results if item["__class__"] == "Book"]
                 genres = [item for item in results if item["__class__"] == "Genre"]
-                users = [item for item in results if item["__class__"] == "User"]               
+                users = [item for item in results if item["__class__"] == "User"]
 
                 if len(results) > 0:
                     return render_template('search_results.html', authors=authors, books=books,
@@ -74,10 +71,10 @@ def home():
                     count += 1
 
                 return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
-            return render_template('feed.html', error="No books found in the database.")
+            return render_template('feed.html', error="No books found in the database.", pic=session["user_pic"])
 
     return render_template('index.html')
 
 
 if __name__ == "__main__":
-    app.run(port=5050, debug=True)
+    app.run(host="0.0.0.0")

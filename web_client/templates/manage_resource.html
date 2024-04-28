@@ -9,6 +9,9 @@
 {% block body %}
 <h2>Manage {{ title }}</h2>
 <section id="results">
+    {% if error %}
+        <h4>{{ error }}</h4>
+    {% endif %}
     <nav>
         <form method="POST">
             <input type="search" name="search">

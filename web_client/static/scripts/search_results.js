@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let genresArray = document.getElementsByClassName('genre');
     let usersArray = document.getElementsByClassName('user');
     let hidden = false;
-    
+
     all.addEventListener('click', function(e) {
 
         e.preventDefault();

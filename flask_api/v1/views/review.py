@@ -55,6 +55,14 @@ def create_review():
     if "book_id" not in request.get_json():
         return make_response(jsonify({"error": "Missing book id"}), 400)
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    users = [i for i in storage.all("User").values() if i.password == request.get_json()["password"]]
+
+    if len(users) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     new_review = Review(**request.get_json())
     new_review.save()
 
@@ -68,6 +76,14 @@ def update_review(review_id):
     if "text" not in request.get_json():
         return make_response(jsonify({"error": "Missing text"}), 400)
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     review = storage.get(Review, review_id)
     if review is not None:
         review.text = request.get_json()["text"]
@@ -80,6 +96,14 @@ def update_review(review_id):
 @grand_view.route('/reviews/<string:review_id>', methods=['DELETE'], strict_slashes=False)
 def delete_review(review_id):
     ''' creates a new review in the database '''
+
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
 
     review = storage.get(Review, review_id)
     if review is not None:

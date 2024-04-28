@@ -3,7 +3,7 @@ $(function () {
     const title = document.title.split(' ')[0];
     if (title === 'Info') {
 
-        const url = `http://localhost:5000/api/v1/books`;
+        const url = `https://usernet.tech/api/v1/books`;
 
         $.ajax({
             type: 'GET',
@@ -41,7 +41,6 @@ $(function () {
                 }
             }
         });
-        
     }
 
     else {
@@ -50,7 +49,7 @@ $(function () {
             for (let i = 0; i < reviews.length; i++) {
                 let imgId = $(reviews[i]).find('img').attr('id');
                 let user_id = imgId.split('_')[1];
-                $.get(`http://localhost:5000/api/v1/users/${user_id}`, function(data, textStatus) {
+                $.get(`https://usernet.tech/api/v1/users/${user_id}`, function(data, textStatus) {
                     for (let j in data) {
                         $(`#${imgId}`).attr('src', '/static/images/' + data[j].data.pic);
                         break;
@@ -65,8 +64,8 @@ $(function () {
         $.ajax({
             type: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            url: 'http://localhost:5000/api/v1/reviews',
-            data: JSON.stringify({ 
+            url: 'https://usernet.tech/api/v1/reviews',
+            data: JSON.stringify({
                 "user_id": getCookie(),
                 "book_id": $('#make-review form').attr('id'),
                 "text": $('#message').val()

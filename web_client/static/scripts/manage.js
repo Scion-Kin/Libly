@@ -1,7 +1,7 @@
 $(function () {
     const title = document.title.split(' ')[1];
 
-    const url = `http://localhost:5000/api/v1/${title.toLowerCase()}`
+    const url = `https://usernet.tech/api/v1/${title.toLowerCase()}`
 
     let displayed = false;
 
@@ -53,7 +53,7 @@ $(function () {
                     $(img).attr('src', `/static/images/${resource_data.pic}`);
                 }
                 else if (title === "Reviews") {
-                    let imgUrl = `http://localhost:5000/api/v1/users/${resource_data.user_id}`;
+                    let imgUrl = `https://usernet.tech/api/v1/users/${resource_data.user_id}`;
                     $.get(imgUrl, function(data, textStatus) {
                         for (let k in data) {
                            $(img).attr('src', `/static/images/${data[k].data.pic}`);
@@ -106,7 +106,7 @@ $(function () {
                                 $(review).text(j.text);
                                 $(review_list).append(review);
                             }
-    
+
                             let review_displayer = document.createElement('button');
                             $(review_displayer).click(function () {
                                 if (displayed == false) {
@@ -137,11 +137,12 @@ $(function () {
                 $(passInput).attr('type', 'password');
                 $(form).attr({'class': 'confirm'});
                 $(document.querySelector('main')).append(form);
-                
+
                 $(edit).click(function () {
                     let requestData = {};
                     const cancel = document.createElement('button');
                     let submit = document.createElement('input');
+	            let passInput = document.createElement('input');
                     $(submit).attr('type', 'submit');
                     $(submit).text('Confirm');
                     $(cancel).attr('class', 'cancel');
@@ -166,11 +167,14 @@ $(function () {
                                         requestData[j] = '';
                                     }
                                 }
-                            }
+			    }
+                            
+			    $(passInput).attr({'type': 'password', "placeholder": "input your admin password"});
                             $(form).css({
                                 'top': '80px', 'display': 'flex'
                             });
-                            $(realForm).append(submit);
+	
+                            $(realForm).append([passInput, submit]);
                             $(form).html([cancel, realForm]);
                         }
                     });
@@ -180,6 +184,7 @@ $(function () {
                         for (let i in requestData) {
                             requestData[i] = $(`#${i}`).val();
                         }
+			requestData["password"] = $(passInput).val();
                         editDatabase(requestData, `${url}/${$(trash).parents()[2].id}`, 'PUT');
                     });
                 });
@@ -224,8 +229,14 @@ $(function () {
             data: JSON.stringify(json),
             url: editUrl,
             success: function (data, textStatus) {
-                alert('Data updated');
-                window.location.href = `http://localhost:5050/manage/${title.toLowerCase()}`
+
+		if (data[0]) {
+		    alert('Sorry, your password might be incorrect');
+		}
+		else {
+		    alert("Data updated");
+		    window.location.href = `/manage/${title.toLowerCase()}`;
+		}
             }
         });
         $(document).on('ajaxError', function () {

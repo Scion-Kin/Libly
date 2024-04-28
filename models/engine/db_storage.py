@@ -28,11 +28,11 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        LIBLY_MYSQL_USER = getenv('LIBLY_MYSQL_USER')
-        LIBLY_MYSQL_PWD = getenv('LIBLY_MYSQL_PWD')
-        LIBLY_MYSQL_HOST = getenv('LIBLY_MYSQL_HOST')
-        LIBLY_MYSQL_DB = getenv('LIBLY_MYSQL_DB')
-        LIBLY_ENV = getenv('LIBLY_ENV')
+        LIBLY_MYSQL_USER = 'libly_user'
+        LIBLY_MYSQL_PWD = 'libDev'
+        LIBLY_MYSQL_HOST = 'localhost'
+        LIBLY_MYSQL_DB = 'libly'
+        LIBLY_ENV = 'production'
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(LIBLY_MYSQL_USER,
                                              LIBLY_MYSQL_PWD,

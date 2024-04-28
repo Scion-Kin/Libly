@@ -35,8 +35,7 @@ def signup():
             }
 
             # send request to the node api to send the confirmation email
-            response = requests.post('https://usernet.tech/signup', json=details, headers=headers)
-            print(response.json())
+            response = requests.post('https://usernet.tech/mail/signup', json=details, headers=headers)
 
             return redirect(url_for('client_view.login'))
 

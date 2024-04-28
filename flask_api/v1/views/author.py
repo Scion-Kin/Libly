@@ -63,6 +63,14 @@ def create_author():
     if "first_name" not in request.get_json() or "last_name" not in request.get_json():
         return make_response(jsonify({"error": "Missing name(s)"}), 400)
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     authors = [i for i in storage.all(Author).values() if
                i.first_name.lower() == request.get_json()["first_name"].lower() and
                i.last_name.lower() == request.get_json()["last_name"].lower()]
@@ -87,6 +95,14 @@ def create_author():
 def update_author(author_id):
     ''' alters an author info in the database '''
 
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
     author = storage.get(Author, author_id)
     if author is not None:
         ignore = ['id', 'created_at', 'updated_at']
@@ -104,6 +120,14 @@ def update_author(author_id):
 @grand_view.route('/authors/<string:author_id>', methods=['DELETE'], strict_slashes=False)
 def delete_author(author_id):
     ''' creates a new author in the database '''
+
+    if "password" not in request.get_json():
+        return make_response(jsonify({"error": "unauthorized"}, 401))
+
+    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+
+    if len(admins) == 0:
+        return make_response(jsonify({"error": "unauthorized"}, 401))
 
     author = storage.get(Author, author_id)
     if author is not None:
