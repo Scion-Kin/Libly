@@ -9,7 +9,7 @@ import base64
 
 app = Flask(__name__)
 
-app.secret_key = ''
+app.secret_key = 'hellolibly'
 
 app.register_blueprint(client_view)
 
@@ -77,4 +77,4 @@ def home():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0", debug=True)

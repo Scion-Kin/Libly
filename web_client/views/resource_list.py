@@ -2,7 +2,7 @@
 ''' The author or genre page '''
 
 from web_client.views import client_view
-from flask import render_template, abort, session
+from flask import render_template, abort, session, redirect, url_for
 import requests
 
 

@@ -11,15 +11,6 @@ a {
     color: #316FF6;
 }
 
-#user-menu {
-    position: fixed;
-    display: none;
-    right: -30px;
-    width: 35%;
-    padding: 10px;
-    backdrop-filter: blur(10px);
-}
-
 #feed, #manage-list {
     width: 95%;
     padding: 10px;
@@ -35,6 +26,7 @@ a {
     color: inherit !important;
     border-right: 1px solid #316FF6;
     border-radius: 20px;
+    margin: 10px auto;
 }
 
 #authors a, #books a, #genres a {
@@ -57,6 +49,8 @@ a {
 
 #views-menu {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     padding: 20px;
     justify-content: space-between;
 }
@@ -104,75 +98,4 @@ a {
     max-width: 200px;
     border-radius: 10px;
     margin: 10px 0px;
-}
-
-.history {
-    background-color: white;
-    padding: 10px;
-    border-radius: 15px;
-    width: 80%;
-    margin: auto;
-}
-
-.history h2 {
-    margin: 5px;
-}
-
-.history-book {
-    background-color: #e7e8e9;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-    height: 100px;
-    margin: 10px 0px;
-    border-radius: 15px;
-}
-
-.history-book button {
-    background-color: #316FF6;
-    padding: 10px;
-    margin: 30px 10px;
-    color: white;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding: 10px;
-    border-radius: 15px;
-    width: 80%;
-    margin: auto;
-    margin-top: 10px;
-}
-
-.options button {
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 40px;
-    margin: 5px 0px;
-    background-color: inherit;
-    color: inherit;
-}
-
-.options button:hover {
-    background-color: #e7e8e9;
-    color: black !important;
-}
-
-#settings {
-    background-image: url('/static/images/settings-icon.svg');
-}
-
-#help {
-    background-image: url('/static/images/help-icon.svg');
-}
-
-#dark {
-    background-image: url('/static/images/dark-mode-icon.svg');
-}
-
-#log-out {
-    background-image: url('/static/images/logout-icon.svg');
 }

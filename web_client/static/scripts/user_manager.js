@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const logOut = document.getElementById('log-out');
     const showMenu = document.getElementById('user-menu');
-    const user = document.getElementById('user');
+    const user = document.getElementById('avatar');
     const settings = document.getElementById('settings');
     const help = document.getElementById('help');
+    const bread = document.getElementById('breadcrumb');
 
     settings.addEventListener('click', function () {
         window.location.href = '/settings';

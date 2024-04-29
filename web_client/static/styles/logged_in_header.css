@@ -42,6 +42,7 @@ a {
     width: 40%;
     height: 40px;
     margin: 5px 0px;
+    padding: 0px 5px;
 }
 
 #search {
@@ -160,6 +161,87 @@ button {
     color: inherit !important;
 }
 
+
+#user-menu {
+    position: fixed;
+    display: none;
+    right: 0px;
+    width: 35%;
+    padding: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.history {
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+}
+
+.history h2 {
+    margin: 5px;
+}
+
+.history-book {
+    background-color: #e7e8e9;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+    height: 100px;
+    margin: 10px 0px;
+    border-radius: 15px;
+}
+
+.history-book button {
+    background-color: #316FF6;
+    padding: 10px;
+    margin: 30px 10px;
+    color: white;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    border-radius: 15px;
+    width: 80%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.options button {
+    background-position: right;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 40px;
+    margin: 5px 0px;
+    background-color: inherit;
+    color: inherit;
+}
+
+.options button:hover {
+    background-color: #e7e8e9;
+    color: black !important;
+}
+
+#settings {
+    background-image: url('/static/images/settings-icon.svg');
+}
+
+#help {
+    background-image: url('/static/images/help-icon.svg');
+}
+
+#dark {
+    background-image: url('/static/images/dark-mode-icon.svg');
+}
+
+#log-out {
+    background-image: url('/static/images/logout-icon.svg');
+}
+
 textarea {
     border-radius: 15px;
     border: 1px solid grey;
@@ -175,3 +257,26 @@ textarea:focus {
     outline: none;
 }
 
+#avatar {
+    background-image: url('/static/images/menu-icon.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+}
+
+@media (max-width: 900px) {
+    #main {
+        display: none;
+    }
+
+    #search {
+        width: 80%;
+    }
+
+    #user-menu {
+        min-width: 300px;
+    }
+}
