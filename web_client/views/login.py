@@ -6,12 +6,13 @@ from flask import render_template, session, abort, request, jsonify, redirect, u
 from itsdangerous import URLSafeSerializer
 from models import storage
 from models.user import User
-from uuid import uuid4
 
 
 @client_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
 def login():
     ''' log the user in '''
+
+    storage.reload()
 
     if request.method == "POST":
         email = request.form.get('email')

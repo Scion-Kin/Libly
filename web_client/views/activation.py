@@ -10,6 +10,7 @@ from models.user import User
 def confirmed_email(user_id):
     ''' activates the account of a user '''
 
+    storage.reload()
     user = storage.get(User, user_id)
     if not user:
         return render_template('confirm_email.html', confirmed=False, title="Activation Failed")

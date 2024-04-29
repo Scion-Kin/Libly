@@ -45,7 +45,6 @@ h2 {
 }
 
 .review {
-    display: flex;
     margin: 15px;
     padding: 10px;
     border-radius: 10px;

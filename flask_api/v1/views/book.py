@@ -130,7 +130,7 @@ def create_book():
         new_genre_rel = BookGenre(book_id=new_book.id, genre_id=i)
         new_genre_rel.save()
 
-    return jsonify(new_book.to_dict())
+    return make_response(jsonify(new_book.to_dict()), 201)
 
 
 @grand_view.route('/books/<string:book_id>', methods=['PUT'], strict_slashes=False)
