@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} Home {% endblock %} | Libly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Platypi:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+  rel="stylesheet">
+    <title>{% block title %}{% endblock %} | Libly</title>
     <link rel="icon" href="/static/images/logo-maybe.svg">
     <style>
         body {
@@ -14,6 +18,14 @@
             background-repeat: no-repeat;
             background-size: contain;
             color: black;
+        }
+
+        @keyframes changeColor{
+            0% { color: red; }
+            25% { color: rgb(248, 82, 185); }
+            50% { color: rgb(37, 119, 37); }
+            75% { color: orange; }
+            100% { color: rgb(19, 16, 18); }
         }
 
         header {
@@ -34,6 +46,7 @@
             width: 40px;
             height: 40px;
             margin: 5px 10px;
+            box-shadow: 5px 5px grey;
         }
 
         button {
@@ -44,7 +57,15 @@
             border-radius: 15px;
             max-width: 150px;
             margin-top: 10px;
+            margin-right: 20px;
+            box-shadow: 5px 5px rgb(94, 89, 89);
         }
+
+        button:hover{
+            background-color: rgb(9, 176, 206);
+            cursor: pointer;
+        }
+
         form {
             display: flex;
             flex-direction: column;
@@ -55,8 +76,9 @@
             font-size: larger;
             padding: 20px;
             border-radius: 20px;
-            background-color: rgba(202, 202, 243, 0.459);
+            background-color: rgba(210, 210, 245, 0.459);
             backdrop-filter: blur(10px);
+    
         }
         input {
             margin: 10px 0px;
@@ -77,6 +99,16 @@
             backdrop-filter: blur(10px);
         }
 
+         #intro h4{
+            animation: changeColor 3s infinite;
+        }
+
+        .library_name{
+                font-family: "Platypi", serif;
+               font-weight: 900;
+               font-style: normal;
+            }
+
         footer {
             background-color: rgba(63, 63, 255, 0.589);
             color: white;
@@ -88,13 +120,74 @@
             text-align: center;
             backdrop-filter: blur(20px);
         }
+        .login_details{
+            position: relative;
+            left: 10%;
+            width: 30%;
+            height: 230px;
+            margin-top: 6%;
+        }
+        #email{
+            font-size: 1em;
+            margin-bottom: 20px;
+        }
+        #password{
+            font-size: 1em;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-	.error {
-    	    color: white;
-    	    padding: 10px;
-	    border-radius: 10px;
-    	    background-color: rgba(163, 57, 57, 0.563);
-	}
+         @media (max-width:1000px){
+            body{
+                background-image: url('/static/images/bck-2.jpg');
+                background-size: cover;
+                background-position: center;       
+            }
+            #site_logo{
+                width: 70px;
+                height: 70px;
+            }
+            button{
+                font-size: 1.5em;
+            }
+            .learn-btn{
+                font-size: 1em;
+                padding: 5%;
+                width: 70%;
+                border-radius: 10%;
+            }
+            #intro{
+                position: relative;
+                left: 25%;
+                width: 35%;
+                padding: 8%;
+                font-size: 1em;
+            }
+            footer{
+                height: 8%;
+                text-align: center;  
+            }
+
+            .login_details{
+                position: relative;
+                left: 10%;
+                width: 50%;
+                height: 300px;
+                margin-top: 20%;
+        }
+            
+            #email{
+               font-size: 1.8em;
+               margin-bottom: 20px;
+        }
+            #password{
+               font-size: 1.8em;
+               margin-top: 20px;
+               margin-bottom: 20px;
+        }
+
+        }
+
     </style>
 </head>
 <body>
@@ -111,14 +204,14 @@
     {% block body %}
         <section id="intro">
             <h3>Welcome to</h3>
-            <h1>Libly</h1>
-            <h4>Explore, read, connect</h4>
-            <a href="/about"><button>Learn more</button></a>
+            <h1 class="library_name">Libly</h1>
+            <h4>Explore, read and connect</h4>
+            <a href="/about"><button class="learn-btn">Learn more</button></a>
         </section>
     {% endblock %}        
     </main>
     <footer>
-        <h4>Copyright &copy; Liby 2024</h4> 
+        <h4>Copyright &copy; Libly 2024</h4> 
     </footer>
 </body>
 </html>

@@ -5,6 +5,28 @@
     <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
 {% endblock %}
 {% block body %}
+
+     <style>
+        @media (max-width:1000px){
+        #registration_form{
+                position: relative;
+                left: 10%;
+                width: 60%;
+                height: 450px;
+                margin-top: 20%;
+                font-size: 1.5em;
+            }
+        #registration_form input[type="email"],
+        #registration_form input[type="text"],
+        #registration_form input[type="password"],
+        #registration_form button {
+            font-size: 1em;
+            margin-bottom: 20px;
+            margin-right: 20px; 
+        }
+    }
+      </style>   
+
     <form method="POST">
         <input type="email" name="email" placeholder="Your email" required>
         <input type="text" name="first_name" placeholder="First name" required>
