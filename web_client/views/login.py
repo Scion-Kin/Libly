@@ -23,6 +23,10 @@ def login():
             return render_template('login.html', error='User not found')
 
         if password == user[0].password:
+
+            if user[0].confirmed == False:
+                return render_template('login.html', error='You have not confirmed your email. Please check your email inbox and activate your account')
+
             session.permanent = True
             session["logged"] = True
             session["user_email"] = user[0].email
@@ -32,7 +36,6 @@ def login():
             session["middle_name"] = user[0].middle_name if user[0].middle_name else ' '
             session["last_name"] = user[0].last_name
             session["user_pic"] = user[0].pic
-            session["confirmed"] = user[0].confirmed
 
             # Create a response object with the redirection and set the cookie
             resp = make_response(redirect('/'))
