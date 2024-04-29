@@ -9,8 +9,8 @@
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
     <button type="submit">Log in</button>
+    {% if error %}
+        <h4 class="error">{{ error }}</h4>
+    {% endif %}
 </form>
-{% if error %}
-<p>{{ error }}</p>
-{% endif %}
 {% endblock %}

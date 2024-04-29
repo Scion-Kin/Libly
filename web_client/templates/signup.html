@@ -12,8 +12,8 @@
         <input type="text" name="last_name" placeholder="Surname" required>
         <input type="password" name="password" placeholder="password" required>
         <button type="submit">Sign up</button>
+	{% if error %}
+	    <h4 class="error">{{ error }}</h4>
+	{% endif %}
     </form>
-{% if error %}
-    <br>{{ error }}
-{% endif %}
 {% endblock %}
