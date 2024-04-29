@@ -12,7 +12,6 @@ import os
 def manage_user():
     ''' manage user '''
     if session and session['logged'] == True:
-        
         if request.method == 'POST':
             file = request.files['pic']
             if not file:
@@ -22,8 +21,11 @@ def manage_user():
                 "email": request.form.get('email'),
                 "first_name": request.form.get('first_name'), "middle_name": request.form.get('middle_name'),
                 "last_name": request.form.get('last_name'), "pic": secure_filename(file.filename),
-                "password": request.form.get('old_password'), "new_password": request.form.get('new_password')
+                "password": request.form.get('old_password')
             }
+
+            if len(request.form.get('new_password')) > 0:
+                details["new_password"] = request.form.get('new_password')
 
             for key, value in details.items():
                 if key not in ["middle_name", "new_password"] and len(value) == 0:
@@ -37,6 +39,12 @@ def manage_user():
 
             if response.status_code == 200:
                 file.save(os.path.join('web_client/static/images', secure_filename(file.filename)))
+
+                session['user_pic'] = secure_filename(file.filename)
+                session['email'] = request.form.get('email')
+                session['first_name'] = request.form.get('first_name')
+                session['last_name'] = request.form.get('last_name')
+                session['middle_name'] = request.form.get('middle_name') if request.form.get('middle_name') is not None else ' '
 
                 return redirect(url_for('home'))
 

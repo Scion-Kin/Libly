@@ -184,7 +184,12 @@ $(function () {
                         for (let i in requestData) {
                             requestData[i] = $(`#${i}`).val();
                         }
-			requestData["password"] = $(passInput).val();
+			if (title == "Users") {
+			    requestData["adminPassword"] = $(passInput).val();
+			}
+			else {
+			    requestData["password"] = $(passInput).val();
+			}
                         editDatabase(requestData, `${url}/${$(trash).parents()[2].id}`, 'PUT');
                     });
                 });
@@ -229,14 +234,8 @@ $(function () {
             data: JSON.stringify(json),
             url: editUrl,
             success: function (data, textStatus) {
-
-		if (data[0]) {
-		    alert('Sorry, your password might be incorrect');
-		}
-		else {
-		    alert("Data updated");
-		    window.location.href = `/manage/${title.toLowerCase()}`;
-		}
+		alert("Data updated");
+		window.location.href = `/manage/${title.toLowerCase()}`;
             }
         });
         $(document).on('ajaxError', function () {
