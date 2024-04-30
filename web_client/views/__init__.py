@@ -15,3 +15,4 @@ from web_client.views.author_genre import *
 from web_client.views.resource_list import *
 from web_client.views.read import *
 from web_client.views.settings import *
+from web_client.views.report import *

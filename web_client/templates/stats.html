@@ -1,0 +1,72 @@
+{% extends 'logged.html' %}
+{% block title %}
+    {% if stats %}
+        Stats in format
+    {% elif numbers %}
+        Stats in numbers
+    {% else %}
+        Select days
+    {% endif %}
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/manage_resource.css">
+    <style>
+        h2 {
+            margin: 0;
+        }
+
+        table {
+            margin: 50px 0px;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            border: 1px solid grey;
+            text-align: center;
+            width: 200px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Hi {{ name }}!</h1>
+
+    {% if numbers %}
+    <h2>Here are the numbers:</h2>
+        <table>
+            <th>Resource type</th>
+            <th>Count</th>
+            <tr>
+                <td>Authors</td>
+                <td> {{ numbers.authors }} </td>
+            </tr>
+            <tr>
+                <td>Books</td>
+                <td> {{ numbers.books }} </td>
+            </tr>
+            <tr>
+                <td>Genres</td>
+                <td> {{ numbers.genres }} </td>
+            </tr>
+            <tr>
+                <td>Reviews</td>
+                <td> {{ numbers.reviews }} </td>
+            </tr>
+            <tr>
+                <td>Users</td>
+                <td> {{ numbers.users }} </td>
+            </tr>
+        </table>
+
+    {% elif stats %}
+    <h2>Here is everything pretty formatted:</h2>
+
+    {% else %}
+        <h2>How many days from this month would you like to view a report on?</h2>
+        <form class="confirm" style="display: block; position: relative;" method="POST">
+            <input type="tel" name="days">
+            <button>Get</button>
+        </form>
+    {% endif %}
+{% endblock %}

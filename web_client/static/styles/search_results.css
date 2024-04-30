@@ -60,7 +60,7 @@ aside h3,  aside h2 {
 }
 
 #all, #authors, #books, #genres, #users {
-    background-image: url('/static./images/select-all.svg');
+    background-image: url('/static/images/select-all.svg');
     background-position: left;
     background-repeat: no-repeat;
     background-size: contain;
@@ -114,6 +114,15 @@ aside h3,  aside h2 {
     background-image: url('/static/images/user-avatar.jpg');
 }
 
+.not-found {
+    background: none;
+}
+
+.not-found .description {
+    float: left;
+    margin-top: 45px;
+}
+
 .description {
     float: right;
 }
@@ -134,13 +143,6 @@ aside h3,  aside h2 {
     margin: 10px;
 }
 
-.description select {
-    background-color: white;
-    color: #316FF6;
-    border: none;
-    border-radius: 10px;
-}
-
 .naming {
     background-color: white;
     color: #316FF6;
@@ -150,59 +152,4 @@ aside h3,  aside h2 {
 
 .go {
     background-color: #059e54 !important;
-}
-
-
-.history {
-    background-color: white;
-    padding: 10px;
-    border-radius: 15px;
-    width: 80%;
-    margin: auto;
-}
-
-.history h2 {
-    margin: 5px;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    background-color: white;
-    padding: 10px;
-    border-radius: 15px;
-    width: 80%;
-    margin: auto;
-    margin-top: 10px;
-}
-
-.options button {
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: contain;
-    height: 40px;
-    margin: 5px 0px;
-    background-color: inherit;
-    color: inherit;
-}
-
-.options button:hover {
-    background-color: #e7e8e9;
-    color: black !important;
-}
-
-#settings {
-    background-image: url('/static/images/settings-icon.svg');
-}
-
-#help {
-    background-image: url('/static/images/help-icon.svg');
-}
-
-#dark {
-    background-image: url('/static/images/dark-mode-icon.svg');
-}
-
-#log-out {
-    background-image: url('/static/images/logout-icon.svg');
 }

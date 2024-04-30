@@ -14,3 +14,4 @@ from flask_api.v1.views.search import *
 from flask_api.v1.views.fav_author import *
 from flask_api.v1.views.fav_book import *
 from flask_api.v1.views.fav_genre import *
+from flask_api.v1.views.report import *
