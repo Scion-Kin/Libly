@@ -38,10 +38,11 @@
     {% if books %}
         {% for book in books %}
             <section class="book result-box" style="background-image: url('/static/images/{{ book.pic }}');">
-                <section class="description">
-                    <button class="title">
+                <section class="description book-description">
+                    <p class="title">
                         Book - <span class="naming">{{ book.title }}</span>
-                    </button><br>
+                        
+                    </p>
                     <button class="go">
                         <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read book</a>
                     </button>
@@ -69,7 +70,6 @@
             <section class="user result-box">
                 <section class="description">
                     <p class="title">User - <span class="naming">{{ user.first_name }} {{ user.last_name }}</span></p>
-                    <button class="go">See favs</button>
                 </section>
             </section>
         {% endfor %}
@@ -85,12 +85,4 @@
 {% endif %}
 </section>
 {% endif %}
-<aside id="user-menu">
-    <section class="options">
-        <button id="dark">Dark mode</button>
-        <button id="help">Help and support</button>
-        <button id="settings">Settings</button>
-        <button id="log-out">Log out</button>
-    </section>
-</aside>
 {% endblock %}

@@ -1,5 +1,4 @@
 main {
-    display: flex;
     background-color: #e0e0e0;
     border-radius: 25px;
     overflow: hidden;
@@ -42,7 +41,7 @@ a {
 }
 
 #manage-list {
-    width: 40%;
+
     display: flex;
     flex-wrap: wrap;
 }
@@ -65,7 +64,7 @@ a {
     flex-wrap: wrap
 }
 
-#feed h2, #manage-list h2 {
+h2 {
     margin: 15px 25px;
 }
 

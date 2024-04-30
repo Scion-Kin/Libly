@@ -12,8 +12,18 @@
 {% block head %}
     <link rel="stylesheet" href="/static/styles/manage_resource.css">
     <style>
+        .confirm {
+            box-shadow: none;
+            border-radius: 15px;
+            display: block;
+            position: relative;
+            left: 0;
+            margin-left: -20px;
+            flex-direction: column;
+        }
+
         h2 {
-            margin: 0;
+            margin: 20px 0;
         }
 
         table {
@@ -22,49 +32,83 @@
         }
 
         table th, table td {
+            text-align: left;
             border: 1px solid grey;
-            text-align: center;
             width: 200px;
+            padding: 10px;
+            border-radius: 10px !important;
         }
+
+        .change {
+            display: block;
+        }
+
     </style>
 {% endblock %}
 
 {% block body %}
-    <h1>Hi {{ name }}!</h1>
+    <h2>Hi {{ name }}!</h2>
 
     {% if numbers %}
-    <h2>Here are the numbers:</h2>
+        <h2>Here are the number of new resources from the last {{ days }} day(s):</h2>
         <table>
             <th>Resource type</th>
             <th>Count</th>
+            {% for i in numbers %}
             <tr>
-                <td>Authors</td>
-                <td> {{ numbers.authors }} </td>
+                <td>New {{ i }}</td>
+                <td> {{ numbers[i] }} </td>
             </tr>
-            <tr>
-                <td>Books</td>
-                <td> {{ numbers.books }} </td>
-            </tr>
-            <tr>
-                <td>Genres</td>
-                <td> {{ numbers.genres }} </td>
-            </tr>
-            <tr>
-                <td>Reviews</td>
-                <td> {{ numbers.reviews }} </td>
-            </tr>
-            <tr>
-                <td>Users</td>
-                <td> {{ numbers.users }} </td>
-            </tr>
+            {% endfor %}
         </table>
 
+        <form class="change" method="POST" action="{{ url_for('client_view.get_statistics') }}">
+            <button name="days" value="{{ days }}">Pretty printed format</button>
+        </form>
+
     {% elif stats %}
-    <h2>Here is everything pretty formatted:</h2>
+        <h2>Here is everything from the last {{ days }} day(s), pretty formatted:</h2>
+
+        <section id="results">
+
+            {% for j in stats %}
+                
+                {% if j == "authors" %} <h3>Authors</h3>
+                {% elif j == "books" %} <h3>Books</h3>
+                {% elif j == "genres" %} <h3>Genres</h3>
+                {% elif j == "reviews" %} <h3>Reviews</h3>
+                {% else %} <h3>Users</h3>
+                {% endif %}
+
+                {% if stats[j]|length > 0 %}
+                    {% for i in stats[j] %}
+                        <section class="resource">
+                            {% if j == "authors" or j == "users" %} <h4>{{ i.first_name }} {{ i.last_name }}</h4>
+                            {% elif j == "books" %} <h4> {{ i.title }} </h4>
+                            {% elif j == "genres" %} <h4> {{ i.name }} </h4>
+                            {% else %} <h4> {{ i.text }} </h4>
+                            {% endif %}
+                            <section class="data">
+                                {% if j != "reviews" %}
+                                <img src="/static/images/{{ i.pic }}">
+                                {% endif %}
+                            </section>
+                        </section>   
+                    {% endfor %}
+                {% else %}
+                    <section class="resource">
+                        <h4>No new {{ j }} from this time period</h4>   
+                    </section>
+                {% endif %}
+            {% endfor %}
+            <form class="change" method="POST" action="{{ url_for('client_view.get_statistics_numbers') }}">
+                <button name="days" value="{{ days }}">Table format</button>
+            </form>           
+        </section>
 
     {% else %}
         <h2>How many days from this month would you like to view a report on?</h2>
-        <form class="confirm" style="display: block; position: relative;" method="POST">
+        <form class="confirm" method="POST">
             <input type="tel" name="days">
             <button>Get</button>
         </form>

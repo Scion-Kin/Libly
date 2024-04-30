@@ -1,24 +1,16 @@
 main {
     display: flex;
+    flex-wrap: wrap;
     background-color: white;
     border-radius: 25px;
     overflow: hidden;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-aside {
-    width: 30%;
-}
-
-
-#user-menu {
-    position: fixed;
-    display: none;
-    top: 30%;
-    right: -30px;
-    width: 35%;
-    padding: 10px;
-    backdrop-filter: blur(10px);
+@media (min-width: 1000px) {
+    aside {
+        width: 30%;
+    }
 }
 
 a {
@@ -133,6 +125,7 @@ aside h3,  aside h2 {
     padding: 10px;
     padding-right: 5px;
     border-radius: 10px;
+    margin: 0
 }
 
 .description button {
@@ -152,4 +145,36 @@ aside h3,  aside h2 {
 
 .go {
     background-color: #059e54 !important;
+}
+
+
+
+@media (max-width: 900px) {
+    .results_nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .description {
+        float: left;
+        backdrop-filter: blur(20px);
+        padding: 20px;
+        border-radius: 15px;
+        width: 80%;
+    }
+    
+    .book-description {
+        margin-top: -15px;
+    }
+    
+    .naming {
+        display: block;
+        margin-top: 5px;
+    }
+    
+    .result-box {
+        width: 100%;
+        margin: 10px auto;
+        margin-left: 20px;
+    }
 }

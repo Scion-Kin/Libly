@@ -15,7 +15,7 @@ def get_statistics():
             abort(404)
 
         if request.method == "POST":
-            response = requests.get('http://localhost:5000/api/v1/report/{}'.
+            response = requests.get('https://usernet.tech/api/v1/report/{}'.
                                     format(request.form.get('days')))
 
             if response.status_code == 200:
@@ -25,11 +25,11 @@ def get_statistics():
                                        "genres": response.json()["genres"],
                                        "reviews": response.json()["reviews"],
                                        "users": response.json()["users"]},
-                                       pic=session["user_pic"], name=session["first_name"])
+                                       pic=session["user_pic"], name=session["first_name"], days=request.form.get('days'))
 
             abort(500)
 
-        return render_template('stats.html')
+        return render_template('stats.html', pic=session["user_pic"], name=session["first_name"])
 
     return redirect(url_for('home'))
 
@@ -43,7 +43,8 @@ def get_statistics_numbers():
             abort(404)
 
         if request.method == "POST":
-            response = requests.get('http://localhost:5000/api/v1/report/{}'.format(request.form.get('days')))
+            response = requests.get('https://usernet.tech/api/v1/report/{}'.
+                                    format(request.form.get('days')))
 
             if response.status_code == 200:
                 return render_template('stats.html', numbers={
@@ -52,10 +53,10 @@ def get_statistics_numbers():
                                        "genres": len(response.json()["genres"]),
                                        "reviews": len(response.json()["reviews"]),
                                        "users": len(response.json()["users"])},
-                                       pic=session["user_pic"], name=session["first_name"])
+                                       pic=session["user_pic"], name=session["first_name"], days=request.form.get('days'))
 
             abort(500)
 
-        return render_template('stats.html')
+        return render_template('stats.html', pic=session["user_pic"], name=session["first_name"])
 
     return redirect(url_for('home'))

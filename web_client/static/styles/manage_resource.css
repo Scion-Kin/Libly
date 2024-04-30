@@ -129,6 +129,7 @@ form {
     background-color: #F0F2F5;
     padding: 10px;
     margin: 5px 0px;
+    max-width: 98%;
 }
 
 #new_resource input[type="file"] {
@@ -145,21 +146,6 @@ form {
 .edit-resource {
     display: flex;
     border-radius: 15px;
-}
-
-#dark {
-    background-image: url('/static/images/dark-mode-icon.svg');
-    background-position: right;
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 50px;
-    height: 50px;
-    margin: 5px 0px;
-    background-color: inherit;
-    color: inherit;
-    position: fixed;
-    top: 70px;
-    right: 10px;
 }
 
 #genres, #authors {

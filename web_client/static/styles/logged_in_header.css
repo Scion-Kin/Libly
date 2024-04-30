@@ -137,7 +137,7 @@ button {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin: 2px 0px;
+    margin: 2px auto;
     width: 35px;
     height: 35px;
 }
@@ -165,10 +165,12 @@ button {
 #user-menu {
     position: fixed;
     display: none;
-    right: 0px;
+    top: 15%;
+    right: 5%;
     width: 35%;
     padding: 10px;
     backdrop-filter: blur(10px);
+    border-radius: 15px;
 }
 
 .history {

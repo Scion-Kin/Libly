@@ -15,7 +15,7 @@
         <img src="/static/images/{{ info.pic }}">
         <article>
             <h4> Title: {{ info.title }} </h4> 
-            <h5>Description</h5>
+            <h5>Description:</h5>
             <p>
                 {{ info.description }}
             </p>
@@ -34,6 +34,7 @@
                     <img id="{{ i }}_{{ reviews[i].user_id }}" />
                     <p>{{ reviews[i].text }}</p>
                 </section>
+                
             {% endfor %}
         </section>
     {% endif %}
@@ -53,15 +54,4 @@
     </section>
 </section>
 {% endif %}
-<aside id="user-menu">
-    <section id="history" class="history">
-        <h2>Continue reading</h2>
-    </section>
-    <section class="options">
-        <button id="dark">Dark mode</button>
-        <button id="help">Help and support</button>
-        <button id="settings">Settings</button>
-        <button id="log-out">Log out</button>
-    </section>
-</aside>
 {% endblock %}

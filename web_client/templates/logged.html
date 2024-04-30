@@ -31,7 +31,17 @@
     {% endblock %}
     <main>
     {% block body %}{% endblock %}
-    <h1>
+        <aside id="user-menu">
+            <section id="history" class="history">
+                <h2>Continue reading</h2>
+            </section>
+            <section class="options">
+                <button id="dark">Dark mode</button>
+                <button id="help">Help and support</button>
+                <button id="settings">Settings</button>
+                <button id="log-out">Log out</button>
+            </section>
+        </aside>
     </main>
 </body>
 </html>
