@@ -58,6 +58,7 @@
             background-color: rgba(202, 202, 243, 0.459);
             backdrop-filter: blur(10px);
         }
+
         input {
             margin: 10px 0px;
             border-radius: 10px;
@@ -74,7 +75,18 @@
             padding: 20px;
             border-radius: 20px;
             background-color: rgba(202, 202, 243, 0.459);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(30px);
+        }
+
+        @media (max-width: 900px) {
+            #intro {
+                width: 80%;
+            }
+
+            form {
+                width: 80%;
+                margin: 10px auto;
+            }
         }
 
         footer {
@@ -89,12 +101,12 @@
             backdrop-filter: blur(20px);
         }
 
-	.error {
+	    .error {
     	    color: white;
     	    padding: 10px;
-	    border-radius: 10px;
+	        border-radius: 10px;
     	    background-color: rgba(163, 57, 57, 0.563);
-	}
+	    }
     </style>
 </head>
 <body>
