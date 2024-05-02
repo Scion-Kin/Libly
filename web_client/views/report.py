@@ -112,8 +112,12 @@ def get_statistics_numbers():
                                            days=(int(request.form.get('number'))))
 
             else:
-                response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
-                                        format(date.today().year))
+                if time == "year":
+                    response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
+                                            format(request.form.get('number')))
+                else:
+                    response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
+                                            format(date.today().year))
 
                 if response.status_code == 200:
 
