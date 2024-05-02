@@ -54,7 +54,7 @@
 
     {% if numbers %}
         {% if days %}
-            <h2>Here are the numbers from the last {{ days }} {% if days == "1" %} day {% else %} days {% endif %}:</h2>
+            <h2>Here are the numbers from the last {{ days }} {% if days == 1 %} day {% else %} days {% endif %}:</h2>
         {% elif month %}
             <h2>Here are the statistics from {{ month_name }}</h2>
         {% elif year %}
@@ -87,7 +87,7 @@
 
     {% elif stats %}
         {% if days %}
-            <h2>Here are new resources from the last {{ days }} {% if days == "1" %} day {% else %} days {% endif %}:</h2>
+            <h2>Here are the numbers from the last {{ days }} {% if days == 1 %} day {% else %} days {% endif %}:</h2>
         {% elif month %}
             <h2>Here are the statistics from {{ month_name }}</h2>
         {% elif year %}
