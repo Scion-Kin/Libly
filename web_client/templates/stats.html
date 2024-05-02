@@ -10,6 +10,9 @@
 {% endblock %}
 
 {% block head %}
+    {% if not numbers and not stats %}
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    {% endif %}
     <link rel="stylesheet" href="/static/styles/manage_resource.css">
     <style>
         .confirm {
@@ -50,7 +53,14 @@
     <h2>Hi {{ name }}!</h2>
 
     {% if numbers %}
-        <h2>Here are the number of new resources from the last {{ days }} day(s):</h2>
+        {% if days %}
+            <h2>Here are the numbers from the last {{ days }} {% if days == "1" %} day {% else %} days {% endif %}:</h2>
+        {% elif month %}
+            <h2>Here are the statistics from {{ month_name }}</h2>
+        {% elif year %}
+            <h2>Here are the statistics from the year {{ year }}</h2>
+        {% endif %}
+
         <table>
             <th>Resource type</th>
             <th>Count</th>
@@ -63,11 +73,26 @@
         </table>
 
         <form class="change" method="POST" action="{{ url_for('client_view.get_statistics') }}">
-            <button name="days" value="{{ days }}">Pretty printed format</button>
+            {% if days %}
+                <input type="text" name="time" value="days" style="display: none;">
+                <button name="number" value="{{ days }}">Pretty printed format</button>
+            {% elif month %}
+                <input type="text" name="time" value="month" style="display: none;">
+                <button name="number" value="{{ month }}">Pretty printed format</button>
+            {% elif year %}
+                <input type="text" name="time" value="year" style="display: none;">
+                <button name="number" value="{{ year }}">Pretty printed format</button>
+            {% endif %}
         </form>
 
     {% elif stats %}
-        <h2>Here is everything from the last {{ days }} day(s), pretty formatted:</h2>
+        {% if days %}
+            <h2>Here are new resources from the last {{ days }} {% if days == "1" %} day {% else %} days {% endif %}:</h2>
+        {% elif month %}
+            <h2>Here are the statistics from {{ month_name }}</h2>
+        {% elif year %}
+            <h2>Here are the statistics from the year {{ year }}</h2>
+        {% endif %}
 
         <section id="results">
 
@@ -102,15 +127,49 @@
                 {% endif %}
             {% endfor %}
             <form class="change" method="POST" action="{{ url_for('client_view.get_statistics_numbers') }}">
-                <button name="days" value="{{ days }}">Table format</button>
-            </form>           
+                {% if days %}
+                    <input type="text" name="time" value="days" style="display: none;">
+                    <button name="number" value="{{ days }}">Table format</button>
+                {% elif month %}
+                    <input type="text" name="time" value="month" style="display: none;">
+                    <button name="number" value="{{ month }}">Table format</button>
+                {% elif year %}
+                    <input type="text" name="time" value="year" style="display: none;">
+                    <button name="number" value="{{ year }}">Table format</button>
+                {% endif %}
+            </form>
         </section>
 
     {% else %}
-        <h2>How many days from this month would you like to view a report on?</h2>
-        <form class="confirm" method="POST">
-            <input type="tel" name="days">
+        {% if error %}
+            <h4 class="error"> {{ error }} </h4>
+        {% endif %}
+        <h2 id="dialogue">Which duration would you like a report on?</h2>
+        <form id="prompt" class="confirm" method="POST">
+            <input type="radio" name="time" value="days" id="days" required> <label for="days">Days</label><br>
+            <input type="radio" name="time" value="month" id="month" required> <label for="month">Month</label><br>
+            <input type="radio" name="time" value="year" id="year" required> <label for="year">Year</label><br>
+            <input type="tel" name="number" value=1 id="number" required>
             <button>Get</button>
         </form>
+        <script>
+            $('#prompt input[type=radio]').click(function () {
+              if ($(this).val() == 'days') {
+                $('#dialogue').text(`Getting report from ____ ${$(this).val()}`);
+              }
+              else {
+                $('#dialogue').text(`Getting report from ${$(this).val()} ____`);
+              }
+            });
+      
+            $('#number').on('input', function () {
+              if ($('#prompt input[type=radio]:checked').val() == 'days') {
+                $('#dialogue').text(`Getting report from ${$('#number').val()} ${$('#prompt input[type=radio]:checked').val()}`);
+              }
+              else {
+                  $('#dialogue').text(`Getting report from ${$('#prompt input[type=radio]:checked').val()} ${$('#number').val()}`);
+              }  
+            });
+          </script>
     {% endif %}
 {% endblock %}
