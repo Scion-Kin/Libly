@@ -7,6 +7,9 @@ from models.base_model import BaseModel, Base
 from models.book_author import BookAuthor
 from models.book_genre import BookGenre
 from models.book import Book
+from models.favorite_author import FavoriteAuthor
+from models.favorite_book import FavoriteBook
+from models.favorite_genre import FavoriteGenre
 from models.genre import Genre
 from models.review import Review
 from models.user import User
@@ -18,7 +21,8 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 classes = {"Author": Author, "Book": Book,
            "Genre": Genre, "Review": Review,
            "User": User, 'BookAuthor': BookAuthor,
-           "BookGenre": BookGenre}
+           "BookGenre": BookGenre, "FavoriteAuthor": FavoriteAuthor,
+           "FavoriteBook": FavoriteBook, "FavoriteGenre": FavoriteGenre}
 
 
 class DBStorage:

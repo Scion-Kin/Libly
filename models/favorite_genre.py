@@ -10,7 +10,7 @@ class FavoriteGenre(BaseModel, Base):
     ''' This defines a genre favorite relationship '''
     __tablename__ = 'favorite_genres'
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    genre_id = Column(String(60), ForeignKey('genres.id'), nullable=True)
+    genre_id = Column(String(60), ForeignKey('genres.id'), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """ initializes instance """

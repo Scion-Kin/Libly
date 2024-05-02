@@ -10,7 +10,7 @@ class FavoriteBook(BaseModel, Base):
     ''' This defines a book favorite relationship '''
     __tablename__ = 'favorite_books'
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    book_id = Column(String(60), ForeignKey('books.id'), nullable=True)
+    book_id = Column(String(60), ForeignKey('books.id'), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """ initializes instance """

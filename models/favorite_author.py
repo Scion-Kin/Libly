@@ -10,7 +10,7 @@ class FavoriteAuthor(BaseModel, Base):
     ''' This defines an author favorite relationship '''
     __tablename__ = 'favorite_authors'
     user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
-    author_id = Column(String(60), ForeignKey('authors.id'), nullable=True)
+    author_id = Column(String(60), ForeignKey('authors.id'), nullable=False)
 
     def __init__(self, *args, **kwargs):
         """ initializes instance """

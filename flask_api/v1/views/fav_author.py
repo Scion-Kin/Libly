@@ -16,7 +16,7 @@ def get_fav_authors():
     return jsonify(all) if len(all) > 0 else abort(404)
 
 
-@grand_view.route('/<string:user>/favs/authors', methods=['GET'], strict_slashes=False)
+@grand_view.route('/<string:user_id>/favs/authors', methods=['GET'], strict_slashes=False)
 def get_user_fav_authors(user_id):
     ''' get all favorite instances from the database by a certain user '''
 

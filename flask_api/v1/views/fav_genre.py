@@ -16,7 +16,7 @@ def get_fav_genres():
     return jsonify(all) if len(all) > 0 else abort(404)
 
 
-@grand_view.route('/<string:user>/favs/genres', methods=['GET'], strict_slashes=False)
+@grand_view.route('/<string:user_id>/favs/genres', methods=['GET'], strict_slashes=False)
 def get_user_fav_genres(user_id):
     ''' get all favorite instances from the database by a certain user '''
 
