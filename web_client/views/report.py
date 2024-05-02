@@ -42,6 +42,11 @@ def get_statistics():
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
                                             format(request.form.get('number')))
                 else:
+                    if int(request.form.get('number')) > 12 or int(request.form.get('number')) < 1:
+                        return render_template('stats.html',
+                                   pic=session["user_pic"],
+                                   name=session["first_name"], error="Invalid month")
+
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
                                             format(date.today().year))
 
@@ -116,6 +121,10 @@ def get_statistics_numbers():
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
                                             format(request.form.get('number')))
                 else:
+                    if int(request.form.get('number')) > 12 or int(request.form.get('number')) < 1:
+                        return render_template('stats.html',
+                                   pic=session["user_pic"],
+                                   name=session["first_name"], error="Invalid month")
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
                                             format(date.today().year))
 
