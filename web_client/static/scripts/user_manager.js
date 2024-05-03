@@ -69,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         love.style.backgroundImage = "url('/static/images/love-icon.svg')";
                         love.removeAttribute('fav-id');
+                        delete favId;
                     } else {
                         alert('Failed to remove favorite');
                     }
