@@ -99,6 +99,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (response.ok) {
                         love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
                         love.setAttribute('fav-id', response.json()['id']);
+                        favId = response.json()['id'];
                     } else {
                         alert('Failed to make favorite');
                     }
