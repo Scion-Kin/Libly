@@ -47,9 +47,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(function (data) {
-                console.log(data);
-                console.log(typeId);
                 for (i in data) {
+                    console.log(`${stripped} is ${i[stripped]}`);
+                    console.log(i);
                     if (i[stripped] == typeId) {
                         love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
                         love.setAttribute('fav-id', i["id"]);
