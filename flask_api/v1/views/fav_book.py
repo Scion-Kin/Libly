@@ -34,6 +34,19 @@ def create_book_fav():
     if "book_id" not in request.get_json():
         return make_response(jsonify({"error": "Missing book id"}), 400)
 
+    user = storage.get('User', request.get_json()["user_id"])
+    book = storage.get('Book', request.get_json()["book_id"])
+
+    if not user or not book:
+        abort(404)
+
+    all = [i for i in storage.all(FavoriteBook) if
+           i.user_id == request.get_json()["user_id"] and
+           i.book_id == request.get_json()["book_id"]]
+
+    if len(all) > 0:
+        return make_response(jsonify({"error": "Already favorited"}), 403)
+
     new_fav = FavoriteBook(user_id=request.get_json()["user_id"], book_id=request.get_json()["book_id"])
     new_fav.save()
 
@@ -45,7 +58,7 @@ def delete_book_fav(fav_id):
     ''' creates a favorite instance from the database '''
 
     fav = storage.get(FavoriteBook, fav_id)
-    if Book is not None:
+    if fav is not None:
         storage.delete(fav)
         storage.save()
         return jsonify({})

@@ -34,6 +34,19 @@ def create_genre_fav():
     if "genre_id" not in request.get_json():
         return make_response(jsonify({"error": "Missing genre id"}), 400)
 
+    user = storage.get('User', request.get_json()["user_id"])
+    genre = storage.get('Genre', request.get_json()["genre_id"])
+
+    if not user or not genre:
+        abort(404)
+
+    all = [i for i in storage.all(FavoriteGenre) if
+           i.user_id == request.get_json()["user_id"] and
+           i.genre_id == request.get_json()["genre_id"]]
+
+    if len(all) > 0:
+        return make_response(jsonify({"error": "Already favorited"}), 403)
+
     new_fav = FavoriteGenre(user_id=request.get_json()["user_id"], genre_id=request.get_json()["genre_id"])
     new_fav.save()
 
@@ -45,7 +58,7 @@ def delete_genre_fav(fav_id):
     ''' creates a favorite instance from the database '''
 
     fav = storage.get(FavoriteGenre, fav_id)
-    if genre is not None:
+    if fav is not None:
         storage.delete(fav)
         storage.save()
         return jsonify({})

@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', function () {
         let favType = love.getAttribute('fav');
         let favId = love.getAttribute('fav-id');
         let stripped = favType.replace(/s/g, '_id'); // remove the 's' at the end to interact with the response better
-        console.log(stripped);
 
         fetch(`https://usernet.tech/api/v1/${user_id}/favs/${favType}`)
             .then(function (response) {
@@ -49,8 +48,10 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (data) { 
                 for (i in data) {
                     if (i[stripped] == typeId) {
+                        console.log(i);
                         love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
                         love.setAttribute('fav-id', i["id"]);
+                        favId = love.getAttribute('fav-id');
                         break;
                     }
                 }
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
             });
 
         love.addEventListener('click', function () {
-            if (love.style.backgroundImage == '/static/images/loved-icon.svg') {
+            if (favId) {
                 fetch(`https://usernet.tech/api/v1/favs/${favType}/${favId}`, {
                     method: 'DELETE'
                 })

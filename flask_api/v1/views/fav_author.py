@@ -34,6 +34,19 @@ def create_author_fav():
     if "author_id" not in request.get_json():
         return make_response(jsonify({"error": "Missing author id"}), 400)
 
+    user = storage.get('User', request.get_json()["user_id"])
+    author = storage.get('Author', request.get_json()["author_id"])
+
+    if not user or not author:
+        abort(404)
+
+    all = [i for i in storage.all(FavoriteAuthor) if
+           i.user_id == request.get_json()["user_id"] and
+           i.author_id == request.get_json()["author_id"]]
+
+    if len(all) > 0:
+        return make_response(jsonify({"error": "Already favorited"}), 403)
+
     new_fav = FavoriteAuthor(user_id=request.get_json()["user_id"], author_id=request.get_json()["author_id"])
     new_fav.save()
 
@@ -45,7 +58,7 @@ def delete_author_fav(fav_id):
     ''' creates a favorite instance from the database '''
 
     fav = storage.get(FavoriteAuthor, fav_id)
-    if author is not None:
+    if fav is not None:
         storage.delete(fav)
         storage.save()
         return jsonify({})
