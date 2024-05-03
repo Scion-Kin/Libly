@@ -21,13 +21,17 @@
             </p>
         </article>
     </section>
-    <button>
-        <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
-            Read book
-        </a>
-    </button>
+    <nav>
+        <button class="read">
+            <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+                Read book
+            </a>
+        </button>
+        <button id="love"></button>
+    </nav>
+
     {% if reviews %}
-        <h4 style="margin-left: 10px;">Reviews</h4>
+        <section id="reviews-header"><b>Reviews</b></section>
         <section id="reviews">
             {% for i in range(reviews|length) %}
                 <section class="review">
@@ -42,7 +46,7 @@
         <h4>Have you read this book?<br>Other readers will love your review!</h4>
         <form id="{{ info.id }}">
             <textarea id="message" rows="4" cols="50"></textarea><br>
-            <button id="create">Comment</button>   
+            <button id="create"></button>   
         </form>
     </section>
 </section>

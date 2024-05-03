@@ -269,6 +269,17 @@ textarea:focus {
     margin: 5px;
 }
 
+#love {
+    background-image: url('/static/images/love-icon.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: inherit;
+    width: 45px;
+    height: 45px;
+    margin-top: 0px;
+}
+
 @media (max-width: 900px) {
     #main {
         display: none;

@@ -31,6 +31,35 @@ h2 {
     border-radius: 10px;
 }
 
+.read {
+    text-align: left;
+    background-image: url('/static/images/read-icon.svg');
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 130px;
+}
+
+#love {
+    position: relative;
+    top: -5px;
+}
+
+#reviews-header {
+    color: white;
+    text-align: left;
+    background-image: url('/static/images/comments-icon.svg');
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #316FF6;
+    width: 130px;
+    height: 20px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px 20px 0px 20px;
+}
+
 #reviews {
     padding: 10px;
     border-radius: 15px;
@@ -72,6 +101,17 @@ textarea:focus {
     outline: none;
 }
 
+#create {
+    text-align: left;
+    background-image: url('/static/images/send-icon.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 80px;
+    height: 40px;
+    border-radius: 40px;
+}
+
 #search_results {
     padding: 10px;
     width: 60%;
@@ -108,5 +148,9 @@ button {
 
     #description article {
         width: 95%;
+    }
+
+    textarea {
+        width: 90%;
     }
 }

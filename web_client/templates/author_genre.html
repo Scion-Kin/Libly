@@ -23,8 +23,9 @@
                 </h4>
             {% else %}
                 <h4> Genre: {{ data.name }} </h4>
-            {% endif %}  
+            {% endif %}
         </article>
+        <button id="love" fav="{% if type == 'author' %}authors{% else %}genres{% endif %}" type-id="{{ data.id }}"></button>
     </section>
     <h4 style="margin-left: 45%;">Book list</h4>
     <section id="book_list">
