@@ -41,10 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         fetch(`https://usernet.tech/api/v1/${user_id}/favs/${favType}`)
             .then(function (response) {
-                console.log(response.json())
-                if (response.ok) {
-                    return response.json();
+                if (!response.ok) {
+                    console.error(response.json()["error"]);
                 }
+                return response.json();
             })
             .then(function (data) { 
                 for (i in data) {
