@@ -103,8 +103,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 })
                 .then(function (data) {
-                    console.log(data.id);
-                    console.log(data["id"]);
                     love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
                     love.setAttribute('fav-id', data["id"]);
                     favId = data['id'];
