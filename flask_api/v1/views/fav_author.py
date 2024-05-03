@@ -40,9 +40,7 @@ def create_author_fav():
     if not user or not author:
         abort(404)
 
-    all = [i for i in storage.all(FavoriteAuthor) if
-           i.user_id == request.get_json()["user_id"] and
-           i.author_id == request.get_json()["author_id"]]
+    all = [i for i in storage.all(FavoriteAuthor) if i.user_id == request.get_json()["user_id"] and i.author_id == request.get_json()["author_id"]]
 
     if len(all) > 0:
         return make_response(jsonify({"error": "Already favorited"}), 403)
