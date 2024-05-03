@@ -97,12 +97,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .then(function(response) {
                     if (response.ok) {
-                        love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
-                        love.setAttribute('fav-id', response.json()['id']);
-                        favId = response.json()['id'];
+                        return response.json();
                     } else {
                         alert('Failed to make favorite');
                     }
+                })
+                .then(function (data) {
+                    console.log(data.id);
+                    console.log(data["id"]);
+                    love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
+                    love.setAttribute('fav-id', data["id"]);
+                    favId = data['id'];
                 })
                 .catch(error => {
                     console.log(error);
