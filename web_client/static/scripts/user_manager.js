@@ -46,10 +46,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 return response.json();
             })
-            .then(function (data) { 
+            .then(function (data) {
+                console.log(data);
+                console.log(typeId);
                 for (i in data) {
                     if (i[stripped] == typeId) {
-                        console.log(i);
                         love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
                         love.setAttribute('fav-id', i["id"]);
                         favId = love.getAttribute('fav-id');
