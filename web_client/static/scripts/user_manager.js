@@ -41,9 +41,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         fetch(`https://usernet.tech/api/v1/${user_id}/favs/${favType}`)
             .then(function (response) {
-                if (!response.ok) {
-                    console.log(response.json()["error"]);
-                }
                 return response.json();
             })
             .then(function (data) {
@@ -55,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         break;
                     }
                 }
-            })
+            });
 
         love.addEventListener('click', function () {
             if (favId) {

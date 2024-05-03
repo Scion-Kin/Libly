@@ -40,9 +40,7 @@ def create_genre_fav():
     if not user or not genre:
         abort(404)
 
-    all = [i for i in storage.all(FavoriteGenre) if
-           i.user_id == request.get_json()["user_id"] and
-           i.genre_id == request.get_json()["genre_id"]]
+    all = [i for i in storage.all(FavoriteGenre) if i.user_id == request.get_json()["user_id"] and i.genre_id == request.get_json()["genre_id"]]
 
     if len(all) > 0:
         return make_response(jsonify({"error": "Already favorited"}), 403)
