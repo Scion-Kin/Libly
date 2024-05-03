@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
         fetch(`https://usernet.tech/api/v1/${user_id}/favs/${favType}`)
             .then(function (response) {
                 if (!response.ok) {
-                    console.error(response.json()["error"]);
+                    console.log(response.json()["error"]);
                 }
                 return response.json();
             })
@@ -56,9 +56,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 }
             })
-            .catch(error => {
-                alert('Failed to fetch data or parse response');
-            });
 
         love.addEventListener('click', function () {
             if (favId) {
