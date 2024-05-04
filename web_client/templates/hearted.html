@@ -1,6 +1,6 @@
 {% extends 'logged.html' %}
 {% block title %} 
-    My favs
+    My favs ❤️
 {% endblock %}
 
 {% block head %}
@@ -11,7 +11,7 @@
         {% if fav_authors|length == 0 and fav_books|length == 0 and fav_genres == 0 %}
             <h3>Sorry. You haven't marked any favorites yet.</h3>
         {% else %}
-            <h3>Hi! Here are your favorites</h3>
+            <h3>Hi {{ name }}! Here are your favorites ❤️</h3>
             {% if fav_books|length > 0 %}
                 <section class="book_list">
                     <h4>Books</h4>
@@ -19,7 +19,9 @@
                         <section class="book history">
                             {% for item in i %}
                                 <img src="/static/images/{{ i[item]['data'].pic }}"><br>
-                                <a href="/read/{{ i[item]['data'].id }}"><button><span>Read</span>{{ i[item]["data"].title }}</button></a>
+                                <a href="/read/{{ i[item]['data'].id }}" onclick="localStorage.setItem('{{ i[item][\'data\'].title }}', '{{ i[item][\'data\'].id }}_{{ i[item][\'data\'].pic }}')">
+                                    <button><span>Read</span>{{ i[item]["data"].title }}</button>
+                                </a>
                                 <form method="POST" action="{{ url_for('client_view.book_info') }}">
                                     <button name="id" value="{{ i[item]['data'].id }}">Book info & reviews</button>
                                 </form>

@@ -50,7 +50,8 @@ def hearted():
         fav_genres = []
 
     return render_template('hearted.html', pic=session["user_pic"], fav_authors=fav_authors,
-                           fav_books=fav_books, fav_genres=fav_genres)
+                           fav_books=fav_books, fav_genres=fav_genres,
+                           name=session["first_name"])
 
 
 @client_view.route('/hot', strict_slashes=False)
