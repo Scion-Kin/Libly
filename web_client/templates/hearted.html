@@ -18,10 +18,10 @@
                     {% for i in fav_books %}
                         <section class="book history">
                             {% for item in i %}
-                                <img src="/static/images/{{ i[item].pic }}"><br>
-                                <a href="/read/{{ i[item].id }}"><button><span>Read</span>{{ i.title }}</button></a>
+                                <img src="/static/images/{{ i[item]['data'].pic }}"><br>
+                                <a href="/read/{{ i[item]['data'].id }}"><button><span>Read</span>{{ i.title }}</button></a>
                                 <form method="POST" action="{{ url_for('client_view.book_info') }}">
-                                    <button name="id" value="{{ i[item].id }}">Book info & reviews</button>
+                                    <button name="id" value="{{ i[item]['data'].id }}">Book info & reviews</button>
                                 </form>
                             {% endfor %}
                         </section>
@@ -35,8 +35,8 @@
                     {% for i in fav_authors %}
                         <section class="book history">
                             {% for item in i %}
-                                <img src="/static/images/{{ i[item].pic }}"><br>
-                                <a href="/author/{{ i[item].id }}"><button>See author's books</button></a>
+                                <img src="/static/images/{{ i[item]['data'].pic }}"><br>
+                                <a href="/author/{{ i[item]['data'].id }}"><button>See author's books</button></a>
                             {% endfor %}
                         </section>
                     {% endfor %}
@@ -49,8 +49,8 @@
                     {% for i in fav_books %}
                         <section class="book history">
                             {% for item in i %}
-                                <img src="/static/images/{{ i[item].pic }}"><br>
-                                <a href="/genre/{{ i[item].id }}"><button>See books in this genre</button></a>
+                                <img src="/static/images/{{ i[item]['data'].pic }}"><br>
+                                <a href="/genre/{{ i[item]['data'].id }}"><button>See books in this genre</button></a>
                             {% endfor %}
                         </section>  
                     {% endfor %}
