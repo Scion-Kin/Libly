@@ -115,8 +115,8 @@
         <a id="site_logo" href="/"><div></div></a>
         <nav>
             {% block header %}
-                <a href="{{ url_for('client_view.login') }}?{{ uuid }}"><button>Login</button></a>
-                <a href="{{ url_for('client_view.signup') }}?{{ uuid }}"><button>Signup</button></a>
+                <a href="{{ url_for('client_view.login') }}"><button>Login</button></a>
+                <a href="{{ url_for('client_view.signup') }}"><button>Signup</button></a>
             {% endblock %}
         </nav>
     </header>
@@ -126,7 +126,7 @@
             <h3>Welcome to</h3>
             <h1>Libly</h1>
             <h4>Explore, read, connect</h4>
-            <a href="/about?{{ uuid }}"><button>Learn more</button></a>
+            <a href="/about"><button>Learn more</button></a>
         </section>
     {% endblock %}        
     </main>

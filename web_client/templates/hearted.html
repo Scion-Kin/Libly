@@ -18,7 +18,7 @@
                     {% for i in fav_books %}
                         <section class="book history">
                             <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
-                            <a href="/read/{{ i.id }}?{{ uuid }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                            <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
                                 <button><span>Read</span>{{ i.title }}</button>
                             </a>
                             <form method="POST" action="{{ url_for('client_view.book_info') }}">
@@ -36,7 +36,7 @@
                         <section class="book history">
                             <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
                             <h4> {{ i.first_name }} {{ i.last_name }} </h4>
-                            <a href="/author/{{ i.id }}?{{ uuid }}">
+                            <a href="/author/{{ i.id }}">
                                 <button>See author's books</button>
                             </a>
                         </section>
@@ -51,7 +51,7 @@
                         <section class="book history">
                             <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
                             <h4>{{ i.name }}</h4>
-                            <a href="/genre/{{ i.id }}?{{ uuid }}">
+                            <a href="/genre/{{ i.id }}">
                                 <button>See books in this genre</button>
                             </a>
                         </section>  
