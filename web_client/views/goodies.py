@@ -20,7 +20,9 @@ def hearted():
         all = []
         for i in fav_authors:
             author = requests.get('https://usernet.tech/api/v1/authors/{}'.format(i["author_id"])).json()
-            all.append(author)
+            for j in author:
+                all.append(author[j]["data"])
+
         fav_authors = all
     else:
         fav_authors = []
@@ -31,8 +33,10 @@ def hearted():
         fav_books = fav_books.json()
         all = []
         for i in fav_books:
-            author = requests.get('https://usernet.tech/api/v1/books/{}'.format(i["book_id"])).json()
-            all.append(author)
+            book = requests.get('https://usernet.tech/api/v1/books/{}'.format(i["book_id"])).json()
+            for j in book:
+                all.append(book[j]["data"])
+
         fav_books = all
     else:
         fav_books = []
@@ -43,8 +47,10 @@ def hearted():
         fav_genres = fav_genres.json()
         all = []
         for i in fav_genres:
-            author = requests.get('https://usernet.tech/api/v1/genres/{}'.format(i["genre_id"])).json()
-            all.append(author)
+            genre = requests.get('https://usernet.tech/api/v1/genres/{}'.format(i["genre_id"])).json()
+            for j in genre:
+                all.append(genre[j]["data"])
+
         fav_genres = all
     else:
         fav_genres = []
