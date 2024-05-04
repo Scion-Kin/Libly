@@ -54,7 +54,6 @@ def home():
                                         genres=genres, users=users, keywords=keywords,
                                         found=False, pic=session["user_pic"])
 
-
         if session['user_type'] == 'librarian':
             return render_template('feed.html', admin=True, pic=session["user_pic"])
 
