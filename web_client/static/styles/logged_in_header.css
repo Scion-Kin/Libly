@@ -130,7 +130,7 @@ button {
     margin: 5px 10px;
 }
 
-#main-icon, #trending-icon, #book-icon, #notification-icon, #avatar {
+#main-icon, #trending-icon, #favs-icon, #notification-icon, #avatar {
     background-color: inherit;
     background-image: url('/static/images/home-icon.svg');
     background-position: center;
@@ -145,8 +145,8 @@ button {
     background-image: url('/static/images/fire-icon.svg');
 }
 
-#book-icon {
-    background-image: url('/static/images/book-icon.svg');
+#favs-icon {
+    background-image: url('/static/images/loved-icon.svg');
     border-radius: 0;
 }
 
