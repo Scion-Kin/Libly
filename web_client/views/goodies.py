@@ -14,36 +14,36 @@ def hearted():
     if not session or session["logged"] == False:
         return redirect(url_for('home'))
 
-    fav_authors = requests.get('http://localhost:5000/api/v1/{}/favs/authors'.format(session["user_id"]))
+    fav_authors = requests.get('https://usernet.tech/api/v1/{}/favs/authors'.format(session["user_id"]))
     if fav_authors.status_code == 200:
         fav_authors = fav_authors.json()
         all = []
         for i in fav_authors:
-            author = requests.get('http://localhost:5000/api/v1/authors/{}'.format(i["author_id"])).json()
+            author = requests.get('https://usernet.tech/api/v1/authors/{}'.format(i["author_id"])).json()
             all.append(author)
         fav_authors = all
     else:
         fav_authors = []
 
-    fav_books = requests.get('http://localhost:5000/api/v1/{}/favs/books'.format(session["user_id"]))
+    fav_books = requests.get('https://usernet.tech/api/v1/{}/favs/books'.format(session["user_id"]))
     
     if fav_books.status_code == 200:
         fav_books = fav_books.json()
         all = []
         for i in fav_books:
-            author = requests.get('http://localhost:5000/api/v1/books/{}'.format(i["book_id"])).json()
+            author = requests.get('https://usernet.tech/api/v1/books/{}'.format(i["book_id"])).json()
             all.append(author)
         fav_books = all
     else:
         fav_books = []
 
-    fav_genres = requests.get('http://localhost:5000/api/v1/{}/favs/genres'.format(session["user_id"]))
+    fav_genres = requests.get('https://usernet.tech/api/v1/{}/favs/genres'.format(session["user_id"]))
     
     if fav_genres.status_code == 200:
         fav_genres = fav_genres.json()
         all = []
         for i in fav_genres:
-            author = requests.get('http://localhost:5000/api/v1/genres/{}'.format(i["genre_id"])).json()
+            author = requests.get('https://usernet.tech/api/v1/genres/{}'.format(i["genre_id"])).json()
             all.append(author)
         fav_genres = all
     else:
