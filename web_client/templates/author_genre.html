@@ -9,12 +9,12 @@
 {% endif %}
 {% endblock %}
 {% block head %}
-    <link rel="stylesheet" href="/static/styles/author_genre.css">
+    <link rel="stylesheet" href="/static/styles/author_genre.css?{{ uuid }}">
 {% endblock %}
 {% block body %}
 <section id="about-book">
     <section id="description" class="history">
-        <img src="/static/images/{{ data.pic }}">
+        <img src="/static/images/{{ data.pic }}?{{ uuid }}">
         <article>
             {% if type == "author" %}
                 <h4> Author: {{ data.first_name }}
@@ -31,8 +31,8 @@
     <section id="book_list">
         {% for i in book_list %}
             <section class="book history">
-                <img src="/static/images/{{ i.pic }}"><br>
-                <a href="/read/{{ i.id }}"><button><span>Read</span>{{ i.title }}</button></a>
+                <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
+                <a href="/read/{{ i.id }}?{{ uuid }}"><button><span>Read</span>{{ i.title }}</button></a>
                 <form method="POST" action="{{ url_for('client_view.book_info') }}">
                     <button name="id" value="{{ i.id }}">Book info & reviews</button>
                 </form>

@@ -1,8 +1,8 @@
 {% extends "index.html" %}
 {% block title %}Login{% endblock %}
 {% block header %}
-    <a href="{{ url_for('home') }}"><button>Home</button></a>
-    <a href="{{ url_for('client_view.signup') }}"><button>Sign up</button></a>
+    <a href="{{ url_for('home') }}?{{ uuid }}"><button>Home</button></a>
+    <a href="{{ url_for('client_view.signup') }}?{{ uuid }}"><button>Sign up</button></a>
 {% endblock %}
 {% block body%}
 <form method="POST" action="{{ url_for('client_view.login') }}">

@@ -2,9 +2,10 @@
 ''' This is the view for email confirmation and account activation '''
 
 from web_client.views import client_view
-from flask import Flask, render_template
+from flask import render_template
 from models import storage
 from models.user import User
+from uuid import uuid4
 
 @client_view.route('/confirm/<string:user_id>', strict_slashes=False)
 def confirmed_email(user_id):
@@ -19,7 +20,7 @@ def confirmed_email(user_id):
         user.confirmed = True
         user.save()
         return render_template('confirm_email.html', confirmed=True, already=False,
-                               title="Welcome!")
+                               title="Welcome!", uuid=uuid4())
 
     return render_template('confirm_email.html', confirmed=True, already=True,
-                            title="Already Activated")
+                            title="Already Activated", uuid=uuid4())

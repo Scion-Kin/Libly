@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="/static/styles/feed.css">
+    <link rel="stylesheet" href="/static/styles/feed.css?{{ uuid }}">
 {% endblock %}
 {% block body %}
 {% if admin %}
@@ -29,22 +29,22 @@
     {% else %}
         <section id="feed">
             <nav id="views-menu" class="options">
-                <button id="authors"><a href="/authors">All Authors</a></button>
-                <button id="books"><a href="/books">All Books</a></button>
-                <button id="genres"><a href="/genres">All Genres</a></button>
+                <button id="authors"><a href="/authors?{{ uuid }}">All Authors</a></button>
+                <button id="books"><a href="/books?{{ uuid }}">All Books</a></button>
+                <button id="genres"><a href="/genres?{{ uuid }}">All Genres</a></button>
             </nav>       
             <h2>Books you may like</h2>
             <section class="suggested">
                 {% for book in books %}
                     <section class="suggested-book">
-                        <img src="/static/images/{{ book.pic }}">
+                        <img src="/static/images/{{ book.pic }}?{{ uuid }}">
                         <h4>Title: {{ book.title }}</h4>
                         <b>Description:</b>
                         <p>
                             {{ book.description }}
                         </p>
                         <button>
-                            <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read</a>
+                            <a href="/read/{{ book.id }}?{{ uuid }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read</a>
                         </button>
                     </section>
                 {% endfor %}

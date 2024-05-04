@@ -2,10 +2,10 @@
 ''' The login manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort, request, jsonify, redirect, url_for, make_response
-from itsdangerous import URLSafeSerializer
+from flask import render_template, session, abort, request, redirect, url_for, make_response
 from models import storage
 from models.user import User
+from uuid import uuid4
 
 
 @client_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
@@ -20,12 +20,13 @@ def login():
 
         user = [i for i in storage.all(User).values() if i.email == email]
         if len(user) < 1:
-            return render_template('login.html', error='User not found')
+            return render_template('login.html', error='User not found', uuid=uuid4())
 
         if password == user[0].password:
 
             if user[0].confirmed == False:
-                return render_template('login.html', error='You have not confirmed your email. Please check your email inbox and activate your account')
+                return render_template('login.html', uuid=uuid4(),
+                                        error='You have not confirmed your email. Please check your email inbox and activate your account')
 
             session.permanent = True
             session["logged"] = True
@@ -43,9 +44,9 @@ def login():
 
             return resp
         else:
-            return render_template('login.html', error='Invalid credentials')
+            return render_template('login.html', error='Invalid credentials', uuid=uuid4())
 
-    return render_template("login.html")
+    return render_template("login.html", uuid=uuid4())
 
 
 @client_view.route('/logout', methods=['GET'])

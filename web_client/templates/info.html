@@ -3,16 +3,16 @@
     {% if info %} {{ info.title }} {% else %} Info {% endif %}
 {% endblock %}
 {% block head %}
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="/static/scripts/info.js"></script>
-    <link rel="stylesheet" href="/static/styles/info.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js?{{ uuid }}"></script>
+    <script src="/static/scripts/info.js?{{ uuid }}"></script>
+    <link rel="stylesheet" href="/static/styles/info.css?{{ uuid }}">
 {% endblock %}
 {% block body %}
 {% if info %}
 <section id="about-book" class="history">
 
     <section id="description">
-        <img src="/static/images/{{ info.pic }}">
+        <img src="/static/images/{{ info.pic }}?{{ uuid }}">
         <article>
             <h4> Title: {{ info.title }} </h4> 
             <h5>Description:</h5>
@@ -23,7 +23,7 @@
     </section>
     <nav>
         <button class="read">
-            <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+            <a href="/read/{{ info.id }}?{{ uuid }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
                 Read book
             </a>
         </button>

@@ -3,6 +3,7 @@
 
 from web_client.views import client_view
 from flask import render_template, abort, session, redirect, url_for
+from uuid import uuid4
 import requests
 
 
@@ -14,9 +15,8 @@ def authors():
 
         if response.status_code == 200:
             data = [response.json()[i]["data"] for i in response.json()]
-            print(data)
             return render_template('resource_list.html',
-                                    all=data,
+                                    all=data, uuid=uuid4(),
                                     type="Authors", pic=session["user_pic"]) 
 
         abort(500)
@@ -32,7 +32,7 @@ def books():
         if response.status_code == 200:
             data = [response.json()[i]["data"] for i in response.json()]
             return render_template('resource_list.html',
-                                       all=data,
+                                       all=data, uuid=uuid4(),
                                        type="Books", pic=session["user_pic"]) 
 
         abort(500)
@@ -48,7 +48,7 @@ def genres():
         if response.status_code == 200:
             data = [response.json()[i]["data"] for i in response.json()]
             return render_template('resource_list.html',
-                                       all=data,
+                                       all=data, uuid=uuid4(),
                                        type="Genres", pic=session["user_pic"]) 
 
         abort(500)

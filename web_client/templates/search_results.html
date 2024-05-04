@@ -1,9 +1,8 @@
 {% extends 'logged.html' %}
 {% block title %} Search: {{ keywords }} {% endblock %}
 {% block head %}
-<link rel="stylesheet" href="/static/styles/search_results.css">
-<link rel="icon" href="/static/images/logo-maybe.svg">
-<script src="/static/scripts/search_results.js"></script>
+<link rel="stylesheet" href="/static/styles/search_results.css?{{ uuid }}">
+<script src="/static/scripts/search_results.js?{{ uuid }}"></script>
 {% endblock %}
 {% block body %}
 {% if error %}

@@ -2,7 +2,8 @@
 ''' The author or genre page '''
 
 from web_client.views import client_view
-from flask import render_template, abort, session
+from flask import render_template, abort, session, redirect
+from uuid import uuid4
 import requests
 
 
@@ -16,7 +17,7 @@ def author(author_id):
             for i in response.json():
                 return render_template('author_genre.html',
                                        book_list=response.json()[i]["book_list"],
-                                       pic=session["user_pic"],
+                                       pic=session["user_pic"], uuid=uuid4(),
                                        data=response.json()[i]["data"], type="author") 
 
         abort(404)
@@ -35,7 +36,7 @@ def genre(genre_id):
             for i in response.json():
                 return render_template('author_genre.html',
                                        book_list=response.json()[i]["book_list"],
-                                       pic=session["user_pic"],
+                                       pic=session["user_pic"], uuid=uuid4(),
                                        data=response.json()[i]["data"], type=genre) 
 
         abort(404)

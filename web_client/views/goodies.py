@@ -2,7 +2,7 @@
 ''' This defines routes for some app goodies '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
+from flask import render_template, session, request, redirect, url_for
 from uuid import uuid4
 import requests
 
@@ -57,7 +57,7 @@ def hearted():
 
     return render_template('hearted.html', pic=session["user_pic"], fav_authors=fav_authors,
                            fav_books=fav_books, fav_genres=fav_genres,
-                           name=session["first_name"])
+                           name=session["first_name"], uuid=uuid4())
 
 
 @client_view.route('/hot', strict_slashes=False)

@@ -4,6 +4,7 @@
 from web_client.views import client_view
 from flask import render_template, session, abort, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
+from uuid import uuid4
 import requests
 import os
 
@@ -27,7 +28,7 @@ def manage_authors():
 
             return redirect(url_for('client_view.manage_authors'))
 
-        return render_template('manage_resource.html', title="Authors", pic=session["user_pic"])
+        return render_template('manage_resource.html', title="Authors", pic=session["user_pic"], uuid=uuid4())
     abort(404)
 
 
@@ -65,7 +66,7 @@ def manage_books():
         authors = requests.get('https://usernet.tech/api/v1/authors')
 
         return render_template('manage_resource.html', title="Books", pic=session["user_pic"],
-                               genres=genres.json(), authors=authors.json())
+                               genres=genres.json(), authors=authors.json(), uuid=uuid4())
     abort(404)
 
 
@@ -79,9 +80,10 @@ def manage_genres():
                                      headers=headers,
                                      json={"name": request.form.get('name'), "password": request.form.get('password')})
             if response.status_code != 201:
-                return render_template('manage_resource.html', title="Genres", error=response.json()[0]["error"], pic=session["user_pic"])
+                return render_template('manage_resource.html', title="Genres", uuid=uuid4(),
+                                        error=response.json()[0]["error"], pic=session["user_pic"])
 
-        return render_template('manage_resource.html', title="Genres", pic=session["user_pic"])
+        return render_template('manage_resource.html', title="Genres", pic=session["user_pic"], uuid=uuid4())
     abort(404)
 
 
@@ -89,7 +91,7 @@ def manage_genres():
 def manage_reviews():
     ''' manage reviews '''
     if session and session['user_type'] == 'librarian':
-        return render_template('manage_resource.html', title="Reviews", pic=session["user_pic"])
+        return render_template('manage_resource.html', title="Reviews", pic=session["user_pic"], uuid=uuid4())
     abort(404)
 
 
@@ -97,5 +99,5 @@ def manage_reviews():
 def manage_users():
     ''' manage users '''
     if session and session['user_type'] == 'librarian':
-        return render_template('manage_resource.html', title="Users", pic=session["user_pic"])
+        return render_template('manage_resource.html', title="Users", pic=session["user_pic"], uuid=uuid4())
     abort(404)

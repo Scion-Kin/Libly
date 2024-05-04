@@ -3,6 +3,7 @@
 
 from web_client.views import client_view
 from flask import render_template, request, session, url_for, redirect
+from uuid import uuid4
 import requests
 
 
@@ -39,6 +40,6 @@ def signup():
 
             return redirect(url_for('client_view.login'))
 
-        return render_template('signup.html', error=response.json()["error"])
+        return render_template('signup.html', uuid=uuid4(), error=response.json()["error"])
 
-    return render_template('signup.html')
+    return render_template('signup.html', uuid=uuid4())

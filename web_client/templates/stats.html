@@ -11,9 +11,9 @@
 
 {% block head %}
     {% if not numbers and not stats %}
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js?{{ uuid }}"></script>
     {% endif %}
-    <link rel="stylesheet" href="/static/styles/manage_resource.css">
+    <link rel="stylesheet" href="/static/styles/manage_resource.css?{{ uuid }}">
     <style>
         .confirm {
             box-shadow: none;
@@ -115,7 +115,7 @@
                             {% endif %}
                             <section class="data">
                                 {% if j != "reviews" %}
-                                <img src="/static/images/{{ i.pic }}">
+                                <img src="/static/images/{{ i.pic }}?{{ uuid }}">
                                 {% endif %}
                             </section>
                         </section>   

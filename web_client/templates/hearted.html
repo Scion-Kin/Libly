@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="/static/styles/author_genre.css">
+    <link rel="stylesheet" href="/static/styles/author_genre.css?{{ uuid }}">
 {% endblock %}
 {% block body %}
     <section id="about-book">
@@ -17,8 +17,8 @@
                 <section class="book_list">
                     {% for i in fav_books %}
                         <section class="book history">
-                            <img src="/static/images/{{ i.pic }}"><br>
-                            <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                            <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
+                            <a href="/read/{{ i.id }}?{{ uuid }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
                                 <button><span>Read</span>{{ i.title }}</button>
                             </a>
                             <form method="POST" action="{{ url_for('client_view.book_info') }}">
@@ -34,9 +34,9 @@
                 <section class="book_list">
                     {% for i in fav_authors %}
                         <section class="book history">
-                            <img src="/static/images/{{ i.pic }}"><br>
+                            <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
                             <h4> {{ i.first_name }} {{ i.last_name }} </h4>
-                            <a href="/author/{{ i.id }}">
+                            <a href="/author/{{ i.id }}?{{ uuid }}">
                                 <button>See author's books</button>
                             </a>
                         </section>
@@ -49,9 +49,9 @@
                 <section class="book_list">
                     {% for i in fav_genres %}
                         <section class="book history">
-                            <img src="/static/images/{{ i.pic }}"><br>
+                            <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
                             <h4>{{ i.name }}</h4>
-                            <a href="/genre/{{ i.id }}">
+                            <a href="/genre/{{ i.id }}?{{ uuid }}">
                                 <button>See books in this genre</button>
                             </a>
                         </section>  

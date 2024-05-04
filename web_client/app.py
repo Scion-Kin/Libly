@@ -2,7 +2,7 @@
 ''' This is the web server '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort, session, request, abort, redirect, url_for
+from flask import Flask, Blueprint, render_template, abort, session, request, redirect, url_for
 from uuid import uuid4
 import requests
 import base64
@@ -48,14 +48,14 @@ def home():
                 if len(results) > 0:
                     return render_template('search_results.html', authors=authors, books=books,
                                             genres=genres, users=users, keywords=keywords,
-                                            found=True, pic=session["user_pic"])
+                                            found=True, pic=session["user_pic"], uuid=uuid4())
 
                 return render_template('search_results.html', authors=authors, books=books,
                                         genres=genres, users=users, keywords=keywords,
-                                        found=False, pic=session["user_pic"])
+                                        found=False, pic=session["user_pic"], uuid=uuid4())
 
         if session['user_type'] == 'librarian':
-            return render_template('feed.html', admin=True, pic=session["user_pic"])
+            return render_template('feed.html', admin=True, pic=session["user_pic"], uuid=uuid4())
 
         else:
             books = requests.get('https://usernet.tech/api/v1/books').json()
@@ -69,10 +69,12 @@ def home():
                     random.append(books[i]["data"])
                     count += 1
 
-                return render_template('feed.html', admin=False, books=random, pic=session["user_pic"])
-            return render_template('feed.html', error="No books found in the database.", pic=session["user_pic"])
+                return render_template('feed.html', admin=False, books=random,
+                                       uuid=uuid4(), pic=session["user_pic"])
+            return render_template('feed.html', uuid=uuid4(),
+                                    error="No books found in the database.", pic=session["user_pic"])
 
-    return render_template('index.html')
+    return render_template('index.html', uuid=uuid4())
 
 
 if __name__ == "__main__":

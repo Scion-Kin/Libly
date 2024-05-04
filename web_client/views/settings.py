@@ -4,6 +4,7 @@
 from web_client.views import client_view
 from flask import render_template, session, abort, request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
+from uuid import uuid4
 import requests
 import os
 
@@ -15,7 +16,7 @@ def manage_user():
         if request.method == 'POST':
             file = request.files['pic']
             if not file:
-                return render_template('settings.html', error="No picture provided")
+                return render_template('settings.html', uuid=uuid4(), error="No picture provided")
 
             details = {
                 "email": request.form.get('email'),
@@ -29,9 +30,10 @@ def manage_user():
 
             for key, value in details.items():
                 if key not in ["middle_name", "new_password"] and len(value) == 0:
-                    return render_template('settings.html', first_name=session["first_name"], last_name=session["last_name"],
-                                            error="Missing {}".format(value),
-                                            pic=session["user_pic"])
+                    return render_template('settings.html', first_name=session["first_name"],
+                                           last_name=session["last_name"], uuid=uuid4(),
+                                           error="Missing {}".format(value),
+                                           pic=session["user_pic"])
 
             headers = {"Content-Type": "application/json"}
             response = requests.put('https://usernet.tech/api/v1/users/{}'.format(session['user_id']),
@@ -48,9 +50,10 @@ def manage_user():
 
                 return redirect(url_for('home'))
 
-            return render_template('settings.html', first_name=session["first_name"], last_name=session["last_name"],
+            return render_template('settings.html', first_name=session["first_name"], 
+                                   last_name=session["last_name"], uuid=uuid4(),
                                    error=response.json()["error"].capitalize(), pic=session["user_pic"])
 
-        return render_template('settings.html', first_name=session["first_name"],
+        return render_template('settings.html', first_name=session["first_name"], uuid=uuid4(),
                                last_name=session["last_name"], pic=session["user_pic"])
     return redirect(url_for('home'))
