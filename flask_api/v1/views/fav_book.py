@@ -40,7 +40,9 @@ def create_book_fav():
     if not user or not book:
         abort(404)
 
-    all = [i for i in storage.all(FavoriteBook) if i.user_id == request.get_json()["user_id"] and i.book_id == request.get_json()["book_id"]]
+    all = [i for i in storage.all(FavoriteBook).values() if
+           i.user_id == request.get_json()["user_id"] and
+           i.book_id == request.get_json()["book_id"]]
 
     if len(all) > 0:
         return make_response(jsonify({"error": "Already favorited"}), 403)
