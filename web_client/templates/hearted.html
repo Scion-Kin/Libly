@@ -19,7 +19,7 @@
                         <section class="book history">
                             {% for item in i %}
                                 <img src="/static/images/{{ i[item]['data'].pic }}"><br>
-                                <a href="/read/{{ i[item]['data'].id }}"><button><span>Read</span>{{ i.title }}</button></a>
+                                <a href="/read/{{ i[item]['data'].id }}"><button><span>Read</span>{{ i[item]["data"].title }}</button></a>
                                 <form method="POST" action="{{ url_for('client_view.book_info') }}">
                                     <button name="id" value="{{ i[item]['data'].id }}">Book info & reviews</button>
                                 </form>
@@ -46,7 +46,7 @@
             {% if fav_genres|length > 0 %}
                 <section class="book_list">
                     <h4>Genres</h4>
-                    {% for i in fav_books %}
+                    {% for i in fav_genres %}
                         <section class="book history">
                             {% for item in i %}
                                 <img src="/static/images/{{ i[item]['data'].pic }}"><br>
