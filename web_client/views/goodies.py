@@ -63,3 +63,8 @@ def hearted():
 @client_view.route('/hot', strict_slashes=False)
 def hot():
     ''' The hot list route '''
+
+    hot = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"]))
+
+    return render_template('hot.html', hot_books=hot.json(),
+                           name=session["first_name"], pic=session["user_pic"], uuid=uuid4())
