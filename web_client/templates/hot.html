@@ -4,19 +4,26 @@
     <link rel="stylesheet" href="../static/styles/author_genre.css?{{ uuid }}">
 {% endblock %}
 {% block body %}
-    <section id="about-book">
-        <section id="book_list">
-            {% for i in hot_books %}
-                <section class="book history">
-                    <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
-                    <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
-                        <button><span>Read</span>{{ i.title }}</button>
-                    </a>
-                    <form method="POST" action="{{ url_for('client_view.book_info') }}">
-                        <button class="reviews-header" name="id" value="{{ i.id }}"><b>{{ i.reviews_count }} reviews</b></button>
-                    </form>
-                </section>
-            {% endfor %}
+    {% if hot_books|length > 0 %}
+        <h4>Hi {{ name }}! <br>Here are the top ten hot books from your favorite authors and genres.</h4>
+        <section id="about-book">
+            <section id="book_list">
+                {% for i in hot_books %}
+                    <section class="book history">
+                        <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
+                        <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                            <button><span>Read</span>{{ i.title }}</button>
+                        </a>
+                        <form method="POST" action="{{ url_for('client_view.book_info') }}">
+                            <button class="reviews-header" name="id" value="{{ i.id }}"><b>{{ i.reviews_count }} reviews</b></button>
+                        </form>
+                    </section>
+                {% endfor %}
+            </section>
         </section>
-    </section>
+    {% else %}
+        <h4>Hi {{ name }}! <br>You haven't marked any favorite authors or genres. <br>
+            Make sure to mark your favorites, in order to see your hot list selection.
+        </h4>
+    {% endif %}
 {% endblock %}

@@ -24,12 +24,15 @@
                 </div>
             </form>
         </nav>
-        <nav id="main">
-            <a href="/"><button id="main-icon"></button></a>
-            <a href="/hearted"><button id="favs-icon"></button></a>
-            <a href="/hot"><button id="trending-icon"></button></a>
-        </nav>
+        <section id="all">
+            <nav id="main">
+                <a href="/"><button id="main-icon"></button></a>
+                <a href="/hearted"><button id="favs-icon"></button></a>
+                <a href="/hot"><button id="trending-icon"></button></a>                
+            </nav>
+        </section>
         <button id="avatar" style="background-image: url('/static/images/{{ pic }}');"></button>
+        <div id="user-dropdown"></div>
     </header>
     {% endblock %}
     <main>

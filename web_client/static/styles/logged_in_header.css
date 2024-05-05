@@ -38,10 +38,14 @@ a {
     margin: 5px 0px;
 }
 
+#all {
+    width: 40%;
+}
+
 #main {
     display: flex;
     justify-content: space-between;
-    width: 40%;
+    width: 100%;
     height: 40px;
     margin: 5px 0px;
     padding: 0px 5px;
@@ -133,7 +137,7 @@ button {
     margin: 5px 10px;
 }
 
-#main-icon, #trending-icon, #favs-icon, #notification-icon, #avatar {
+#main-icon, #trending-icon, #favs-icon, #notification-icon, #avatar, #user-dropdown {
     background-color: inherit;
     background-image: url('/static/images/home-icon.svg');
     background-position: center;
@@ -159,10 +163,19 @@ button {
     margin-left: 50%;
 }
 
+#user-dropdown {
+    background-image: url('/static/images/dropdown-icon.svg');
+    width: 13px;
+    height: 13px;
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    right: 17px;
+}
+
 .options button {
     color: inherit !important;
 }
-
 
 #user-menu {
     position: fixed;
@@ -285,6 +298,38 @@ textarea:focus {
 @media (max-width: 900px) {
     #main {
         display: none;
+        position: relative;
+        top: 35px;
+        right: 10px;
+        background-color: white;
+        backdrop-filter: blur(10px);
+        height: fit-content;
+        width: fit-content;
+        border-radius: 30px;
+    }
+    
+    #main button {
+        margin: 10px;
+    }
+
+    #all {
+        background-image: url('/static/images/show-icon.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-color: inherit;
+        margin: 2px 8px 5px 8px;
+        width: 45px;
+        height: 45px;
+        border-radius: 20px;
+    }
+
+    #all:hover #main {
+        display: block;
+    }
+    
+    #all:hover {
+        transform: scale(1.2);
     }
 
     #search {
