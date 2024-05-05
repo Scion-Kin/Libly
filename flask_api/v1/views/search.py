@@ -28,7 +28,7 @@ def search():
     }
 
     for i in keywords:
-        in_books = [j.to_dict() for j in storage.all(Book).values() if i.lower() in j.title.lower()]
+        in_books = [j.to_dict() for j in storage.all(Book).values() if i.lower() in j.title.lower() or i.lower() in j.ISBN]
         in_authors = [j.to_dict() for j in storage.all(Author).values() if i.lower() in j.first_name.lower() or i in j.last_name.lower()]
         in_genres = [j.to_dict() for j in storage.all(Genre).values() if i.lower() in j.name.lower()]
         in_users = [j.to_dict() for j in storage.all(User).values() if i.lower() in j.first_name.lower() or i in j.last_name.lower()]

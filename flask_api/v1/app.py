@@ -29,6 +29,18 @@ def not_found(error):
     return make_response(jsonify({'error': "Not found"}), 404)
 
 
+@app.errorhandler(500)
+def not_found(error):
+    """ 500 Error
+    ---
+    responses:
+      500:
+        description: the server encountered an error
+    """
+
+    return make_response(jsonify({"error": "Server error"}), 500)
+
+
 @app.errorhandler(415)
 def invalid_json(error):
     ''' 415 Error

@@ -1,0 +1,68 @@
+{% extends 'logged.html' %}
+{% block title %} {{ code }} {{ error }} {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/feed.css?{{ uuid }}">
+    {% if code == 404 %}
+        <style>
+            .error_404 {
+                background-image: url('/static/images/404-icon.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: right;
+                min-height: 500px;
+            }
+        </style>
+    {% else %}
+        <style>
+            .error_500 {
+                background-image: url('/static/images/500-icon.svg');
+                background-repeat: no-repeat;
+                background-size: contain;
+                background-position: right;
+                min-height: 500px;
+            }
+        </style>
+    {% endif %}
+        <style>
+            .dialogue {
+                width: 30%;
+                color: inherit;
+                margin: 20px;
+                font-weight: bolder;
+                font-size: larger;
+                padding: 20px;
+                border-radius: 20px;
+                background-color: rgba(202, 202, 243, 0.459);
+                backdrop-filter: blur(30px);
+            }
+
+            @media (max-width: 900px) {
+                .dialogue {
+                    width: 80%;
+                    margin: 20px auto ;
+                }
+            }
+        </style>
+{% endblock %}
+
+{% block body %}
+    {% if code == 404 %}
+        <section class="error_404">
+            <section class="dialogue">
+                <h4>Sorry, the page you are looking for was not found</h4>
+                <a href="/"><button>Back Home</button></a>
+            </section>
+        </section>
+    {% else %}
+        <section class="error_500">
+            <section class="dialogue">
+                <h4>
+                    Sorry, the server encountered an error while processing your request. 
+                    If the problem persists, please contact support to get it resolved.
+                </h4>
+                <button onclick="location.reload()">Try again</button>
+            </section>
+        </section>
+    {% endif %}
+{% endblock %}

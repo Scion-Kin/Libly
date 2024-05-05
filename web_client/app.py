@@ -77,5 +77,19 @@ def home():
     return render_template('index.html', uuid=uuid4())
 
 
+@app.errorhandler(404)
+def error_404(error):
+    ''' Handles the 404 error '''
+
+    return render_template('errors.html', error="Not found", code=404, uuid=uuid4(), pic=session["user_pic"])
+
+
+@app.errorhandler(500)
+def error_500(error):
+    ''' Handles the server error '''
+
+    return render_template('errors.html', error="Server error", code=500, uuid=uuid4(), pic=session["user_pic"])
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5050, debug=True)

@@ -48,12 +48,12 @@ def create_book():
         return make_response(jsonify({"error": "Missing genre(s)"}), 400)
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     new_book = Book(title=request.get_json()["title"],
                     ISBN=request.get_json()["ISBN"],
@@ -138,12 +138,12 @@ def update_book(book_id):
     ''' alter info about a certain book from the database '''
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     book = storage.get(Book, book_id)
     if not book:
@@ -163,12 +163,12 @@ def delete_book(book_id):
     ''' alter info about a certain book from the database '''
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     book = storage.get(Book, book_id)
     if not book:

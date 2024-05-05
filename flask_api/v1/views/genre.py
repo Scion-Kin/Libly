@@ -58,12 +58,12 @@ def create_genre():
         return make_response(jsonify({"error": "Missing name"}), 400)
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     genres = [i for i in storage.all(Genre).values() if i.name.lower() == request.get_json()["name"].lower()]
     if len(genres) > 0:
@@ -83,12 +83,12 @@ def update_genre(genre_id):
         return make_response(jsonify({"error": "Missing name"}), 400)
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     genre = storage.get(Genre, genre_id)
     if genre is not None:
@@ -104,12 +104,12 @@ def delete_genre(genre_id):
     ''' creates a new genre in the database '''
 
     if "password" not in request.get_json():
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
-        return make_response(jsonify({"error": "unauthorized"}, 401))
+        return make_response(jsonify({"error": "unauthorized"}), 401)
 
     genre = storage.get(Genre, genre_id)
     if genre is not None:
