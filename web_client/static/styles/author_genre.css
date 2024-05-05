@@ -38,6 +38,22 @@ button span {
     margin: 0;
 }
 
+
+.reviews-header {
+    color: white;
+    text-align: left;
+    background-image: url('/static/images/comments-icon.svg');
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: #316FF6;
+    width: 130px;
+    height: 20px;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 20px 20px 0px 20px;
+}
+
 #description {
     display: flex;
     flex-wrap: wrap;

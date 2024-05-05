@@ -9,7 +9,7 @@
             {% for i in hot_books %}
                 <section class="book history">
                     <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
-                    <b>{{ i.reviews_count }} reviews</b><br>
+                    <section class="reviews-header"><b>{{ i.reviews_count }} reviews</b></section>
                     <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
                         <button><span>Read</span>{{ i.title }}</button>
                     </a>
