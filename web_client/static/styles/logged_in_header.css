@@ -300,7 +300,7 @@ textarea:focus {
         display: none;
         position: relative;
         top: 35px;
-        right: 10px;
+        right: 5px;
         background-color: white;
         backdrop-filter: blur(10px);
         height: fit-content;
@@ -309,7 +309,7 @@ textarea:focus {
     }
     
     #main button {
-        margin: 10px;
+        margin: 7px;
     }
 
     #all {
@@ -326,10 +326,6 @@ textarea:focus {
 
     #all:hover #main {
         display: block;
-    }
-    
-    #all:hover {
-        transform: scale(1.2);
     }
 
     #search {
