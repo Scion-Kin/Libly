@@ -22,7 +22,7 @@ def hot_list(user_id):
 
             for book_author in book_authors:
                 reviews = len([j for j in storage.all('Review').values() if j.book_id == book_author.book_id])
-                book = storage.get("Book", book_author.book_id)
+                book = (storage.get("Book", book_author.book_id)).to_dict()
                 book["reviews_count"] = reviews
                 hot_books[book["id"]] = reviews
                 fav_books.append(book)
@@ -35,7 +35,7 @@ def hot_list(user_id):
 
             for book_genre in book_genres:
                 reviews = len([j for j in storage.all('Review').values() if j.book_id == book_genre.book_id])
-                book = storage.get("Book", book_genre.book_id)
+                book = (storage.get("Book", book_genre.book_id)).to_dict()
                 book["reviews_count"] = reviews
                 hot_list2[book["id"]] = reviews
                 fav_books.append(book)
