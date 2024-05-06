@@ -10,10 +10,10 @@
     {% if error %}
         <h4 class="error" style="display: block">The password you entered was incorrect.</h4>
     {% endif %}
-<h2>Manage {{ title }}</h2>
+<h2 style="color: white;">Manage {{ title }}</h2>
 <section id="results">
     <nav>
-        <form method="POST" style="background-color: inherit !important;">
+        <form method="POST">
             <input type="search" name="search">
         </form>
         {% if title != "Users" and title != "Reviews" %}
