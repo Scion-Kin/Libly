@@ -56,6 +56,7 @@ a {
 
 .random-quotes, .suggested {
     display: flex;
+    flex-direction: row !important;;
     justify-content: space-between;
     padding: 10px;
 }
@@ -83,8 +84,13 @@ h2 {
     color: white;
 }
 
+@media (min-width: 901px) {
+    .suggested-book {
+        max-width: 35%;
+    }
+}
+
 .suggested-book {
-    min-width: 35%;
     display: flex;
     flex-direction: column;
     background-color: white;
