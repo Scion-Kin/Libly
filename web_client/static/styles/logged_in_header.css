@@ -38,7 +38,7 @@ a {
     margin: 5px 0px;
 }
 
-#all {
+#whole {
     width: 40%;
 }
 
@@ -316,7 +316,7 @@ textarea:focus {
         margin: 7px;
     }
 
-    #all {
+    #whole {
         background-image: url('/static/images/show-icon.svg');
         background-position: center;
         background-repeat: no-repeat;
@@ -328,7 +328,7 @@ textarea:focus {
         border-radius: 20px;
     }
 
-    #all:hover #main {
+    #whole:hover #main {
         display: block;
     }
 
