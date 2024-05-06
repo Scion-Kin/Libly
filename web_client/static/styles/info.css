@@ -73,11 +73,9 @@ h2 {
 }
 
 .review {
-    width: 95%;
     display: flex;
-    gap: 10px;
-    margin: 5px;
-    padding: 10px;
+    gap: 5px;
+    margin: 10px 0px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
