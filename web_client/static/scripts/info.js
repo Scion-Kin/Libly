@@ -54,7 +54,6 @@ $(function () {
                         let avatar = document.createElement('img');
                         let username = document.createElement('p');
                         $(username).text(`${data[j].data.first_name} ${data[j].data.last_name}`);
-                        $(avatar).addClass('owner-photo');
                         $(avatar).attr('src', `/static/images/${data[j].data.pic}`);
                         $(owner).append(avatar);
                         $(reviews[i]).find('.text').prepend(username);

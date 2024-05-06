@@ -61,21 +61,20 @@ h2 {
 }
 
 #reviews {
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
+    margin: 25px 0px;
 }
 
 #reviews img {
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    margin: 0px 10px;
+
 }
 
 .review {
     display: flex;
-    gap: 5px;
-    margin: 10px 0px;
+    gap: 10px;
+    margin: 15px 0px;
     border-radius: 15px;
     backdrop-filter: blur(10px);
 }
@@ -94,12 +93,6 @@ h2 {
     border-radius: 10px;
     margin: 0px 0px 10px 0px;
     color: white;
-}
-
-.owner-photo {
-    width: 50px;
-    height: 50px;
-    border-radius: 25px;
 }
 
 #make-review {
@@ -162,6 +155,7 @@ button {
 }
 
 @media (max-width: 900px) {
+
     #description {
         display: block;
     }
