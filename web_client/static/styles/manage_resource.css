@@ -24,7 +24,7 @@ h2 {
     color: white !important;
     padding: 10px;
     background-color: #e7e8e900 !important;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(100px);
     border-radius: 25px;
 }
 
