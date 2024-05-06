@@ -61,9 +61,7 @@ h2 {
 }
 
 #reviews {
-    padding: 10px;
-    border-radius: 15px;
-    background-color: #059e5421;
+    border-radius: 20px;
     backdrop-filter: blur(10px);
 }
 
@@ -75,11 +73,32 @@ h2 {
 }
 
 .review {
-    margin: 15px;
+    display: flex;
+    gap: 20px;
+    margin: 5px;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #316ff652;
     backdrop-filter: blur(10px);
+}
+
+.text {
+    margin: 0;
+}
+
+.text p {
+    background: #316FF6;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    color: white;
+}
+
+.owner-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
 }
 
 #make-review {
@@ -151,6 +170,6 @@ button {
     }
 
     textarea {
-        width: 90%;
+        width: 85%;
     }
 }

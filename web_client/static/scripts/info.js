@@ -47,11 +47,17 @@ $(function () {
         if ($('#reviews')) {
             let reviews = $('#reviews').children();
             for (let i = 0; i < reviews.length; i++) {
-                let imgId = $(reviews[i]).find('img').attr('id');
-                let user_id = imgId.split('_')[1];
+                let owner = $(reviews[i]).find('.owner');
+                let user_id = $(owner).attr('id').split('_')[1];
                 $.get(`https://usernet.tech/api/v1/users/${user_id}`, function(data, textStatus) {
                     for (let j in data) {
-                        $(`#${imgId}`).attr('src', '/static/images/' + data[j].data.pic);
+                        let avatar = document.createElement('img');
+                        let username = document.createElement('p');
+                        $(username).text(`${data[j].data.first_name} ${data[j].data.last_name}`);
+                        $(avatar).addClass('owner-photo');
+                        $(avatar).attr('src', `/static/images/${data[j].data.pic}`);
+                        $(owner).append(avatar);
+                        $(reviews[i]).find('.text').prepend(username);
                         break;
                     }
                 });

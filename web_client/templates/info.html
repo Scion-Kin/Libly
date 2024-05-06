@@ -35,10 +35,11 @@
         <section id="reviews">
             {% for i in range(reviews|length) %}
                 <section class="review">
-                    <img id="{{ i }}_{{ reviews[i].user_id }}" />
-                    <p>{{ reviews[i].text }}</p>
+                    <section class="owner" id="{{ i }}_{{ reviews[i].user_id }}">
+
+                    </section>
+                    <p class="text">{{ reviews[i].text }}</p>
                 </section>
-                
             {% endfor %}
         </section>
     {% endif %}
