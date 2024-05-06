@@ -23,12 +23,12 @@
 {% if found == True %}
     {% if authors %}
         {% for author in authors %}
-            <section class="author result-box">
+            <section class="author result-box" style="background-image: url('/static/images/{{ author.pic }}');">
                 <section class="description">
                     <p class="title">
                         Author - <span class="naming">{{ author.first_name }} {{ author.last_name }}</span>
                     </p>
-                    <button class="go">See books</button>                   
+                    <button class="go">See books</button>      
                 </section>
             </section>
         {% endfor %}
@@ -55,7 +55,7 @@
 
     {% if genres %}
         {% for genre in genres %}
-            <section class="genre result-box">
+            <section class="genre result-box" style="background-image: url('/static/images/{{ genre.pic }}');">
                 <section class="description">
                     <p class="title">Genre - <span class="naming">{{ genre.name }}</span></p>
                     <button class="go">Check books</button>
@@ -66,7 +66,7 @@
 
     {% if users %}
         {% for user in users %}
-            <section class="user result-box">
+            <section class="user result-box" style="background-image: url('/static/images/{{ user.pic }}');">
                 <section class="description">
                     <p class="title">User - <span class="naming">{{ user.first_name }} {{ user.last_name }}</span></p>
                 </section>
