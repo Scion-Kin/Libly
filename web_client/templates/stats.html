@@ -61,33 +61,35 @@
             <h2>Here are the statistics from the year {{ year }}</h2>
         {% endif %}
 
-        <table>
-            <th>Resource type</th>
-            <th>Count</th>
-            {% for i in numbers %}
-            <tr>
-                <td>New {{ i }}</td>
-                <td> {{ numbers[i] }} </td>
-            </tr>
-            {% endfor %}
-        </table>
+        <section id="results">
+            <table>
+                <th>Resource type</th>
+                <th>Count</th>
+                {% for i in numbers %}
+                <tr>
+                    <td>New {{ i }}</td>
+                    <td> {{ numbers[i] }} </td>
+                </tr>
+                {% endfor %}
+            </table>
 
-        <form class="change" method="POST" action="{{ url_for('client_view.get_statistics') }}">
-            {% if days %}
-                <input type="text" name="time" value="days" style="display: none;">
-                <button name="number" value="{{ days }}">Pretty printed format</button>
-            {% elif month %}
-                <input type="text" name="time" value="month" style="display: none;">
-                <button name="number" value="{{ month }}">Pretty printed format</button>
-            {% elif year %}
-                <input type="text" name="time" value="year" style="display: none;">
-                <button name="number" value="{{ year }}">Pretty printed format</button>
-            {% endif %}
-        </form>
+            <form class="change" method="POST" action="{{ url_for('client_view.get_statistics') }}">
+                {% if days %}
+                    <input type="text" name="time" value="days" style="display: none;">
+                    <button name="number" value="{{ days }}">Pretty printed format</button>
+                {% elif month %}
+                    <input type="text" name="time" value="month" style="display: none;">
+                    <button name="number" value="{{ month }}">Pretty printed format</button>
+                {% elif year %}
+                    <input type="text" name="time" value="year" style="display: none;">
+                    <button name="number" value="{{ year }}">Pretty printed format</button>
+                {% endif %}
+            </form>
+        </section>
 
     {% elif stats %}
         {% if days %}
-            <h2>Here are the numbers from the last {{ days }} {% if days == 1 %} day {% else %} days {% endif %}:</h2>
+            <h2>Here are new resources from the last {{ days }} {% if days == 1 %} day {% else %} days {% endif %}:</h2>
         {% elif month %}
             <h2>Here are the statistics from {{ month_name }}</h2>
         {% elif year %}
@@ -141,17 +143,19 @@
         </section>
 
     {% else %}
-        {% if error %}
-            <h4 class="error"> {{ error }} </h4>
-        {% endif %}
-        <h2 id="dialogue">Which duration would you like a report on?</h2>
-        <form id="prompt" class="confirm" method="POST">
-            <input type="radio" name="time" value="days" id="days" required> <label for="days">Days</label><br>
-            <input type="radio" name="time" value="month" id="month" required> <label for="month">Month</label><br>
-            <input type="radio" name="time" value="year" id="year" required> <label for="year">Year</label><br>
-            <input type="tel" name="number" value=1 id="number" required>
-            <button>Get</button>
-        </form>
+        <section id="results">
+            {% if error %}
+                <h4 class="error"> {{ error }} </h4>
+            {% endif %}
+            <h2 id="dialogue">Which duration would you like a report on?</h2>
+            <form id="prompt" class="confirm" method="POST">
+                <input type="radio" name="time" value="days" id="days" required> <label for="days">Days</label><br>
+                <input type="radio" name="time" value="month" id="month" required> <label for="month">Month</label><br>
+                <input type="radio" name="time" value="year" id="year" required> <label for="year">Year</label><br>
+                <input type="tel" name="number" value=1 id="number" required>
+                <button>Get</button>
+            </form>
+        </section>
         <script>
             $('#prompt input[type=radio]').click(function () {
               if ($(this).val() == 'days') {
