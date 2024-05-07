@@ -13,7 +13,6 @@ app.secret_key = 'hellolibly'
 
 app.register_blueprint(client_view)
 
-# app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=30)  # Set session lifetime to 30 days
 app.config['SESSION_COOKIE_SECURE'] = True  # Use secure cookies
 app.config['SESSION_COOKIE_HTTPONLY'] = True  # Use HttpOnly cookies
 
@@ -58,19 +57,11 @@ def home():
             return render_template('feed.html', admin=True, pic=session["user_pic"], uuid=uuid4())
 
         else:
-            books = requests.get('https://usernet.tech/api/v1/books').json()
+            books = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"])).json()
             if "error" not in books:
-                random = []
-
-                count = 0
-                for i in books:
-                    if count == 2:
-                        break
-                    random.append(books[i]["data"])
-                    count += 1
-
-                return render_template('feed.html', admin=False, books=random,
+                return render_template('feed.html', admin=False, books=books[:5],
                                        uuid=uuid4(), pic=session["user_pic"])
+
             return render_template('feed.html', uuid=uuid4(),
                                     error="No books found in the database.", pic=session["user_pic"])
 
@@ -81,12 +72,24 @@ def home():
 def error_404(error):
     ''' Handles the 404 error '''
 
+    if not session:
+        return redirect(url_for('home'))
+
+    if session["logged"] == False:
+        return redirect(url_for('home'))
+
     return render_template('errors.html', error="Not found", code=404, uuid=uuid4(), pic=session["user_pic"])
 
 
 @app.errorhandler(500)
 def error_500(error):
     ''' Handles the server error '''
+
+    if not session:
+        return redirect(url_for('home'))
+
+    if session["logged"] == False:
+        return redirect(url_for('home'))
 
     return render_template('errors.html', error="Server error", code=500, uuid=uuid4(), pic=session["user_pic"])
 

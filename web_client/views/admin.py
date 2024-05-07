@@ -57,7 +57,7 @@ def manage_books():
             print(response.status_code)
 
             if response.status_code == 201:
-                book_file.save(os.path.join('web_client/books/', secure_filename(book_file.filename)))
+                book_file.save(os.path.join('web_client/static/books/', secure_filename(book_file.filename)))
                 book_cover.save(os.path.join('web_client/static/images/', secure_filename(book_cover.filename)))
 
                 return redirect(url_for('client_view.manage_books'))

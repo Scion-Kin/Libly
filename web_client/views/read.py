@@ -19,7 +19,7 @@ def read_book(book_id):
 
         if data.status_code == 200:
             for i in data.json():
-                file_name = 'web_client/books/' + data.json()[i]["data"]["file_name"]
+                file_name = 'web_client/static/books/' + data.json()[i]["data"]["file_name"]
 
                 # Open the PDF file using PyMuPDF
                 pdf_document = fitz.open(file_name)

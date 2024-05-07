@@ -78,7 +78,7 @@ def create_book():
                 storage.save()
 
                 try:
-                    os.remove('web_client/books/' + new_book.file_name)
+                    os.remove('web_client/static/books/' + new_book.file_name)
 
                 except FileNotFoundError:
                     pass
@@ -120,7 +120,7 @@ def create_book():
             storage.save()
 
             try:
-                os.remove('web_client/books/' + new_book.file_name)
+                os.remove('web_client/static/books/' + new_book.file_name)
 
             except FileNotFoundError:
                 pass
@@ -175,7 +175,8 @@ def delete_book(book_id):
         abort(404)
 
     try:
-        os.remove('web_client/books/' + book.file_name)
+        os.remove('web_client/static/books/' + book.file_name)
+        os.remove('web_client/static/images' + book.pic)
 
     except FileNotFoundError:
         pass

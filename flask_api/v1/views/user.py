@@ -42,7 +42,7 @@ def get_user(user_id):
     name = user.first_name + ' ' + user.last_name
     users[name] = {}
     users[name]["data"] = user.to_dict()
-    return jsonify(users) 
+    return jsonify(users)
 
 
 @grand_view.route('/users/<string:user_id>/reviews', methods=['GET'], strict_slashes=False)
@@ -56,6 +56,42 @@ def get_user_reviews(user_id):
     return jsonify(all_reviews) if len(all_reviews) > 0 else abort(404)
 
 
+@grand_view.route('/users/confirm/<string:user_id', strict_slashes=False)
+def activate(user_id):
+    ''' activate the user's account '''
+
+    user = storage.get(User, user_id)
+    if not user:
+        abort(404)
+
+    if user.confirmed == True:
+        return make_response(jsonify({"error": "account already activated"}), 409)
+
+    else:
+        user.confirmed = True
+        user.save()
+
+    return jsonify({"success": "user activated"})
+
+
+@grand_view.route('/login', methods=['POST'], strict_slashes=False)
+def login():
+    ''' log in the user '''
+
+    all = [i for i in storage.all(User) if i.email == request.get_json()["email"]]
+
+    if len(all) > 0:
+        return make_response(jsonify({"error": "User not found"}), 401)
+
+    if all[0].confirmed != True:
+        return make_response(jsonify({"error": "You have not confirmed your email. Please check your email inbox and activate your account"}), 401)
+
+    if all[0].password == request.get_json()["password"]:
+        return jsonify({"user": all[0].to_dict()})
+
+    return make_response(jsonify({"error": "Wrong password"}), 401)
+
+
 @grand_view.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
     ''' creates a new user in the database '''
@@ -67,18 +103,8 @@ def create_user():
     if len(all_users) > 0:
         return make_response(jsonify({"error": "email already exists"}), 400)
 
-    if "user_type" in request.get_json():
-        admin = [i for i in storage.all(User).values() if i.user_type == "librarian"]
-        if "sign_password" in request.get_json() and request.get_json()["sign_password"] == admin[0].password:
-            new_user = User(**request.get_json())
-            new_user.user_type = 'librarian'
-            new_user.save()
-        else:
-            return make_response(jsonify({"error": "authentication failed"}), 401)
-
-    else:
-        new_user = User(**request.get_json())
-        new_user.save()
+    new_user = User(**request.get_json())
+    new_user.save()
 
     return make_response(jsonify(new_user.to_dict()), 201)
 
