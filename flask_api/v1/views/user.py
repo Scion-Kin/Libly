@@ -80,7 +80,7 @@ def login():
 
     all = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
 
-    if len(all) > 0:
+    if len(all) < 0:
         return make_response(jsonify({"error": "User not found"}), 401)
 
     if all[0].confirmed != True:
