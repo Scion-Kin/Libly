@@ -1,10 +1,8 @@
 #!/usr/bin/python3
-''' This is the search algorithm for the web app '''
+''' This is the search algorithm '''
 from models import storage
 from models.author import Author
 from models.book import Book
-from models.book_author import BookAuthor
-from models.book_genre import BookGenre
 from models.genre import Genre
 from models.user import User
 from flask_api.v1.views import grand_view
@@ -16,16 +14,11 @@ def search():
     ''' This searches the whole database
     for anything containing the passed keywords '''
 
-    keywords = list(request.get_json()["keywords"].split(' '))
+    keywords = list(request.get_json()["keywords"].strip(' ').split(' '))
     if len(keywords) <  1:
         return make_response(jsonify({"error": "keywords required"}), 401)
 
-    found = {
-        "books": [],
-        "authors": [],
-        "genres": [],
-        "users": []
-    }
+    found = {"books": [], "authors": [], "genres": [], "users": []}
 
     for i in keywords:
         in_books = [j.to_dict() for j in storage.all(Book).values() if i.lower() in j.title.lower() or i.lower() in j.ISBN]

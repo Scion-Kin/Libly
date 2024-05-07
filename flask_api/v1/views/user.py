@@ -56,7 +56,7 @@ def get_user_reviews(user_id):
     return jsonify(all_reviews) if len(all_reviews) > 0 else abort(404)
 
 
-@grand_view.route('/users/confirm/<string:user_id', strict_slashes=False)
+@grand_view.route('/users/confirm/<string:user_id>', strict_slashes=False)
 def activate(user_id):
     ''' activate the user's account '''
 

@@ -14,6 +14,9 @@
                         <a href="/read/{{ i.id }}"  onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
                             <button><span>Read</span>{{ i.title }}</button>
                         </a>
+                        <a href="/static/books/{{ i.file_name }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                            <button><span>Download</span> {{ i.title }}</button>
+                        </a>
                         <form method="POST" action="{{ url_for('client_view.book_info') }}">
                             <button class="reviews-header" name="id" value="{{ i.id }}"><b>{{ i.reviews_count }} reviews</b></button>
                         </form>
