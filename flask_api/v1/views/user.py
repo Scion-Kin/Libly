@@ -78,7 +78,7 @@ def activate(user_id):
 def login():
     ''' log in the user '''
 
-    all = [i for i in storage.all(User) if i.email == request.get_json()["email"]]
+    all = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
 
     if len(all) > 0:
         return make_response(jsonify({"error": "User not found"}), 401)
