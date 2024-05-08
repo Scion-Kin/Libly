@@ -66,8 +66,7 @@ def manage_books():
                     delete = requests.delete('https://usernet.tech/api/v1/books/{}'.format(response.json()['id']),
                                              headers=headers, json={"password": request.form.get('password')})
 
-                    return render_template('manage_resource.html', title="Books", pic=session["user_pic"],
-                                        genres=genres.json(), authors=authors.json(), uuid=uuid4())
+                    abort(500)
 
                 return redirect(url_for('client_view.manage_books'))
 
