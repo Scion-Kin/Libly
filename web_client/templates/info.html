@@ -29,8 +29,8 @@
         </button>
         <button id="love" fav="books" type-id="{{ info.id }}"></button><br>
         <button class="read">
-            <a href="/static/books/{{ i.file_name }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
-                <button>Download</button>
+            <a href="/static/books/{{ info.file_name }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+                Download
             </a>
         </button>
     </nav>
