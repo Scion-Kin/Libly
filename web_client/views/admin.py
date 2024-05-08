@@ -54,11 +54,17 @@ def manage_books():
                 "password": request.form.get('password')
             })
 
-            print(response.status_code)
-
             if response.status_code == 201:
-                book_file.save(os.path.join('web_client/static/books/', secure_filename(book_file.filename)))
-                book_cover.save(os.path.join('web_client/static/images/', secure_filename(book_cover.filename)))
+                try:
+                    book_file.save(os.path.join('web_client/static/books/', secure_filename(book_file.filename)))
+                    book_cover.save(os.path.join('web_client/static/images/', secure_filename(book_cover.filename)))
+
+                except FileNotFoundError:
+                    delete = requests.delete('https://usernet.tech/api/v1/books/{}'.format(response.json()['id']),
+                                             headers=headers, json={"password": request.form.get('password')})
+
+                    return render_template('manage_resource.html', title="Books", pic=session["user_pic"],
+                                        genres=genres.json(), authors=authors.json(), uuid=uuid4())
 
                 return redirect(url_for('client_view.manage_books'))
 
