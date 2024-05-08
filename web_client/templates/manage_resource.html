@@ -17,9 +17,9 @@
             <input type="search" name="search">
         </form>
         {% if title != "Users" and title != "Reviews" %}
-        <section id="new_resource" class="confirm">
+        <section id="new_resource">
             <button class="cancel">X</button>
-            <form id="form" method="POST" enctype="multipart/form-data">
+            <form id="form" method="POST" enctype="multipart/form-data" class="confirm">
                 {% if title == "Authors" %}
                     <h4>Create a new author</h4>
                     <input type="text" name="first_name" placeholder="Author's first name" required>
