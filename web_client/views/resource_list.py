@@ -48,8 +48,8 @@ def genres():
         if response.status_code == 200:
             data = [response.json()[i]["data"] for i in response.json()]
             return render_template('resource_list.html',
-                                       all=data, uuid=uuid4(),
-                                       type="Genres", pic=session["user_pic"]) 
+                                    all=data, uuid=uuid4(),
+                                    type="Genres", pic=session["user_pic"]) 
 
         abort(500)
 

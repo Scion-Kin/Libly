@@ -28,7 +28,7 @@ def onboarding():
 
         else:
             altered = requests.put('https://usernet.tech/api/v1/users/{}'.format(session["user_id"]), 
-                                   headers={'Content-Type': 'application/json'}, json=jsonify({"onboarded": True}))
+                                   headers={'Content-Type': 'application/json'}, json={"onboarded": True})
 
             if altered.status_code == 200:
                 session["onboarded"] = True
