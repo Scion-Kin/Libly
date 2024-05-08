@@ -7,16 +7,17 @@ $(function () {
 
     $('#add-resource').click(function () {
         $('#new_resource').css('display', 'block');
+        $('main').css('min-height', '1300px');
     });
 
     let genres = [];
     let authors = [];
 
-    $('#new_resource form input[type=checkbox].genre-id').on('change', function () {
+    $('#new_resource input[type=checkbox].genre-id').on('change', function () {
         pushPop($(this).is(':checked'), genres, $(this).attr('id'), '#genres');
     });
 
-    $('#new_resource form input[type=checkbox].author-id').on('change', function () {
+    $('#new_resource input[type=checkbox].author-id').on('change', function () {
         pushPop($(this).is(':checked'), authors, $(this).attr('id'), '#authors');
     });
 
@@ -33,6 +34,7 @@ $(function () {
 
     $('button.cancel').click(function () {
         $('#new_resource').css('display', 'none');
+        $('main').css('min-height', '480px');
     });
 
     $.ajax({

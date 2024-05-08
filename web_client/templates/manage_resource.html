@@ -11,68 +11,69 @@
         <h4 class="error" style="display: block">The password you entered was incorrect.</h4>
     {% endif %}
 <h2 style="color: white;">Manage {{ title }}</h2>
+{% if title != "Users" and title != "Reviews" %}
+    <form id="new_resource" class="confirm" method="POST" enctype="multipart/form-data">
+        <button class="cancel">X</button>
+        {% if title == "Authors" %}
+            <h4>Create a new author</h4>
+            <input type="text" name="first_name" placeholder="Author's first name" required>
+            <input type="text" name="middle" placeholder="Author's middle name">
+            <input type="text" name="last_name" placeholder="Author's last name" required>
+            <h6>Upload the author's picture below. If you don't have any, don't upload anything.</h6>
+            <input type="file" name="pic" required>
+            <input type="password" name="password" placeholder="Input your admin password" required>
+        {% elif title == "Books" %}
+            <h4>Create a new book</h4>
+            <input type="text" name="title" placeholder="Book title" required>
+            <input type="text" name="ISBN" placeholder="ISBN" required>
+            <h5> Write the book's description here </h5>
+            <textarea rows=5 columns=15 name="description" required></textarea>
+
+                <h5>Check the boxes of the authors who wrote the book.
+                    If you see none, please first
+                    <a href="{{ url_for('client_view.manage_authors') }}#add-resource">
+                        create the author in the database
+                    </a>
+                </h5>
+                {% for author in authors %}
+                    <input type="checkbox" class="author-id" id="{{ authors[author].data.id }}">
+                    <label for="{{ authors[author].data.id }}">
+                        {{ authors[author].data.first_name }}
+                        {% if authors[author].data.middle_name %}{{ authors[author].data.middle_name }}{% endif %}
+                        {{ authors[author].data.last_name }}
+                    </label><br />
+                {% endfor %}
+                <br /><input type="text" id="authors" name="authors" placeholder="Author IDs" readonly>
+
+                <h5>Check the boxes of the genres in which the book is classified</h5>
+            {% for genre in genres %}
+                <input type="checkbox" class="genre-id" id="{{ genres[genre].data.id }}">
+                <label for="{{ genres[genre].data.id }}">{{ genres[genre].data.name }}</label><br />
+            {% endfor %}
+            <br /><input type="text" id="genres" name="genres" placeholder="Genre IDs" readonly>
+
+            <h6>Upload the book's cover picture below.</h6>
+            <input type="file" name="pic" placeholder="Book's cover picture" required>
+
+            <h6>Upload the book below. ( Required )</h6>
+            <input type="file" name="file" required>
+            <input type="password" name="password" placeholder="Input your admin password" required>
+        {% elif title == "Genres" %}
+            <h4>Create a new Genre</h4>
+            <input type="text" name="name" placeholder="Genre name" required>
+            <input type="password" name="password" placeholder="Input your admin password" required>
+        {% endif %}
+        <button id="create-now">Submit</button> 
+    </form>
+{% endif %}
+
 <section id="results">
     <nav>
         <form method="POST">
             <input type="search" name="search">
         </form>
         {% if title != "Users" and title != "Reviews" %}
-        <section id="new_resource" class="confirm">
-            <button class="cancel">X</button>
-            <form id="form" method="POST" enctype="multipart/form-data" class="confirm">
-                {% if title == "Authors" %}
-                    <h4>Create a new author</h4>
-                    <input type="text" name="first_name" placeholder="Author's first name" required>
-                    <input type="text" name="middle" placeholder="Author's middle name">
-                    <input type="text" name="last_name" placeholder="Author's last name" required>
-                    <h6>Upload the author's picture below. If you don't have any, don't upload anything.</h6>
-                    <input type="file" name="pic" required>
-		    <input type="password" name="password" placeholder="Input your admin password" required>
-                {% elif title == "Books" %}
-                    <h4>Create a new book</h4>
-                    <input type="text" name="title" placeholder="Book title" required>
-                    <input type="text" name="ISBN" placeholder="ISBN" required>
-		    <h5> Write the book's description here </h5>
-		    <textarea rows=5 columns=15 name="description" required></textarea>
-
-                    <h5>Check the boxes of the authors who wrote the book.
-                        If you see none, please first
-                        <a href="{{ url_for('client_view.manage_authors') }}#add-resource">
-                            create the author in the database
-                        </a>
-                    </h5>
-                    {% for author in authors %}
-                        <input type="checkbox" class="author-id" id="{{ authors[author].data.id }}">
-                        <label for="{{ authors[author].data.id }}">
-                            {{ authors[author].data.first_name }}
-                            {% if authors[author].data.middle_name %}{{ authors[author].data.middle_name }}{% endif %}
-                            {{ authors[author].data.last_name }}
-                        </label><br />
-                    {% endfor %}
-                    <br /><input type="text" id="authors" name="authors" placeholder="Author IDs" readonly>
-
-                    <h5>Check the boxes of the genres in which the book is classified</h5>
-                    {% for genre in genres %}
-                        <input type="checkbox" class="genre-id" id="{{ genres[genre].data.id }}">
-                        <label for="{{ genres[genre].data.id }}">{{ genres[genre].data.name }}</label><br />
-                    {% endfor %}
-                    <br /><input type="text" id="genres" name="genres" placeholder="Genre IDs" readonly>
-
-                    <h6>Upload the book's cover picture below.</h6>
-                    <input type="file" name="pic" placeholder="Book's cover picture" required>
-
-                    <h6>Upload the book below. ( Required )</h6>
-                    <input type="file" name="file" required>
-		    <input type="password" name="password" placeholder="Input your admin password" required>
-                {% elif title == "Genres" %}
-                    <h4>Create a new Genre</h4>
-                    <input type="text" name="name" placeholder="Genre name" required>
-		    <input type="password" name="password" placeholder="Input your admin password" required>
-                {% endif %}
-                <button id="create-now">Submit</button> 
-            </form>
-        </section>
-        <button id="add-resource">+</button>
+            <button id="add-resource">+</button>
         {% endif %}
     </nav>
     <section class="results"></section>

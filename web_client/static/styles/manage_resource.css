@@ -112,30 +112,24 @@ button, .confirm input[type="submit"] {
 }
 
 .confirm {
-    width: 30%;
-    box-shadow: 0px 64px 120px -40px;
+    width: 50%;
+    color: white;
+    border: 1px solid white;
     border-radius: 15px;
     position: absolute;
     top: 13%;
-    left: 33%;
+    left: 23%;
 	background-color: none;
-	backdrop-filter: blur(10px);
+	backdrop-filter: blur(20px);
     display: none;
     flex-direction: column;
     padding: 20px;
-}
-
-#new_resource form {
-    display: block;
+    z-index: 100;
 }
 
 form {
     display: flex;
     flex-direction: column;
-}
-
-.no_display {
-    display: none !important;
 }
 
 .confirm input {
@@ -173,4 +167,17 @@ form {
     padding: 10px;
     border-radius: 10px;
     background-color: rgba(163, 57, 57, 0.363);
+}
+
+textarea {
+    border: 3px solid white;
+    width: 90%;
+    margin: auto;
+}
+
+@media (max-width: 900px) {
+    .confirm, form {
+        width: 80%;
+        left: 15px;
+    }
 }
