@@ -113,27 +113,37 @@ def create_user():
 def update_user(user_id):
     ''' creates a new user in the database '''
 
+    user = storage.get(User, user_id)
+    if not user:
+        abort(404)
+
+    if "onboarded" in request.get_json():
+        if request.get_json()["onboarded"] is not bool:
+            return make_response(jsonify({"error": "onboarded value must be boolean"}), 400)
+
+        user.onboarded = request.get_json()["onboarded"]
+        user.save()
+        return jsonify(user.to_dict())
+
     if "adminPassword" in request.get_json() or "password" in request.get_json():
         admins = []
         if "adminPassword" in request.get_json():
-            admins = [i for i in storage.all("User").values() if i.user_type == "librarian" and i.password == request.get_json()["adminPassword"]]
+            admins = [i for i in storage.all(User).values() if
+                      i.user_type == "librarian" and 
+                      i.password == request.get_json()["adminPassword"]]
 
-        user = storage.get(User, user_id)
-        if user is not None:
-            ignore = ['id', 'created_at', 'updated_at']
-            if len(admins) > 0 or (request.get_json()["password"] and user.password == request.get_json()["password"]):
-                for key, value in request.get_json().items():
-                    if key not in ignore:
-                        setattr(user, key, value)
-                if "new_password" in request.get_json():
-                    user.password = request.get_json()["new_password"]
-                user.save()
-                return jsonify(user.to_dict())
-            else:
-                return make_response(jsonify({"error": "incorrect or missing password"}), 401)
-
+        ignore = ['id', 'created_at', 'updated_at']
+        if len(admins) > 0 or (request.get_json()["password"] and user.password == request.get_json()["password"]):
+            for key, value in request.get_json().items():
+                if key not in ignore:
+                    setattr(user, key, value)
+            if "new_password" in request.get_json():
+                user.password = request.get_json()["new_password"]
+            user.save()
+            return jsonify(user.to_dict())
         else:
-            abort(404)
+            return make_response(jsonify({"error": "incorrect or missing password"}), 401)
+
     return make_response(jsonify({"error": "unauthorized"}), 401)
 
 

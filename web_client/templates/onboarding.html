@@ -1,0 +1,26 @@
+{% extends 'logged.html' %}
+{% block title %}Onboarding {{ first_name }} {% endblock %}
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js?{{ uuid }}"></script>
+    <script src="/static/scripts/onboarding.js?{{ uuid }}"></script>
+    <!--<link rel="stylesheet" href="/static/styles/onboarding.css?{{ uuid }}">-->
+{% endblock %}
+{% block body %}
+    {% if error %}
+        <h3> {{ error }} </h3>
+    {% else %}
+    <h3>Hi {{ first_name }}!</h3>
+    {% endif %}
+    <h4>
+        This process helps personalize your experience on the platform.<br>
+        Helps us by selecting your favorite genres.
+    </h4>
+    <section id="selection">
+        {% for i in genres %}
+            <button id="{{ i.id }}"> {{ i.name }} </button>
+        {% endfor %}
+    </section>
+    <form method="POST">
+        <button name="done" value=0 id="done">Done</button>
+    </form>
+{% endblock %}

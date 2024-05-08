@@ -57,6 +57,9 @@ def home():
             return render_template('feed.html', admin=True, pic=session["user_pic"], uuid=uuid4())
 
         else:
+            if session["onboarded"] == False:
+                return redirect(url_for('onboarding'))
+
             books = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"])).json()
             if "error" not in books:
                 return render_template('feed.html', admin=False, books=books[:5],

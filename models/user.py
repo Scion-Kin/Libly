@@ -16,9 +16,10 @@ class User(BaseModel, Base):
     password = Column(String(128), nullable=False)
     user_type = Column(String(30), default="member")
     confirmed = Column(Boolean, default=False)
-    first_name = Column(String(128), nullable=True)
+    onboarded = Column(Boolean, default=False)
+    first_name = Column(String(128), nullable=False)
     middle_name = Column(String(128), nullable=True)
-    last_name = Column(String(128), nullable=True)
+    last_name = Column(String(128), nullable=False)
     pic = Column(String(128), default="user-avatar.jpg")
     reviews = relationship("Review", backref="user", cascade="all, delete, delete-orphan")
     fav_books = relationship("FavoriteBook", backref="user", cascade="all, delete, delete-orphan")
@@ -30,4 +31,4 @@ class User(BaseModel, Base):
         super().__init__(*args, **kwargs)
 
         if "username" in kwargs:
-            self.id = kwargs["id"]
+            self.id = kwargs["username"]

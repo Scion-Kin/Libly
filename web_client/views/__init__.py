@@ -12,6 +12,7 @@ from web_client.views.author_genre import *
 from web_client.views.goodies import *
 from web_client.views.info import *
 from web_client.views.login import *
+from web_client.views.onboarding import *
 from web_client.views.resource_list import *
 from web_client.views.read import *
 from web_client.views.report import *

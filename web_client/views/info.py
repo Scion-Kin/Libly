@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' This is the web server '''
+''' Defines a route for book info '''
 
 from web_client.views import client_view
 from flask import render_template, session, request, redirect, url_for
@@ -8,7 +8,7 @@ import requests
 
 @client_view.route('/about/book', methods=['GET', 'POST'], strict_slashes=False)
 def book_info():
-    ''' The home page route '''
+    ''' The about book route '''
 
     if session and session['logged'] == True:
         if request.method == 'POST':

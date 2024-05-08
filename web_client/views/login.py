@@ -29,6 +29,7 @@ def login():
             session["user_email"] = user["email"]
             session["user_id"] = user["id"]
             session["user_type"] = user["user_type"]
+            session["onboarded"] = user["onboarded"]
             session["first_name"] = user["first_name"]
             session["middle_name"] = user["middle_name"] if user["middle_name"] else ' '
             session["last_name"] = user["last_name"]
