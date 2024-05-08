@@ -38,6 +38,9 @@ def manage_books():
 
     if session and session['user_type'] == 'librarian':
 
+        genres = requests.get('https://usernet.tech/api/v1/genres')
+        authors = requests.get('https://usernet.tech/api/v1/authors')
+
         if request.method == 'POST':
             book_file = request.files['file']
             book_cover = request.files['pic']
@@ -56,8 +59,8 @@ def manage_books():
 
             if response.status_code == 201:
                 try:
-                    book_file.save(os.path.join('web_client/static/books/', secure_filename(book_file.filename)))
-                    book_cover.save(os.path.join('web_client/static/images/', secure_filename(book_cover.filename)))
+                    book_file.save(os.path.join('web_client/static/books', secure_filename(book_file.filename)))
+                    book_cover.save(os.path.join('web_client/static/images', secure_filename(book_cover.filename)))
 
                 except FileNotFoundError:
                     delete = requests.delete('https://usernet.tech/api/v1/books/{}'.format(response.json()['id']),
@@ -67,9 +70,6 @@ def manage_books():
                                         genres=genres.json(), authors=authors.json(), uuid=uuid4())
 
                 return redirect(url_for('client_view.manage_books'))
-
-        genres = requests.get('https://usernet.tech/api/v1/genres')
-        authors = requests.get('https://usernet.tech/api/v1/authors')
 
         return render_template('manage_resource.html', title="Books", pic=session["user_pic"],
                                genres=genres.json(), authors=authors.json(), uuid=uuid4())
