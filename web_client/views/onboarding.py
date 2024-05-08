@@ -13,7 +13,14 @@ def onboarding():
     if not session or session["logged"] != True:
         return redirect(url_for('home'))
 
+    response = requests.get('https://usernet.tech/api/v1/genres')
+    if response.status_code == 200:
+        genres = []
+        for i in response.json():
+            genres.append(response.json()[i]["data"])
+
     if request.method == 'POST':
+        
         if request.form.get('done') == 0:
             return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                                 first_name=session["first_name"], last_name=session["last_name"],
@@ -31,12 +38,6 @@ def onboarding():
                 return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                                        first_name=session["first_name"], last_name=session["last_name"],
                                        pic=session["user_pic"], error=altered.json()["error"])
-
-    response = requests.get('https://usernet.tech/api/v1/genres')
-    if response.status_code == 200:
-        genres = []
-        for i in response.json():
-            genres.append(response.json()[i]["data"])
 
     return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                            first_name=session["first_name"], last_name=session["last_name"],
