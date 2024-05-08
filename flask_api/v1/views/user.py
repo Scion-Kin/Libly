@@ -117,13 +117,14 @@ def update_user(user_id):
     if not user:
         abort(404)
 
-    if "onboarded" in request.get_json():
-        if request.get_json()["onboarded"] is not bool:
-            return make_response(jsonify({"error": "onboarded value must be boolean"}), 400)
+    if "onboarded" in request.get_json():  
+        try:
+            user.onboarded = bool(request.get_json()["onboarded"])
+            user.save()
+            return jsonify(user.to_dict())
 
-        user.onboarded = request.get_json()["onboarded"]
-        user.save()
-        return jsonify(user.to_dict())
+        except ValueError:
+            return make_response(jsonify({"error": "onboarded value must be boolean"}), 400)
 
     if "adminPassword" in request.get_json() or "password" in request.get_json():
         admins = []
