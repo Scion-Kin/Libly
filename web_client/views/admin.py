@@ -65,7 +65,7 @@ def manage_books():
                 except FileNotFoundError:
                     delete = requests.delete('https://usernet.tech/api/v1/books/{}'.format(response.json()['id']),
                                              headers=headers, json={"password": request.form.get('password')})
-
+                    raise
                     abort(500)
 
                 return redirect(url_for('client_view.manage_books'))
