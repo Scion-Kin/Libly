@@ -1,5 +1,5 @@
 $(function () {
-    let userId = getUserId;
+    let userId = getUserId();
     let count = 0;
     for (let i of $('#selection').children()) {
         $(i).click(function (){
