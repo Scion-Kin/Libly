@@ -58,7 +58,7 @@ def home():
 
         else:
             if session["onboarded"] == False:
-                return redirect(url_for('onboarding'))
+                return redirect(url_for('client_view.onboarding'))
 
             books = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"])).json()
             if "error" not in books:

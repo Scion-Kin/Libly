@@ -2,7 +2,7 @@
 ''' Defines a route for user onboarding '''
 
 from web_client.views import client_view
-from flask import render_template, session, request, redirect, url_for
+from flask import render_template, session, request, redirect, url_for, jsonify
 from uuid import uuid4
 import requests
 
@@ -21,14 +21,14 @@ def onboarding():
 
     if request.method == 'POST':
         
-        if request.form.get('done') == 0:
+        if int(request.form.get('done')) == 0:
             return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                                 first_name=session["first_name"], last_name=session["last_name"],
                                 pic=session["user_pic"], error="Please select at least one genre.")
 
         else:
             altered = requests.put('https://usernet.tech/api/v1/users/{}'.format(session["user_id"]), 
-                                   headers={'Content-Type': 'application/json'}, json={"onboarded": True})
+                                   headers={'Content-Type': 'application/json'}, json=jsonify({"onboarded": True}))
 
             if altered.status_code == 200:
                 session["onboarded"] = True
