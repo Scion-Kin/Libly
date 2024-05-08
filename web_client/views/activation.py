@@ -15,8 +15,8 @@ def confirmed_email(user_id):
         return render_template('confirm_email.html', confirmed=False, title="Activation Failed")
     
     if response.status_code == 409:
-        return render_template('confirm_email.html', confirmed=True, already=True,
+        return render_template('confirm_email.html', already=True,
                                title="Already activated!", uuid=uuid4())
 
-    return render_template('confirm_email.html', confirmed=True, already=False,
-                            title="Welcome", uuid=uuid4())
+    return render_template('confirm_email.html', confirmed=True,
+                            title="Welcome!", uuid=uuid4())

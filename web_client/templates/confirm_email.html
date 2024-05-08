@@ -2,16 +2,18 @@
 {% block title %}{{ title }}{% endblock %}
 {% block body %}
 <section id="intro">
-    {% if confirmed == True and already == False %}
-        <h3>Email Confirmed!</h3>
-        <h1>Welcome to Libly</h1>
-        <a href="/"><button>Go to home</button></a>
-    {% elif confirmed == True and already == True %}
-        <h1>This account has been already activated.</h1>
+    {% if already %}
+        <h1>This account has already been activated.</h1>
         <a href="/"><button>Homepage</button></a>
     {% else %}
-        <h3>Email Confirmation failed.</h3>
-        <button>Resend email</button>
+        {% if confirmed == True %}
+            <h3>Email Confirmed!</h3>
+            <h1>Welcome to Libly</h1>
+            <a href="/login"><button>Log in</button></a>
+        {% else %}
+            <h3>Email Confirmation failed.</h3>
+            <button>Resend email</button>
+        {% endif %}
     {% endif %}
 </section>
 {% endblock %}
