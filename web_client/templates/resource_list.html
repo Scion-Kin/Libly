@@ -20,10 +20,10 @@
                     </h4>
                     <a href="/author/{{ i.id }}"><button>See the author's books</button></a>
                 {% elif type == "Books" %}
-                    <a href="/read/{{ i.id }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                    <a href="/read/{{ i.id }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}@{{ i.pic }}')">
                         <button><span>Read</span> {{ i.title }}</button>
                     </a>
-                    <a href="/static/books/{{ i.file_name }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}_{{ i.pic }}')">
+                    <a href="/static/books/{{ i.file_name }}" onclick="localStorage.setItem('{{ i.title }}', '{{ i.id }}@{{ i.pic }}')">
                         <button><span>Download</span> {{ i.title }}</button>
                     </a>
                     <form method="POST" action="{{ url_for('client_view.book_info') }}">

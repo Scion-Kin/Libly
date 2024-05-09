@@ -23,13 +23,13 @@
     </section>
     <nav>
         <button class="read">
-            <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+            <a href="/read/{{ info.id }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}@{{ info.pic }}')">
                 Read book
             </a>
         </button>
         <button id="love" fav="books" type-id="{{ info.id }}"></button><br>
         <button class="read">
-            <a href="/static/books/{{ info.file_name }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}_{{ info.pic }}')">
+            <a href="/static/books/{{ info.file_name }}" onclick="localStorage.setItem('{{ info.title }}', '{{ info.id }}@{{ info.pic }}')">
                 Download
             </a>
         </button>

@@ -43,10 +43,10 @@
                         
                     </p>
                     <button class="go">
-                        <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">Read book</a>
+                        <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">Read book</a>
                     </button>
                     <button class="go">
-                        <a href="/static/books/{{ book.file_name }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}_{{ book.pic }}')">
+                        <a href="/static/books/{{ book.file_name }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">
                             Download
                         </a>
                     </button>

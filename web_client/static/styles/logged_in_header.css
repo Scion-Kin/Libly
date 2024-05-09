@@ -178,15 +178,22 @@ button {
 }
 
 #user-menu {
+    background-color: #059e542d;
     position: fixed;
     display: none;
-    top: 15%;
+    top: 10%;
     right: 5%;
     width: 35%;
     padding: 10px;
     backdrop-filter: blur(10px);
     border-radius: 15px;
     z-index: 300;
+}
+
+#user-menu h2 {
+    padding: 0;
+    margin: 0;
+    border: none;
 }
 
 .history {

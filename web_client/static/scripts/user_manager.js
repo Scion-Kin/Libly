@@ -29,6 +29,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     logOut.addEventListener('click', function () {
+        for (let i = 0; i < localStorage.length; i++) {
+            localStorage.removeItem(localStorage.key(i));
+        }
         window.location.href = '/logout';
     });
 
@@ -134,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const section = document.createElement('section');
                     const button = document.createElement('button');
                     button.textContent = key;
-                    let id = localStorage.getItem(key).split('_')[0];
+                    let id = localStorage.getItem(key).split('@')[0];
 
                     button.addEventListener('click', function () {
                         window.location.href = `/read/${id}`;
