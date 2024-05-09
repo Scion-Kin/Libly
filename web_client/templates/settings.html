@@ -5,14 +5,12 @@
 {% block head %}
     <link rel="stylesheet" href="/static/styles/manage_resource.css?{{ uuid }}">
     <style>
+        main {
+            height: 700px;
+        }
+
         #confirm {
-            width: 30%;
-            border-radius: 15px;
-            background-color: none;
-            backdrop-filter: blur(10px);
             display: flex;
-            flex-direction: column;
-            padding: 20px;
         }
 
         #confirm input {
