@@ -13,6 +13,9 @@ def onboarding():
     if not session or session["logged"] != True:
         return redirect(url_for('home'))
 
+    if session["onboarded"] == True:
+        return redirect(url_for('home'))
+
     response = requests.get('https://usernet.tech/api/v1/genres')
     if response.status_code == 200:
         genres = []
