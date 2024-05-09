@@ -15,7 +15,7 @@
     {% block header %}
     <header>
         <nav id="search">
-            <a id="site_logo" href="/"><div></div></a>
+            <a id="site_logo" href="{{ url_for('home') }}"><div></div></a>
             <form method="POST" action="{{ url_for('home') }}">
                 <input type="search" name="keywords" placeholder="search for anything" required>
                 <div id="submit">
@@ -26,9 +26,9 @@
         </nav>
         <section id="whole">
             <nav id="main">
-                <a href="/"><button id="main-icon"></button></a>
-                <a href="/hearted"><button id="favs-icon"></button></a>
-                <a href="/hot"><button id="trending-icon"></button></a>                
+                <a href="{{ url_for('home') }}"><button id="main-icon"></button></a>
+                <a href="{{ url_for('client_view.hearted') }}"><button id="favs-icon"></button></a>
+                <a href="{{ url_for('client_view.hot') }}"><button id="trending-icon"></button></a>                
             </nav>
         </section>
         <button id="avatar" style="background-image: url('/static/images/{{ pic }}');"></button>

@@ -21,6 +21,14 @@
         <a href="manage/users"><section class="quote"> <h4>Manage Users</h4> </section></a>
         <a href="/statistics"><section class="quote"> <h4>View Statistics</h4> </section></a>
     </section>
+    <h2 style="margin: 50px 20px;">Directories</h2>
+    <section>
+        <nav id="views-menu" class="options" style="margin: 10px auto;">
+            <button id="authors"><a href="/authors">All Authors</a></button>
+            <button id="books"><a href="/books">All Books</a></button>
+            <button id="genres"><a href="/genres">All Genres</a></button>
+        </nav>
+    </section>
 {% else %}
     {% if error %}
         <section class="suggested">
