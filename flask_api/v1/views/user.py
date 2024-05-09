@@ -118,7 +118,7 @@ def update_user(user_id):
     if not user:
         abort(404)
 
-    if "onboarded" in request.get_json():  
+    if "onboarded" in request.get_json() and "adminPassword" not in request.get_json():
         try:
             user.onboarded = bool(request.get_json()["onboarded"])
             user.save()
@@ -127,28 +127,26 @@ def update_user(user_id):
         except ValueError:
             return make_response(jsonify({"error": "onboarded value must be boolean"}), 400)
 
-    else:
+    if "adminPassword" in request.get_json() or "password" in request.get_json():
+        admins = []
+        if "adminPassword" in request.get_json():
+            admins = [i for i in storage.all(User).values() if
+                      i.user_type == "librarian" and 
+                      i.password == request.get_json()["adminPassword"]]
 
-        if "adminPassword" in request.get_json() or "password" in request.get_json():
-            admins = []
-            if "adminPassword" in request.get_json():
-                admins = [i for i in storage.all(User).values() if
-                        i.user_type == "librarian" and 
-                        i.password == request.get_json()["adminPassword"]]
+        ignore = ['id', 'created_at', 'updated_at']
+        if len(admins) > 0 or (request.get_json()["password"] and user.password == request.get_json()["password"]):
+            for key, value in request.get_json().items():
+                if key not in ignore:
+                    setattr(user, key, value)
+            if "new_password" in request.get_json():
+                user.password = request.get_json()["new_password"]
+            user.save()
+            return jsonify(user.to_dict())
+        else:
+            return make_response(jsonify({"error": "incorrect or missing password"}), 401)
 
-            ignore = ['id', 'created_at', 'updated_at']
-            if len(admins) > 0 or (request.get_json()["password"] and user.password == request.get_json()["password"]):
-                for key, value in request.get_json().items():
-                    if key not in ignore:
-                        setattr(user, key, value)
-                if "new_password" in request.get_json():
-                    user.password = request.get_json()["new_password"]
-                user.save()
-                return jsonify(user.to_dict())
-            else:
-                return make_response(jsonify({"error": "incorrect or missing password"}), 401)
-
-        return make_response(jsonify({"error": "unauthorized"}), 401)
+    return make_response(jsonify({"error": "unauthorized"}), 401)
 
 
 @grand_view.route('/users/<string:user_id>', methods=['DELETE'], strict_slashes=False)
