@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-''' The authors api handler '''
+''' Defines a method for getting a hot list '''
 from flask_api.v1.views import grand_view
 from models import storage
 from flask import jsonify, make_response
@@ -7,7 +7,7 @@ from flask import jsonify, make_response
 
 @grand_view.route('/hot/<string:user_id>', strict_slashes=False)
 def hot_list(user_id):
-    ''' get all authors from the database '''
+    ''' Method for getting a hot list '''
 
     fav_authors = [i for i in storage.all("FavoriteAuthor").values() if i.user_id == user_id]
     fav_genres = [i for i in storage.all("FavoriteGenre").values() if i.user_id == user_id]
