@@ -5,6 +5,7 @@ from models import storage
 from models.user import User
 from models.review import Review
 from flask import jsonify, abort, make_response, request
+import os
 
 
 @grand_view.route('/users', methods=['GET'], strict_slashes=False)
@@ -159,6 +160,14 @@ def delete_user(user_id):
     if user is not None:
         if request.get_json()["password"] and user.password == request.get_json()["password"] or\
         request.get_json()["password"] in admins:
+
+            try:
+                if user.pic != 'user-avatar.jpg':
+                    os.remove('web_client/static/images/' + user.pic)
+
+            except FileNotFoundError:
+                pass
+
             storage.delete(user)
             storage.save()
             return jsonify({})
