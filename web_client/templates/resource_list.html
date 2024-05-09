@@ -8,11 +8,11 @@
 {% endblock %}
 {% block body %}
 <section id="about-book">
-    <section id="book_list">    
+    <h2>{% if type == "Authors" %} Authors {% elif type == "Books" %} Books {% else %} Genres {% endif %}</h2>
+    <section id="book_list">
         {% for i in all %}
             <section class="book history">
                 <img src="/static/images/{{ i.pic }}?{{ uuid }}"><br>
-
                 {% if type == "Authors" %}
                     <h4> Author: {{ i.first_name }}
                         {% if i.middle_name %} {{ i.middle_name }} {% endif %}
@@ -33,7 +33,6 @@
                     <h4> Genre: {{ i.name }} </h4>
                     <a href="/genre/{{ i.id }}"><button>See all books in this genre</button></a>
                 {% endif %}
-
             </section>
         {% endfor %}  
     </section> 

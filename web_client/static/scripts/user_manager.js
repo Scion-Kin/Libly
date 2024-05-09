@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     logOut.addEventListener('click', function () {
-        for (let i = 0; i < localStorage.length; i++) {
+        for (let i = 0; i <= localStorage.length; i++) {
             localStorage.removeItem(localStorage.key(i));
         }
         window.location.href = '/logout';
