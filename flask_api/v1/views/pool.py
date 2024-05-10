@@ -38,8 +38,8 @@ def insert_into_pool():
         return make_response(jsonify({"error": "User not found"}), 404)
 
     reset_code = random.randint(10000000, 99999999)
-    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id))
-    cur.execute('INSERT INTO pool, VALUES(%s, %s)', (user[0].id, reset_code))
+    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id, ))
+    cur.execute('INSERT INTO pool VALUES(%s, %s)', (user[0].id, reset_code))
 
     mail = requests.post('https://usernet.tech/mail/reset',
                          headers={"Content-Type": "application/json"},
@@ -67,7 +67,7 @@ def get_from_pool(user_id):
         user.password = request.get_json()["new_password"]
         user.save()
 
-        cur.execute('DELETE FROM pool WHERE user_id = %s', (user.id))
+        cur.execute('DELETE FROM pool WHERE user_id = %s', (user.id, ))
 
         return jsonify(user.to_dict())
 
