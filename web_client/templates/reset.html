@@ -88,8 +88,16 @@
                     $('#reset').append(error);
                 }
             });
-            $(document).on('ajaxError', function() {
-                $(error).text('Invalid reset code.');
+            $(document).on('ajaxError', function( event, jqxhr, settings, thrownError ) {
+                if (jqxhr.status === 404) {
+                    $(error).text('User not found.');
+                } else if (jqxhr.status === 400){
+                    $(error).text('Please input all details.');
+                } else {
+                    $(error).text('Wrong reset code');
+                }
+
+                $('#reset').append(error);
             });
         });
     </script>
