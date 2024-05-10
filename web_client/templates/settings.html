@@ -11,11 +11,16 @@
         }
 
         #confirm {
+            width: 50%;
+            color: white;
+            border: 1px solid white;
+            border-radius: 15px;
+            background-color: none;
+            backdrop-filter: blur(20px);
             display: flex;
-            position: relative;
-            top: 0;
-            left: 0;
-            z-index: 50;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 100;
         }
 
         #confirm input {
@@ -51,7 +56,7 @@
     {% if error %}
         <h3 class="error">{{ error }}</h3>
     {% endif %}
-    <form id="confirm" method="POST" enctype="multipart/form-data" class="confirm">
+    <form id="confirm" method="POST" enctype="multipart/form-data">
         <h4>Hello {{ first_name }} {{ last_name }}!</h4>
         <h5> Let's set up your account details </h5>
         <input type="email" name="email" placeholder="your email" autocomplete="off" required>
@@ -65,7 +70,9 @@
         <input type="password" name="new_password" placeholder="new password" autocomplete="off">
         <button type="submit">Done!</button>
     </form>
-    <button id="trash"></button>
+    <section>
+        <button id="trash"></button>
+    </section>
     <script>
         const form = document.createElement('section');
         const trash = document.getElementById('trash');

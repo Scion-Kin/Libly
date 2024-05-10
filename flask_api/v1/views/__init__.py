@@ -12,6 +12,7 @@ from flask_api.v1.views.fav_genre import *
 from flask_api.v1.views.genre import *
 from flask_api.v1.views.hot import *
 from flask_api.v1.views.index import *
+from flask_api.v1.views.pool import *
 from flask_api.v1.views.report import *
 from flask_api.v1.views.review import *
 from flask_api.v1.views.search import *

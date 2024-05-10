@@ -1,0 +1,85 @@
+{% extends 'index.html' %}
+{% block title %} Reset password {% endblock %}
+
+{% block head %}
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js?{{ uuid }}"></script>
+{% endblock %}
+
+{% block header %}
+    <a href="{{ url_for('home') }}?{{ uuid }}"><button>Home</button></a>
+    <a href="{{ url_for('client_view.login') }}?{{ uuid }}"><button>Login</button></a>
+    <a href="{{ url_for('client_view.signup') }}?{{ uuid }}"><button>Sign up</button></a>
+{% endblock %}
+
+{% block body %}
+    <form id="reset">
+        <input type="email" placeholder="Your email" required>
+    </form>
+    <script>
+        $(function () {
+            let passwordFirst = document.createElement('input');
+            $(passwordFirst).attr('type', 'password');
+            let passwordLast = document.createElement('input');
+            $(passwordLast).attr('type', 'password');
+            let codeInput = document.createElement('input');
+            $(codeInput).attr('type', 'tel');
+            let reqButton = document.createElement('button'); // code request button
+            let verButton = document.createElement('button'); // code verifier button
+            let resButton = document.createElement('button'); // password reset button
+            let error = document.createElement('h4');
+            $(error).addClass('error');
+            let user_id;
+
+            $(reqButton).text('Get code');
+            $('#reset').append(reqButton);
+            $(reqButton).click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: 'https://usernet.tech/api/v1/pool',
+                    type: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    data: JSON.stringify({ email: $('#reset input[type=email]').val() }),
+                    success: function (data, textStatus) {
+                        user_id = data.id;
+                        $('#reset').html([codeInput, verButton]);
+                    }
+                });
+            });
+
+            $(verButton).click(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: `https://usernet.tech/api/v1/pool/${user_id}`,
+                    type: 'GET',
+                    headers: { "Content-Type": "application/json" },
+                    data: JSON.stringify({ "reset_code": $(codeInput).val() }),
+                    success: function (data, textStatus) {
+                        $('#reset').html([passwordFirst, passwordLast ,resButton]);
+                    } 
+                });
+            });
+
+            $(resButton).click(function (event) {
+                event.preventDefault();
+                if ($(passwordFirst).val() === $(passwordLast).val()) {
+                    $.ajax({
+                        url: `https://usernet.tech/api/v1/users/reset/${user_id}`,
+                        type: 'PUT',
+                        headers: { "Content-Type": "application/json" },
+                        data: JSON.stringify({ "new_password": $(passwordLast).val() }),
+                        success: function (data, textStatus) {
+                            window.location.href = '/';
+                        }
+                    });
+                }
+                else {
+                    $(error).text("The passwords your don't match");
+                    $('main').append(error);
+                }
+            });
+            $(document).on('ajaxError', function(thrownError) {
+                $(error).text(thrownError);
+            });
+        });
+    </script>
+{% endblock %}
