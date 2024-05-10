@@ -30,7 +30,11 @@
             $(error).addClass('error');
             let user_id;
 
+            $(passwordFirst).attr('placeholder', 'Input your new password');
+            $(passwordLast).attr('placeholder', 'Repeat password');
             $(reqButton).text('Get code');
+            $(verButton).text('Verify code');
+            $(resButton).text('Reset').
             $('#reset').append(reqButton);
             $(reqButton).click(function (event) {
                 event.preventDefault();
@@ -40,7 +44,7 @@
                     headers: { "Content-Type": "application/json" },
                     data: JSON.stringify({ email: $('#reset input[type=email]').val() }),
                     success: function (data, textStatus) {
-                        user_id = data.id;
+                        user_id = data.success;
                         $('#reset').html([codeInput, verButton]);
                     }
                 });
@@ -61,7 +65,12 @@
 
             $(resButton).click(function (event) {
                 event.preventDefault();
-                if ($(passwordFirst).val() === $(passwordLast).val()) {
+                if ($(passwordFirst).val().length < 7) {
+                    $(error).text("The passwords your don't match");
+                    $('#reset').append(error);
+                }
+
+                else if ($(passwordFirst).val() === $(passwordLast).val()) {
                     $.ajax({
                         url: `https://usernet.tech/api/v1/users/reset/${user_id}`,
                         type: 'PUT',
@@ -74,7 +83,7 @@
                 }
                 else {
                     $(error).text("The passwords your don't match");
-                    $('main').append(error);
+                    $('#reset').append(error);
                 }
             });
             $(document).on('ajaxError', function(thrownError) {
