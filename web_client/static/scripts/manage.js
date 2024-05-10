@@ -144,7 +144,7 @@ $(function () {
                     let requestData = {};
                     const cancel = document.createElement('button');
                     let submit = document.createElement('input');
-	            let passInput = document.createElement('input');
+	                let passInput = document.createElement('input');
                     $(submit).attr('type', 'submit');
                     $(submit).text('Confirm');
                     $(cancel).attr('class', 'cancel');
@@ -169,9 +169,9 @@ $(function () {
                                         requestData[j] = '';
                                     }
                                 }
-			    }
+                            }
                             
-			    $(passInput).attr({'type': 'password', "placeholder": "input your admin password"});
+			                $(passInput).attr({'type': 'password', "placeholder": "input your admin password"});
                             $(form).css({
                                 'top': '80px', 'display': 'flex'
                             });
@@ -186,12 +186,12 @@ $(function () {
                         for (let i in requestData) {
                             requestData[i] = $(`#${i}`).val();
                         }
-			if (title == "Users") {
-			    requestData["adminPassword"] = $(passInput).val();
-			}
-			else {
-			    requestData["password"] = $(passInput).val();
-			}
+			            if (title == "Users") {
+			                requestData["adminPassword"] = $(passInput).val();
+			            }
+			            else {
+			                requestData["password"] = $(passInput).val();
+			            }
                         editDatabase(requestData, `${url}/${$(trash).parents()[2].id}`, 'PUT');
                     });
                 });

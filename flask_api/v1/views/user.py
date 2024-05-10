@@ -81,8 +81,8 @@ def login():
 
     all = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
 
-    if len(all) < 0:
-        return make_response(jsonify({"error": "User not found"}), 401)
+    if len(all) == 0:
+        return make_response(jsonify({"error": "User not found"}), 404)
 
     if all[0].confirmed != True:
         return make_response(jsonify({"error": "You have not confirmed your email. Please check your email inbox and activate your account"}), 401)
