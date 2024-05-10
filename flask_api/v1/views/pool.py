@@ -10,7 +10,7 @@ import requests
 
 
 db = (MySQLdb.connect(host='localhost', user='libly_user',
-        passwd='libDev', db='libly', port=3306))
+      passwd='libDev', db='libly', port=3306))
 
 cur = db.cursor()
 
