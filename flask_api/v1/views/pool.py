@@ -2,7 +2,7 @@
 ''' This defines methods to be used in password resets '''
 
 from flask_api.v1.views import grand_view
-from flask import request, abort, jsonify
+from flask import request, abort, jsonify, make_response
 from models import storage
 import MySQLdb
 import random
