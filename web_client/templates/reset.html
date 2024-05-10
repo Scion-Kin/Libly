@@ -29,6 +29,7 @@
             let error = document.createElement('h4');
             $(error).addClass('error');
             let user_id;
+            let reset_code;
 
             $(passwordFirst).attr('placeholder', 'Input your new password');
             $(passwordLast).attr('placeholder', 'Repeat password');
@@ -58,6 +59,7 @@
                     headers: { "Content-Type": "application/json" },
                     data: JSON.stringify({ "reset_code": $(codeInput).val() }),
                     success: function (data, textStatus) {
+                        reset_code = $(codeInput).val();
                         $('#reset').html([passwordFirst, passwordLast ,resButton]);
                     } 
                 });
@@ -65,8 +67,8 @@
 
             $(resButton).click(function (event) {
                 event.preventDefault();
-                if ($(passwordFirst).val().length < 7) {
-                    $(error).text("The passwords your don't match");
+                if ($(passwordFirst).val().length < 8) {
+                    $(error).text("Password must be 8 or more characters");
                     $('#reset').append(error);
                 }
 
@@ -75,7 +77,7 @@
                         url: `https://usernet.tech/api/v1/users/reset/${user_id}`,
                         type: 'PUT',
                         headers: { "Content-Type": "application/json" },
-                        data: JSON.stringify({ "new_password": $(passwordLast).val() }),
+                        data: JSON.stringify({ "reset_code": reset_code, "new_password": $(passwordLast).val() }),
                         success: function (data, textStatus) {
                             window.location.href = '/';
                         }
@@ -86,8 +88,8 @@
                     $('#reset').append(error);
                 }
             });
-            $(document).on('ajaxError', function(thrownError) {
-                $(error).text(thrownError);
+            $(document).on('ajaxError', function() {
+                $(error).text('Invalid reset code.');
             });
         });
     </script>

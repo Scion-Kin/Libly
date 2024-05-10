@@ -19,6 +19,9 @@ cur = db.cursor()
 def verify_from_pool(user_id):
     ''' verify the reset code for a certain user '''
 
+    if "reset_code" not in request.get_json():
+        return make_response(jsonify({"error": "missing reset code"}), 400)
+
     cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
                 (user_id, request.get_json()["reset_code"]))
     rows = cur.fetchall()
@@ -61,6 +64,9 @@ def get_from_pool(user_id):
 
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
+
+    if "new_password" not in request.get_json() or "reset_code" not in request.get_json():
+        return make_response(jsonify({"error": "missing reset code or password"}), 400)
 
     cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
                 (user.id, request.get_json()["reset_code"]))
