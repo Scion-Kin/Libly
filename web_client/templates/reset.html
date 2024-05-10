@@ -54,7 +54,7 @@
                 event.preventDefault();
                 $.ajax({
                     url: `https://usernet.tech/api/v1/pool/${user_id}`,
-                    type: 'GET',
+                    type: 'POST',
                     headers: { "Content-Type": "application/json" },
                     data: JSON.stringify({ "reset_code": $(codeInput).val() }),
                     success: function (data, textStatus) {

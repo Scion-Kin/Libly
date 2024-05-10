@@ -15,9 +15,9 @@ db = (MySQLdb.connect(host='localhost', user='libly_user',
 cur = db.cursor()
 
 
-@grand_view.route('/pool/<string:user_id>', methods=['GET'], strict_slashes=False)
+@grand_view.route('/pool/<string:user_id>', methods=['POST'], strict_slashes=False)
 def verify_from_pool(user_id):
-    ''' get the reset code for a certain user '''
+    ''' verify the reset code for a certain user '''
 
     cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
                 (user_id, request.get_json()["reset_code"]))
