@@ -19,8 +19,8 @@ cur = db.cursor()
 def verify_from_pool(user_id):
     ''' get the reset code for a certain user '''
 
-    cur.execute('SELECT * FROM pool WHERE user_id = {} and code = {}'
-                .format(user_id, request.get_json()["reset_code"]))
+    cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
+                (user_id, request.get_json()["reset_code"]))
     rows = cur.fetchall()
     if len(rows) > 0:
         return jsonify({"success": "code verified"})
@@ -38,8 +38,8 @@ def insert_into_pool():
         return make_response(jsonify({"error": "User not found"}), 404)
 
     reset_code = random.randint(10000000, 99999999)
-    cur.execute('DELETE FROM pool WHERE user_id = {}'.format(user[0].id))
-    cur.execute('INSERT INTO pool, VALUES({}, {})'.format(user[0].id, reset_code))
+    cur.execute('DELETE FROM pool WHERE user_id = %s; INSERT INTO pool, VALUES(%s, %s)',
+                (user[0].id, user[0].id, reset_code))
 
     mail = requests.post('https://usernet.tech/mail/reset',
                          headers={"Content-Type": "application/json"},
@@ -59,15 +59,15 @@ def get_from_pool(user_id):
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
 
-    cur.execute('SELECT * FROM pool WHERE user_id = {} and code = {}'
-                .format(user.id, request.get_json()["reset_code"]))
+    cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
+                (user.id, request.get_json()["reset_code"]))
 
     rows = cur.fetchall()
     if len(rows) > 0:
         user.password = request.get_json()["new_password"]
         user.save()
 
-        cur.execute('DELETE FROM pool WHERE user_id = {}'.format(user.id))
+        cur.execute('DELETE FROM pool WHERE user_id = %s', (user.id))
 
         return jsonify(user.to_dict())
 
