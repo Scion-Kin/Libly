@@ -39,7 +39,10 @@ def insert_into_pool():
 
     reset_code = random.randint(10000000, 99999999)
     cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id,)) # parameters must be a tuple
+    db.commit()
+
     cur.execute('INSERT INTO pool VALUES (%s, %s)', (user[0].id, reset_code))
+    db.commit()
 
     mail = requests.post('https://usernet.tech/mail/reset',
                          headers={"Content-Type": "application/json"},
@@ -68,6 +71,7 @@ def get_from_pool(user_id):
         user.save()
 
         cur.execute('DELETE FROM pool WHERE user_id = %s', (user.id, ))
+        db.commit()
 
         return jsonify(user.to_dict())
 
