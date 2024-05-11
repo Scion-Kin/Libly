@@ -1,0 +1,129 @@
+{% extends 'logged.html' %}
+
+{% block title %} {{ user.first_name }} {{ user.last_name }} {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="/static/styles/profile.css">
+{% endblock %}
+
+{% block body %}
+    <section id="info">
+        <img src="/static/images/{{ user.pic }}">
+        <h5>{{ user.first_name }} {% if user.middle_name %} {{ user.middle_name }} {% endif %} {{ user.last_name }} </h5>
+    </section>
+    <nav id="selector">
+        <button id="reviews-header">Reviews</button>
+        <button id="authors-header">Favorite Authors</button>
+        <button id="books-header">Favorite Books</button>
+        <button id="genres-header">Favorite Genres</button>
+    </nav>
+    <section id="details">
+        <section id="reviews">
+            {% for i in reviews %}
+                <section class="review">
+                    <p class="text">{{ i.text }}</p>
+                </section>
+            {% endfor %}
+        </section>
+        <section id="fav_books">
+            {% for book in books %}
+            <section class="book result-box" style="background-image: url('/static/images/{{ book.pic }}');">
+                <section class="description book-description">
+                    <p class="title">
+                        Book - <span class="naming">{{ book.title }}</span>
+                    </p>
+                    <button class="go">
+                        <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">
+                            Read book
+                        </a>
+                    </button>
+                    <button class="go">
+                        <a href="/static/books/{{ book.file_name }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">
+                            Download
+                        </a>
+                    </button>
+                    <form method="POST" action="{{ url_for('client_view.book_info') }}">
+                        <button name="id" value="{{ book.id }}" class="go">Info & reviews</button>
+                    </form>
+                </section>
+            </section>
+            {% endfor %}
+        </section>
+        <section id="fav_authors">
+            {% for author in authors %}
+                <section class="author result-box" style="background-image: url('/static/images/{{ author.pic }}');">
+                    <section class="description">
+                        <p class="title">
+                            Author - <span class="naming">{{ author.first_name }} {{ author.last_name }}</span>
+                        </p>
+                        <a href="/author/{{ author.id }}"><button class="go">See books</button></a>   
+                    </section>
+                </section>
+            {% endfor %}
+        </section>
+        <section id="fav_genres">
+            {% for genre in genres %}
+                <section class="genre result-box" style="background-image: url('/static/images/{{ genre.pic }}');">
+                    <section class="description">
+                        <p class="title">Genre - <span class="naming">{{ genre.name }}</span></p>
+                        <a href="/genre/{{ genre.id }}"><button class="go">Check books</button></a>
+                    </section>
+                </section>
+            {% endfor %}
+        </section>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let details = document.getElementById('details');
+            let reviews = document.getElementById('reviews');
+            let authors = document.getElementById('fav_authors');
+            let books = document.getElementById('fav_books');
+            let genres = document.getElementById('fav_genres');
+
+            let reviewsButton = document.getElementById('reviews-header');
+            let authorsButton = document.getElementById('authors-header');
+            let booksButton = document.getElementById('books-header');
+            let genresButton = document.getElementById('genres-header');
+
+            displayer([authors, books, genres]);
+
+            reviewsButton.addEventListener('click', function () {
+                displayer([authors, books, genres]);
+                styler(reviewsButton);
+            });
+
+            authorsButton.addEventListener('click', function () {
+                displayer([reviews, books, genres]);
+                styler(authorsButton);
+            });
+
+            booksButton.addEventListener('click', function () {
+                displayer([reviews, authors, genres]);
+                styler(booksButton);
+            });
+
+            genresButton.addEventListener('click', function () {
+                displayer([reviews, books, authors]);
+                styler(genresButton);
+            });
+
+            function displayer(array) {
+                Array.from([reviews, authors, books, genres]).forEach(element => {
+                    element.style.display = 'block';
+                });
+
+                Array.from(array).forEach(element => {
+                    element.style.display = 'none';
+                });
+            }
+
+            function styler (element) {
+                Array.from([reviewsButton, authorsButton, booksButton, genresButton]).forEach(element => {
+                    element.style.backgroundColor = 'inherit';
+                });
+                element.style.backgroundColor = '#059e54';
+            }
+        });
+    </script>
+{% endblock %}

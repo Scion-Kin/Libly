@@ -1,0 +1,154 @@
+main {
+    border-radius: 25px;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    main {
+        padding: 3px;
+    }
+}
+
+.author, .book, .genre, .user, .not-found {
+    width: 60%;
+    height: 200px;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px auto;
+    background-color: white;
+    background-image: url('/static/images/author-avatar.jpeg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+}
+
+#info {
+    width: fit-content;
+    margin: auto;
+}
+
+#info img {
+    width: 200px;
+    height: 200px;
+    border-radius: 100px;
+}
+
+#info h5 {
+    width: fit-content;
+    margin: 30px auto;
+}
+
+#selector {
+    width: fit-content;
+    margin: auto;
+}
+
+#reviews-header, #authors-header, #books-header, #genres-header {
+    color: white;
+    text-align: left;
+    background-image: url('/static/images/comments-icon.svg');
+    background-position: right;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: inherit;
+    min-width: 130px;
+    height: fit-content;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid white;
+    border-radius: 20px 20px 0px 20px;
+}
+
+#authors-header, #books-header, #genres-header {
+    background: inherit;
+}
+
+#reviews {
+    width: fit-content;
+    margin: auto;
+    padding: 20px;
+}
+
+.review {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.text {
+    margin: 0;
+    background-color: #316ff652;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.book {
+    background-image: url('/static/images/vintage-book.png');
+}
+
+.genre {
+    background-image: url('/static/images/genre.jpg');
+}
+
+.user {
+    background-image: url('/static/images/user-avatar.jpg');
+}
+
+.description {
+    float: right;
+}
+
+.title {
+    background-color: #316FF6;
+    color: white;
+    padding: 10px;
+    padding-right: 5px;
+    border-radius: 10px;
+    margin: 0
+}
+
+.description button {
+    padding: 10px;
+    background-color: #316FF6;
+    color: white;
+    margin-left: auto;
+    margin: 10px;
+}
+
+.naming {
+    background-color: white;
+    color: #316FF6;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.go {
+    background-color: #059e54 !important;
+}
+
+@media (max-width: 900px) {
+
+    .description {
+        float: left;
+        backdrop-filter: blur(20px);
+        padding: 20px;
+        border-radius: 15px;
+        width: 80%;
+    }
+    
+    .book-description {
+        margin-top: -15px;
+    }
+    
+    .naming {
+        display: block;
+        margin-top: 5px;
+    }
+    
+    .result-box {
+        margin: 10px auto;
+    }
+}
+

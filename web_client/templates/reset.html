@@ -19,23 +19,31 @@
         $(function () {
             let passwordFirst = document.createElement('input');
             $(passwordFirst).attr('type', 'password');
+            $(passwordFirst).attr('placeholder', 'Input your new password');
+
             let passwordLast = document.createElement('input');
             $(passwordLast).attr('type', 'password');
+            $(passwordLast).attr('placeholder', 'Repeat password');
+
             let codeInput = document.createElement('input');
             $(codeInput).attr('type', 'tel');
+            $(codeInput).attr('placeholder', 'Input code from email');
+
             let reqButton = document.createElement('button'); // code request button
+            $(reqButton).text('Get code');
+
             let verButton = document.createElement('button'); // code verifier button
+            $(verButton).text('Verify code');
+
             let resButton = document.createElement('button'); // password reset button
+            $(resButton).text('Reset');
+
             let error = document.createElement('h4');
             $(error).addClass('error');
+
             let user_id;
             let reset_code;
-
-            $(passwordFirst).attr('placeholder', 'Input your new password');
-            $(passwordLast).attr('placeholder', 'Repeat password');
-            $(reqButton).text('Get code');
-            $(verButton).text('Verify code');
-            $(resButton).text('Reset');
+            
             $('#reset').append(reqButton);
             $(reqButton).click(function (event) {
                 event.preventDefault();
@@ -93,8 +101,10 @@
                     $(error).text('User not found.');
                 } else if (jqxhr.status === 400){
                     $(error).text('Please input all details.');
-                } else {
+                } else if (jqxhr.status === 403) {
                     $(error).text('Wrong reset code');
+                } else {
+                    $(error).text('Something went wrong. Please try again');
                 }
 
                 $('#reset').append(error);

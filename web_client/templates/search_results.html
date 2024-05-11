@@ -28,7 +28,7 @@
                     <p class="title">
                         Author - <span class="naming">{{ author.first_name }} {{ author.last_name }}</span>
                     </p>
-                    <button class="go">See books</button>      
+                    <a href="/author/{{ author.id }}"><button class="go">See books</button></a>   
                 </section>
             </section>
         {% endfor %}
@@ -63,7 +63,7 @@
             <section class="genre result-box" style="background-image: url('/static/images/{{ genre.pic }}');">
                 <section class="description">
                     <p class="title">Genre - <span class="naming">{{ genre.name }}</span></p>
-                    <button class="go">Check books</button>
+                    <a href="/genre/{{ genre.id }}"><button class="go">Check books</button></a>
                 </section>
             </section>
         {% endfor %}
@@ -74,6 +74,7 @@
             <section class="user result-box" style="background-image: url('/static/images/{{ user.pic }}');">
                 <section class="description">
                     <p class="title">User - <span class="naming">{{ user.first_name }} {{ user.last_name }}</span></p>
+                    <a href="/profile/{{ user.id }}"><button>Visit profile</button></a>
                 </section>
             </section>
         {% endfor %}
