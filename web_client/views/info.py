@@ -22,10 +22,11 @@ def book_info():
 
                     if reviews.status_code == 200:
                         return render_template('info.html', info=response.json()[i]["data"], uuid=uuid4(),
-                                                reviews=reviews.json(), pic=session["user_pic"])
-                    return render_template('info.html', info=response.json()[i]["data"], 
-                                            pic=session["user_pic"], uuid=uuid4()) 
+                                                reviews=reviews.json(), pic=session["user_pic"], user_id=session["user_id"])
 
-        return render_template('info.html', pic=session["user_pic"], uuid=uuid4())
+                    return render_template('info.html', info=response.json()[i]["data"], 
+                                            pic=session["user_pic"], uuid=uuid4(), user_id=session["user_id"]) 
+
+        return render_template('info.html', pic=session["user_pic"], user_id=session["user_id"], uuid=uuid4())
 
     return redirect(url_for('home'))

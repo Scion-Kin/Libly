@@ -19,7 +19,7 @@ def get_statistics():
 
         if request.method == "POST":
             if not request.form.get('number') or not request.form.get('time'):
-                return render_template('stats.html', uuid=uuid4(),
+                return render_template('stats.html', uuid=uuid4(), user_id=session["user_id"],
                                        pic=session["user_pic"],
                                        name=session["first_name"], error="Please specify a duration")
 
@@ -34,9 +34,9 @@ def get_statistics():
                                            "books": response.json()["books"],
                                            "genres": response.json()["genres"],
                                            "reviews": response.json()["reviews"],
-                                           "users": response.json()["users"]}, uuid=uuid4(),
-                                           pic=session["user_pic"], name=session["first_name"],
-                                           days=(int(request.form.get('number'))))
+                                           "users": response.json()["users"]}, user_id=session["user_id"],
+                                           uuid=uuid4(), pic=session["user_pic"], 
+                                           name=session["first_name"], days=(int(request.form.get('number'))))
 
             else:
                 if time == "year":
@@ -45,7 +45,7 @@ def get_statistics():
                 else:
                     if int(request.form.get('number')) > 12 or int(request.form.get('number')) < 1:
                         return render_template('stats.html',
-                                               pic=session["user_pic"], uuid=uuid4(),
+                                               pic=session["user_pic"], uuid=uuid4(), user_id=session["user_id"],
                                                name=session["first_name"], error="Invalid month")
 
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
@@ -61,7 +61,8 @@ def get_statistics():
                                                "genres": response.json()[month]["genres"],
                                                "reviews": response.json()[month]["reviews"],
                                                "users": response.json()[month]["users"]}, uuid=uuid4(),
-                                               pic=session["user_pic"], name=session["first_name"],
+                                               pic=session["user_pic"], user_id=session["user_id"],
+                                               name=session["first_name"],
                                                month_name=month_name[month + 1], month=(month + 1))
 
                     else:
@@ -75,15 +76,16 @@ def get_statistics():
                             all["reviews"] += i["reviews"]
                             all["users"] += i["users"]
 
-                        return render_template('stats.html', stats=all, uuid=uuid4(),
+                        return render_template('stats.html', stats=all, uuid=uuid4(), user_id=session["user_id"],
                                                pic=session["user_pic"], name=session["first_name"],
                                                time=request.form.get('number'), year=(int(year)))
 
-            return render_template('stats.html', uuid=uuid4(),
+            return render_template('stats.html', uuid=uuid4(), user_id=session["user_id"],
                                    pic=session["user_pic"],
                                    name=session["first_name"], error=response.json()["error"])
 
-        return render_template('stats.html', uuid=uuid4(), pic=session["user_pic"], name=session["first_name"])
+        return render_template('stats.html', uuid=uuid4(), user_id=session["user_id"],
+                                pic=session["user_pic"], name=session["first_name"])
 
     return redirect(url_for('home'))
 
@@ -99,7 +101,7 @@ def get_statistics_numbers():
         if request.method == "POST":
             if not request.form.get('number') or not request.form.get('time'):
                 return render_template('stats.html', uuid=uuid4(),
-                                       pic=session["user_pic"],
+                                       pic=session["user_pic"], user_id=session["user_id"],
                                        name=session["first_name"], error="Please specify a duration")
 
             time = request.form.get('time')
@@ -113,9 +115,9 @@ def get_statistics_numbers():
                                            "books": len(response.json()["books"]),
                                            "genres": len(response.json()["genres"]),
                                            "reviews": len(response.json()["reviews"]),
-                                           "users": len(response.json()["users"])}, uuid=uuid4(),
-                                           pic=session["user_pic"], name=session["first_name"],
-                                           days=(int(request.form.get('number'))))
+                                           "users": len(response.json()["users"])}, user_id=session["user_id"],
+                                           uuid=uuid4(), pic=session["user_pic"], 
+                                           name=session["first_name"], days=(int(request.form.get('number'))))
 
             else:
                 if time == "year":
@@ -123,7 +125,7 @@ def get_statistics_numbers():
                                             format(request.form.get('number')))
                 else:
                     if int(request.form.get('number')) > 12 or int(request.form.get('number')) < 1:
-                        return render_template('stats.html',
+                        return render_template('stats.html', user_id=session["user_id"],
                                                pic=session["user_pic"], uuid=uuid4(),
                                                name=session["first_name"], error="Invalid month")
                     response = requests.get('https://usernet.tech/api/v1/report/year/{}'.
@@ -138,7 +140,8 @@ def get_statistics_numbers():
                                                "books": len(response.json()[month]["books"]),
                                                "genres": len(response.json()[month]["genres"]),
                                                "reviews": len(response.json()[month]["reviews"]),
-                                               "users": len(response.json()[month]["users"])}, uuid=uuid4(),
+                                               "users": len(response.json()[month]["users"])},
+                                               uuid=uuid4(), user_id=session["user_id"],
                                                pic=session["user_pic"], name=session["first_name"],
                                                month_name=month_name[month + 1], month=(month + 1))
 
@@ -153,14 +156,16 @@ def get_statistics_numbers():
                             numbers["reviews"] += len(i["reviews"])
                             numbers["users"] += len(i["users"])
 
-                        return render_template('stats.html', numbers=numbers, uuid=uuid4(),
+                        return render_template('stats.html', user_id=session["user_id"],
+                                               numbers=numbers, uuid=uuid4(),
                                                pic=session["user_pic"], name=session["first_name"],
                                                time=request.form.get('number'), year=(int(year)))
 
-            return render_template('stats.html', uuid=uuid4(),
+            return render_template('stats.html', uuid=uuid4(), user_id=session["user_id"],
                                    pic=session["user_pic"],
                                    name=session["first_name"], error=response.json()["error"])
 
-        return render_template('stats.html', uuid=uuid4(), pic=session["user_pic"], name=session["first_name"])
+        return render_template('stats.html', uuid=uuid4(), user_id=session["user_id"],
+                                pic=session["user_pic"], name=session["first_name"])
 
     return redirect(url_for('home'))

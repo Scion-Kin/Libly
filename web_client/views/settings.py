@@ -16,7 +16,7 @@ def manage_user():
         if request.method == 'POST':
             file = request.files['pic']
             if not file:
-                return render_template('settings.html', uuid=uuid4(), error="No picture provided")
+                return render_template('settings.html', user_id=session["user_id"], uuid=uuid4(), error="No picture provided")
 
             details = {
                 "email": request.form.get('email'),
@@ -32,7 +32,7 @@ def manage_user():
                 if key not in ["middle_name", "new_password"] and len(value) == 0:
                     return render_template('settings.html', first_name=session["first_name"],
                                            last_name=session["last_name"], uuid=uuid4(),
-                                           error="Missing {}".format(value),
+                                           error="Missing {}".format(value), user_id=session["user_id"],
                                            pic=session["user_pic"])
 
             headers = {"Content-Type": "application/json"}
@@ -51,9 +51,10 @@ def manage_user():
                 return redirect(url_for('home'))
 
             return render_template('settings.html', first_name=session["first_name"], 
-                                   last_name=session["last_name"], uuid=uuid4(),
+                                   last_name=session["last_name"], uuid=uuid4(), user_id=session["user_id"],
                                    error=response.json()["error"].capitalize(), pic=session["user_pic"])
 
-        return render_template('settings.html', first_name=session["first_name"], uuid=uuid4(),
-                               last_name=session["last_name"], pic=session["user_pic"])
+        return render_template('settings.html', first_name=session["first_name"], user_id=session["user_id"],
+                               uuid=uuid4(), last_name=session["last_name"], pic=session["user_pic"])
+
     return redirect(url_for('home'))

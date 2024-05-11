@@ -63,4 +63,4 @@ def profile(user_id):
 
     return render_template('profile.html', pic=session["user_pic"], authors=fav_authors,
                            books=fav_books, genres=fav_genres, reviews=reviews,
-                           user=user, uuid=uuid4())
+                           user=user, user_id=session["user_id"], uuid=uuid4())

@@ -2,7 +2,7 @@
 ''' This is the web server '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort, session, request, redirect, url_for
+from flask import Flask, Blueprint, render_template, abort, session, request, redirect, url_for, make_response
 from uuid import uuid4
 import requests
 import base64
@@ -45,16 +45,17 @@ def home():
                 users = [item for item in results if item["__class__"] == "User"]
 
                 if len(results) > 0:
-                    return render_template('search_results.html', authors=authors, books=books,
+                    return render_template('search_results.html', authors=authors, books=books, user_id=session["user_id"],
                                             genres=genres, users=users, keywords=keywords,
                                             found=True, pic=session["user_pic"], uuid=uuid4())
 
-                return render_template('search_results.html', authors=authors, books=books,
+                return render_template('search_results.html', authors=authors, books=books, user_id=session["user_id"],
                                         genres=genres, users=users, keywords=keywords,
                                         found=False, pic=session["user_pic"], uuid=uuid4())
 
         if session['user_type'] == 'librarian':
-            return render_template('feed.html', admin=True, pic=session["user_pic"], uuid=uuid4())
+            return render_template('feed.html', admin=True, user_id=session["user_id"],
+                                    pic=session["user_pic"], uuid=uuid4())
 
         else:
             if session["onboarded"] == False:
@@ -63,9 +64,9 @@ def home():
             books = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"])).json()
             if "error" not in books:
                 return render_template('feed.html', admin=False, books=books[:5],
-                                       uuid=uuid4(), pic=session["user_pic"])
+                                       uuid=uuid4(), pic=session["user_pic"], user_id=session["user_id"])
 
-            return render_template('feed.html', uuid=uuid4(),
+            return render_template('feed.html', uuid=uuid4(), user_id=session["user_id"],
                                     error="No books found in the database.", pic=session["user_pic"])
 
     return render_template('index.html', uuid=uuid4())
@@ -81,7 +82,8 @@ def error_404(error):
     if session["logged"] == False:
         return redirect(url_for('home'))
 
-    return render_template('errors.html', error="Not found", code=404, uuid=uuid4(), pic=session["user_pic"])
+    return make_response(render_template('errors.html', error="Not found", user_id=session["user_id"],
+                            code=404, uuid=uuid4(), pic=session["user_pic"]), 404)
 
 
 @app.errorhandler(500)
@@ -94,7 +96,8 @@ def error_500(error):
     if session["logged"] == False:
         return redirect(url_for('home'))
 
-    return render_template('errors.html', error="Server error", code=500, uuid=uuid4(), pic=session["user_pic"])
+    return make_response(render_template('errors.html', error="Server error", code=500, 
+                            uuid=uuid4(), user_id=session["user_id"], pic=session["user_pic"]), 500)
 
 
 if __name__ == "__main__":
