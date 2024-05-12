@@ -25,7 +25,7 @@ def onboarding():
     if request.method == 'POST':
         
         if int(request.form.get('done')) == 0:
-            return render_template('onboarding.html', uuid=uuid4(), genres=genres, user_id=session["user_id"],
+            return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                                 first_name=session["first_name"], last_name=session["last_name"],
                                 pic=session["user_pic"], error="Please select at least one genre.")
 
@@ -38,10 +38,10 @@ def onboarding():
                 return redirect(url_for('home'))
 
             else:
-                return render_template('onboarding.html', uuid=uuid4(), genres=genres, user_id=session["user_id"],
+                return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                                        first_name=session["first_name"], last_name=session["last_name"],
                                        pic=session["user_pic"], error=altered.json()["error"])
 
-    return render_template('onboarding.html', uuid=uuid4(), genres=genres, user_id=session["user_id"],
+    return render_template('onboarding.html', uuid=uuid4(), genres=genres,
                            first_name=session["first_name"], last_name=session["last_name"],
                            pic=session["user_pic"])

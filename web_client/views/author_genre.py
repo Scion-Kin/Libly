@@ -15,7 +15,7 @@ def author(author_id):
 
         if response.status_code == 200:
             for i in response.json():
-                return render_template('author_genre.html', user_id=session["user_id"],
+                return render_template('author_genre.html',
                                        book_list=response.json()[i]["book_list"],
                                        pic=session["user_pic"], uuid=uuid4(),
                                        data=response.json()[i]["data"], type="author") 
@@ -34,7 +34,7 @@ def genre(genre_id):
         if response.status_code == 200:
             
             for i in response.json():
-                return render_template('author_genre.html', user_id=session["user_id"],
+                return render_template('author_genre.html',
                                        book_list=response.json()[i]["book_list"],
                                        pic=session["user_pic"], uuid=uuid4(),
                                        data=response.json()[i]["data"], type=genre) 

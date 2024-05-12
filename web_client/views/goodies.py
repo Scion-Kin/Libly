@@ -56,7 +56,7 @@ def hearted():
         fav_genres = []
 
     return render_template('hearted.html', pic=session["user_pic"], fav_authors=fav_authors,
-                           fav_books=fav_books, fav_genres=fav_genres, user_id=session["user_id"],
+                           fav_books=fav_books, fav_genres=fav_genres,
                            name=session["first_name"], uuid=uuid4())
 
 
@@ -66,5 +66,5 @@ def hot():
 
     hot = requests.get('https://usernet.tech/api/v1/hot/{}'.format(session["user_id"]))
 
-    return render_template('hot.html', hot_books=hot.json(), user_id=session["user_id"],
-                           name=session["first_name"], pic=session["user_pic"], uuid=uuid4())
+    return render_template('hot.html', hot_books=hot.json(), name=session["first_name"],
+                           pic=session["user_pic"], uuid=uuid4())

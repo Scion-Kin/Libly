@@ -213,7 +213,7 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
-    height: 100px;
+    height: 60px;
     margin: 10px 0px;
     border-radius: 15px;
 }
@@ -221,7 +221,7 @@ button {
 .history-book button {
     background-color: #316FF6;
     padding: 10px;
-    margin: 30px 10px;
+    margin: 10px;
     color: white;
 }
 
@@ -249,6 +249,10 @@ button {
 .options button:hover {
     background-color: #e7e8e9;
     color: black !important;
+}
+
+#profile {
+    background-image: url('/static/images/select-users.svg');
 }
 
 #settings {
@@ -321,7 +325,7 @@ textarea:focus {
     }
     
     #main button {
-        margin: 7px;
+        margin: 10px;
     }
 
     #whole {

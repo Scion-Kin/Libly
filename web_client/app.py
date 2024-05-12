@@ -45,16 +45,16 @@ def home():
                 users = [item for item in results if item["__class__"] == "User"]
 
                 if len(results) > 0:
-                    return render_template('search_results.html', authors=authors, books=books, user_id=session["user_id"],
+                    return render_template('search_results.html', authors=authors, books=books,
                                             genres=genres, users=users, keywords=keywords,
                                             found=True, pic=session["user_pic"], uuid=uuid4())
 
-                return render_template('search_results.html', authors=authors, books=books, user_id=session["user_id"],
+                return render_template('search_results.html', authors=authors, books=books,
                                         genres=genres, users=users, keywords=keywords,
                                         found=False, pic=session["user_pic"], uuid=uuid4())
 
         if session['user_type'] == 'librarian':
-            return render_template('feed.html', admin=True, user_id=session["user_id"],
+            return render_template('feed.html', admin=True,
                                     pic=session["user_pic"], uuid=uuid4())
 
         else:
@@ -66,8 +66,8 @@ def home():
                 return render_template('feed.html', admin=False, books=books[:5],
                                        uuid=uuid4(), pic=session["user_pic"], user_id=session["user_id"])
 
-            return render_template('feed.html', uuid=uuid4(), user_id=session["user_id"],
-                                    error="No books found in the database.", pic=session["user_pic"])
+            return render_template('feed.html', uuid=uuid4(), error="No books found in the database.",
+                                   pic=session["user_pic"])
 
     return render_template('index.html', uuid=uuid4())
 
@@ -82,7 +82,7 @@ def error_404(error):
     if session["logged"] == False:
         return redirect(url_for('home'))
 
-    return make_response(render_template('errors.html', error="Not found", user_id=session["user_id"],
+    return make_response(render_template('errors.html', error="Not found",
                             code=404, uuid=uuid4(), pic=session["user_pic"]), 404)
 
 
@@ -97,7 +97,7 @@ def error_500(error):
         return redirect(url_for('home'))
 
     return make_response(render_template('errors.html', error="Server error", code=500, 
-                            uuid=uuid4(), user_id=session["user_id"], pic=session["user_pic"]), 500)
+                            uuid=uuid4(), pic=session["user_pic"]), 500)
 
 
 if __name__ == "__main__":
