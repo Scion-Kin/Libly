@@ -41,10 +41,11 @@ main {
 #selector {
     width: fit-content;
     margin: auto;
+    border-radius: 15px;
 }
 
 #reviews-header, #authors-header, #books-header, #genres-header {
-    color: white;
+    color: inherit !important;
     text-align: left;
     background-image: url('/static/images/comments-icon.svg');
     background-position: right;
