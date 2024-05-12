@@ -147,6 +147,15 @@ h2 {
     
 #books-activity {
     margin: auto;
+    height: 150px;
+    width: 350px;
+    margin-left: auto;
+}
+
+@media (max-width: 900px) {
+    #books-activity .history-book {
+        margin: auto;
+    }
 }
 
 .review {

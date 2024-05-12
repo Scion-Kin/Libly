@@ -40,7 +40,7 @@ def manage_user():
                                      headers=headers, json=details)
 
             if response.status_code == 200:
-                file.save(os.path.join('web_client/static/images', secure_filename(file.filename)))
+                file.save(os.path.join('web_client/static/images/', secure_filename(file.filename)))
 
                 session['user_pic'] = secure_filename(file.filename)
                 session['email'] = request.form.get('email')
