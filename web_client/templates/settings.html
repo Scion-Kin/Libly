@@ -93,9 +93,11 @@
                     $(form).css('display', 'none');
                 });
                 $(button).text('Confirm');
+
                 $(form).css({
-                    'top': '80px', 'display': 'flex', 'position': 'relative', 'top': '0', 'left': '0'
+                    'display': 'flex', 'position': 'relative'
                 });
+
                 $(form).html([cancel, passInput, button, errorInfo]);
                 $(button).click(function () {
                     $.ajax({
