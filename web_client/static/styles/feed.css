@@ -10,11 +10,6 @@ a {
     color: #316FF6;
 }
 
-#feed, #manage-list {
-    width: 95%;
-    padding: 10px;
-}
-
 #authors, #books, #genres {
     background-color: inherit;
     background-image: url('/static/images/select-author.svg');
@@ -110,8 +105,7 @@ h2 {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    padding: 20px;
-    margin: 25px 0px;
+    padding: 5px;
 }
 
 #review-activity img {
@@ -121,7 +115,14 @@ h2 {
 }
 
 #reviews, #books-activity {
-    flex: 1;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+@media (min-width: 900px) {
+    #reviews, #books-activity {
+        flex: 1;
+    }
 }
 
 #books-activity h4 {
@@ -130,10 +131,22 @@ h2 {
 }
 
 #books-activity .history-book {
-    height: 150px;
-    width: 350px;
+    min-height: 150px;
+    min-width: 350px;
+}
+
+@media (max-width: 540px) {
+    #books-activity .history-book {
+        min-width: 300px;
+    }
+}
+
+#books-activity .history-book {
+        margin-left: auto;
+    }
     
-    margin-left: auto;
+#books-activity {
+    margin: auto;
 }
 
 .review {
@@ -158,4 +171,17 @@ h2 {
     border-radius: 10px;
     margin: 0px 0px 10px 0px;
     color: white;
+}
+
+.go {
+    background-color: inherit !important;
+    background-image: url('/static/images/dropdown-icon.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-top: 15px;
+    width: 10px;
+    height: 10px;
+    color: white !important;
+    transform: rotate(-90deg);
 }

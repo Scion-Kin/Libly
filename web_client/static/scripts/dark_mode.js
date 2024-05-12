@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let sugBooks = document.getElementsByClassName('suggested-book');
     let results_nav = document.getElementsByClassName('results_nav');
     let history = document.getElementsByClassName('history');
+    let blackWhite = document.getElementsByClassName('black-white');
     let options = document.getElementsByClassName('options');
     let resultBoxes = document.getElementsByClassName('result-box');
 
@@ -32,6 +33,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 resultSection.style.backgroundColor = 'rgb(37, 40, 42)';
                 resultSection.style.color = '#e7e8e9';
             }
+
+            Array.from(blackWhite).forEach(element => {
+                element.style.backgroundColor = 'black';
+            });
 
             Array.from(quotes).forEach(element => {
                 element.style.backgroundColor = 'black';
@@ -75,6 +80,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 resultSection.style.backgroundColor = '#e7e8e9';
                 resultSection.style.color = '#181a1b';
             }
+
+            Array.from(blackWhite).forEach(element => {
+                element.style.backgroundColor = 'white';
+            });
 
             Array.from(quotes).forEach(element => {
                 element.style.backgroundColor = 'white';
