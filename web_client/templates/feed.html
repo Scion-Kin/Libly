@@ -50,10 +50,10 @@
                             {{ book.description }}
                         </p>
                         <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">
-                            <button>Read</button>
+                            <button style="width: 100%;">Read</button>
                         </a>
                         <form method="POST" action="{{ url_for('client_view.book_info') }}">
-                            <button name="id" value="{{ book.id }}">Book info and reviews</button>
+                            <button name="id" value="{{ book.id }}" style="width: 100%;">Book info and reviews</button>
                         </form>
                     </section>
                 {% endfor %}
