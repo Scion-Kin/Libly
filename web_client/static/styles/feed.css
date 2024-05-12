@@ -105,3 +105,57 @@ h2 {
     border-radius: 10px;
     margin: 10px 0px;
 }
+
+#review-activity {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 25px 0px;
+}
+
+#review-activity img {
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+}
+
+#reviews, #books-activity {
+    flex: 1;
+}
+
+#books-activity h4 {
+    width: fit-content;
+    margin-left: auto;
+}
+
+#books-activity .history-book {
+    height: 150px;
+    width: 350px;
+    
+    margin-left: auto;
+}
+
+.review {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.text {
+    margin: 0;
+    background-color: #316ff652;
+    padding: 5px 15px;
+    border-radius: 15px;
+}
+
+.text .name {
+    background: #316FF6;
+    width: fit-content;
+    padding: 2px 10px;
+    border-radius: 10px;
+    margin: 0px 0px 10px 0px;
+    color: white;
+}
