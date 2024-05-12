@@ -11,13 +11,8 @@
         }
 
         #confirm {
-            width: 50%;
-            color: white;
-            border: 1px solid white;
-            border-radius: 15px;
-            background-color: none;
-            backdrop-filter: blur(20px);
             display: flex;
+            position: relative;
             flex-direction: column;
             padding: 20px;
             z-index: 100;
@@ -40,6 +35,7 @@
             width: 60px;
             height: 60px;
             border-radius: 30px;
+            margin: 20px auto;
         }
 
         .error {
@@ -56,7 +52,7 @@
     {% if error %}
         <h3 class="error">{{ error }}</h3>
     {% endif %}
-    <form id="confirm" method="POST" enctype="multipart/form-data">
+    <form id="confirm" method="POST" enctype="multipart/form-data" class="confirm">
         <h4>Hello {{ first_name }} {{ last_name }}!</h4>
         <h5> Let's set up your account details </h5>
         <input type="email" name="email" placeholder="your email" autocomplete="off" required>
