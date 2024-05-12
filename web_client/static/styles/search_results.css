@@ -161,6 +161,7 @@ aside h3,  aside h2 {
         padding: 20px;
         border-radius: 15px;
         width: 80%;
+        height: fit-content;
     }
     
     .book-description {

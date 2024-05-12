@@ -52,10 +52,13 @@ $(function () {
                 $.get(`https://usernet.tech/api/v1/users/${user_id}`, function(data, textStatus) {
                     for (let j in data) {
                         let avatar = document.createElement('img');
+                        let link = document.createElement('a');
+                        $(link).attr('href', `/profile/${user_id}`);
                         let username = document.createElement('p');
                         $(username).text(`${data[j].data.first_name} ${data[j].data.last_name}`);
                         $(avatar).attr('src', `/static/images/${data[j].data.pic}`);
-                        $(owner).append(avatar);
+                        $(link).append(avatar);
+                        $(owner).append(link);
                         $(reviews[i]).find('.text').prepend(username);
                         break;
                     }

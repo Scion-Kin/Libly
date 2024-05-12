@@ -9,7 +9,7 @@ main {
     }
 }
 
-.author, .book, .genre, .user, .not-found {
+.author, .book, .genre, .user {
     width: 60%;
     height: 200px;
     border-radius: 20px;
@@ -136,6 +136,7 @@ main {
         padding: 20px;
         border-radius: 15px;
         width: 80%;
+        height: fit-content;
     }
     
     .book-description {
