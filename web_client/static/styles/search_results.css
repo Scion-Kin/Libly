@@ -36,6 +36,7 @@ aside h3,  aside h2 {
     margin: 10px 10px;
     padding: 10px;
     border-radius: 15px;
+    background-color: black;
 }
 
 .results_nav button {
@@ -147,30 +148,24 @@ aside h3,  aside h2 {
     background-color: #059e54 !important;
 }
 
-
-
 @media (max-width: 900px) {
+    
     .results_nav {
         flex-direction: row;
         flex-wrap: wrap;
     }
 
     .description {
-        float: left;
         backdrop-filter: blur(20px);
-        padding: 20px;
+        padding: 5px;
         border-radius: 15px;
-        width: 80%;
         height: fit-content;
+        width: fit-content;
     }
     
     .book-description {
         margin-top: -15px;
-    }
-    
-    .naming {
-        display: block;
-        margin-top: 5px;
+        padding: 0px;
     }
     
     .result-box {
