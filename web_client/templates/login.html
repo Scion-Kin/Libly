@@ -9,9 +9,9 @@
     <input type="email" name="email" placeholder="email">
     <input type="password" name="password" placeholder="password">
     <button type="submit">Log in</button>
-    <a href="/reset" style="color: white; font-size: smaller; margin: 20px;">Forgot password?</a>
+    <a href="/reset" style="color: blue; font-size: small; margin: 20px 0px;">Forgot password?</a>
     {% if error %}
-        <h4 class="error">{{ error }}</h4>
+        <h4 class="error" style="font-size: small;">{{ error }}</h4>
     {% endif %}
 </form>
 {% endblock %}

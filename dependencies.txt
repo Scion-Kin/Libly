@@ -1,0 +1,6 @@
+flask
+node.js
+pymupdf
+pillow
+sqlalchemy
+mysqldbclient

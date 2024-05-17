@@ -147,7 +147,7 @@ h2 {
     
 #books-activity {
     margin: auto;
-    height: 150px;
+    height: fit-content;
     width: 350px;
     margin-left: auto;
 }
