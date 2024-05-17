@@ -52,6 +52,7 @@ $(function () {
                 $.get(`https://usernet.tech/api/v1/users/${user_id}`, function(data, textStatus) {
                     for (let j in data) {
                         let avatar = document.createElement('img');
+                        avatar.alt = `${data[j].data.first_name}'s profile picture`;
                         let link = document.createElement('a');
                         $(link).attr('href', `/profile/${user_id}`);
                         let username = document.createElement('p');

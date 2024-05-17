@@ -43,7 +43,7 @@
             <section class="suggested">
                 {% for book in books %}
                     <section class="suggested-book">
-                        <img src="/static/images/{{ book.pic }}?{{ uuid }}">
+                        <img src="/static/images/{{ book.pic }}?{{ uuid }}" alt="{{ book.title }}'s cover image">
                         <h4>Title: {{ book.title }}</h4>
                         <b>Description:</b>
                         <p>
@@ -58,14 +58,6 @@
                     </section>
                 {% endfor %}
             </section>
-            <!--<h2>Quotes from books</h2>
-
-            <section class="random-quotes">
-                <section class="quote">
-                    <p>This feature is not yet ready. Coming soon.</p>
-                    <button><a href="/books">Go to books</a></button>
-                </section>
-            </section>-->
 
             <h2>Recent activity</h2>
             <section id="review-activity">

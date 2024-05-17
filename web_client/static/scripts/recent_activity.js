@@ -58,6 +58,7 @@ fetch('https://usernet.tech/api/v1/reviews')
                             if (!userData.error) {
                                 for (let j in userData) {
                                     avatar.src = `/static/images/${userData[j].data.pic}`;
+                                    avatar.alt = `${userData[j].data.first_name}'s profile picture`;
                                     name.textContent = `${userData[j].data.first_name} ${userData[j].data.middle_name} ${userData[j].data.last_name}`;
                                     name.className = 'name';
                                     link.href = `/profile/${userData[j].data.id}`;
