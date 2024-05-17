@@ -1,63 +1,59 @@
 document.addEventListener('DOMContentLoaded', function () {
-    console.log('Document is ready.');
+  console.log('Document is ready.');
 
-    const all = document.getElementById('all');
-    const authors = document.getElementById('authors');
-    const books = document.getElementById('books');
-    const genres = document.getElementById('genres');
-    const users = document.getElementById('users');
+  const all = document.getElementById('all');
+  const authors = document.getElementById('authors');
+  const books = document.getElementById('books');
+  const genres = document.getElementById('genres');
+  const users = document.getElementById('users');
 
-    let authorsArray = document.getElementsByClassName('author');
-    let booksArray = document.getElementsByClassName('book');
-    let genresArray = document.getElementsByClassName('genre');
-    let usersArray = document.getElementsByClassName('user');
-    let hidden = false;
+  const authorsArray = document.getElementsByClassName('author');
+  const booksArray = document.getElementsByClassName('book');
+  const genresArray = document.getElementsByClassName('genre');
+  const usersArray = document.getElementsByClassName('user');
+  let hidden = false;
 
-    all.addEventListener('click', function(e) {
+  all.addEventListener('click', function (e) {
+    e.preventDefault();
+    hidden = true;
+    hide([authorsArray, booksArray, genresArray, usersArray]);
+  });
 
-        e.preventDefault();
-        hidden = true;
-        hide([authorsArray, booksArray, genresArray, usersArray]);
-    });
+  authors.addEventListener('click', function (e) {
+    e.preventDefault();
+    hide([booksArray, genresArray, usersArray]);
+  });
 
-    authors.addEventListener('click', function(e) {
+  books.addEventListener('click', function (e) {
+    e.preventDefault();
+    hide([authorsArray, genresArray, usersArray]);
+  });
 
-        e.preventDefault();
-        hide([booksArray, genresArray, usersArray]);
-    });
+  genres.addEventListener('click', function (e) {
+    e.preventDefault();
+    hide([authorsArray, booksArray, usersArray]);
+  });
 
-    books.addEventListener('click', function(e) {
-        e.preventDefault();
-        hide([authorsArray, genresArray, usersArray]);
-    });
+  users.addEventListener('click', function (e) {
+    e.preventDefault();
+    hide([authorsArray, booksArray, genresArray]);
+  });
 
-    genres.addEventListener('click', function(e) {
-        e.preventDefault();
-        hide([authorsArray, booksArray, usersArray]);
-    });
-
-    users.addEventListener('click', function(e) {
-        e.preventDefault();
-        hide([authorsArray, booksArray, genresArray]);
-    });   
-
-    function hide(array) {
-        if (hidden == false) {
-            for (let i of array) {
-                Array.from(i).forEach(element => {
-                    element.style.display = 'none';
-                });
-            }
-            hidden = true;
-        }
-
-        else {
-            for (let i of [authorsArray, booksArray, genresArray, usersArray]) {
-                Array.from(i).forEach(element => {
-                    element.style.display = 'block';
-                });
-            }
-            hidden = false;
-        }
+  function hide (array) {
+    if (hidden === false) {
+      for (const i of array) {
+        Array.from(i).forEach(element => {
+          element.style.display = 'none';
+        });
+      }
+      hidden = true;
+    } else {
+      for (const i of [authorsArray, booksArray, genresArray, usersArray]) {
+        Array.from(i).forEach(element => {
+          element.style.display = 'block';
+        });
+      }
+      hidden = false;
     }
+  }
 });
