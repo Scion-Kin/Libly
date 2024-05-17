@@ -17,7 +17,7 @@ fetch('https://usernet.tech/api/v1/reviews')
                 let date = (data[i].data.updated_at).split('T')[0].split('-');
 
                 // get data from the last 2 days
-                if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 10) <= Number(date[2])) {
+                if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 2) <= Number(date[2])) {
 
                     let review = document.createElement('section');
                     let reviewText = document.createElement('p');
@@ -95,7 +95,7 @@ fetch('https://usernet.tech/api/v1/books')
                 let date = (data[i].data.updated_at).split('T')[0].split('-');
 
                 // get data from the last 2 days
-                if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 10) <= Number(date[2])) {
+                if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 2) <= Number(date[2])) {
                     let book = document.createElement('section');
                     let button = document.createElement('button');
 
