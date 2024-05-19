@@ -23,7 +23,7 @@ def number_objects():
     """ Retrieves the number of each objects by type """
     classes = [Author, Book, BookAuthor, BookGenre, Genre, Review, User]
     names = ["authors", "books", "book_authors", "book_genres",
-     "genres", "reviews", "users"]
+             "genres", "reviews", "users"]
 
     num_objs = {}
     for i in range(len(classes)):

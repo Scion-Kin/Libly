@@ -18,7 +18,8 @@ def get_genres():
 
     genres = {}
     for i in all:
-        book_genres = [j for j in storage.all(BookGenre).values() if j.genre_id == i["id"]]
+        book_genres = [j for j in storage.all(BookGenre).values() if
+                       j.genre_id == i["id"]]
         genres[i["name"]] = {}
         genres[i["name"]]["data"] = i
         genres[i["name"]]["book_list"] = []
@@ -27,10 +28,11 @@ def get_genres():
                 book = storage.get(Book, book_genre.book_id)
                 genres[i["name"]]["book_list"].append(book.to_dict())
 
-    return jsonify(genres) 
+    return jsonify(genres)
 
 
-@grand_view.route('/genres/<string:genre_id>', methods=['GET'], strict_slashes=False)
+@grand_view.route('/genres/<string:genre_id>', methods=['GET'],
+                  strict_slashes=False)
 def get_genre(genre_id):
     ''' get a certain genre from the database '''
 
@@ -38,7 +40,9 @@ def get_genre(genre_id):
     if not got:
         abort(404)
     genre = {}
-    book_genres = [j for j in storage.all(BookGenre).values() if j.genre_id == genre_id]
+    book_genres = [j for j in storage.all(BookGenre).values() if
+                   j.genre_id == genre_id]
+
     genre[got.name] = {}
     genre[got.name]["data"] = got.to_dict()
     genre[got.name]["book_list"] = []
@@ -60,12 +64,16 @@ def create_genre():
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    genres = [i for i in storage.all(Genre).values() if i.name.lower() == request.get_json()["name"].lower()]
+    genres = [i for i in storage.all(Genre).values() if
+              i.name.lower() == request.get_json()["name"].lower()]
+
     if len(genres) > 0:
         return make_response(jsonify({"error": "genre exists"}), 403)
 
@@ -75,7 +83,8 @@ def create_genre():
     return make_response(jsonify(new_genre.to_dict()), 201)
 
 
-@grand_view.route('/genres/<string:genre_id>', methods=['PUT'], strict_slashes=False)
+@grand_view.route('/genres/<string:genre_id>', methods=['PUT'],
+                  strict_slashes=False)
 def update_genre(genre_id):
     ''' creates a new genre in the database '''
 
@@ -85,7 +94,9 @@ def update_genre(genre_id):
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
@@ -99,21 +110,26 @@ def update_genre(genre_id):
     abort(404)
 
 
-@grand_view.route('/genres/<string:genre_id>', methods=['DELETE'], strict_slashes=False)
+@grand_view.route('/genres/<string:genre_id>', methods=['DELETE'],
+                  strict_slashes=False)
 def delete_genre(genre_id):
     ''' creates a new genre in the database '''
 
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
     genre = storage.get(Genre, genre_id)
     if genre is not None:
-        all_book_rels = [i for i in storage.all(BookGenre).values() if i.genre_id == genre_id]
+        all_book_rels = [i for i in storage.all(BookGenre).values()
+                         if i.genre_id == genre_id]
+
         all_book_ids = [i.book_id for i in all_book_rels]
         for i in all_book_ids:
             book = storage.get(Book, i)

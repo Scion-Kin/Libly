@@ -15,7 +15,8 @@ db = (MySQLdb.connect(host='localhost', user='libly_user',
 cur = db.cursor()
 
 
-@grand_view.route('/pool/<string:user_id>', methods=['POST'], strict_slashes=False)
+@grand_view.route('/pool/<string:user_id>', methods=['POST'],
+                  strict_slashes=False)
 def verify_from_pool(user_id):
     ''' verify the reset code for a certain user '''
 
@@ -35,13 +36,16 @@ def verify_from_pool(user_id):
 def insert_into_pool():
     ''' insert a user into a password reset pool '''
 
-    user = [i for i in storage.all('User').values() if i.email == request.get_json()["email"]]
+    user = [i for i in storage.all('User').values()
+            if i.email == request.get_json()["email"]]
 
     if len(user) == 0:
         return make_response(jsonify({"error": "User not found"}), 404)
 
     reset_code = random.randint(10000000, 99999999)
-    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id,)) # parameters must be a tuple
+    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id,))
+    # parameters must be a tuple
+
     db.commit()
 
     cur.execute('INSERT INTO pool VALUES (%s, %s)', (user[0].id, reset_code))
@@ -53,10 +57,11 @@ def insert_into_pool():
                                "email": request.get_json()["email"],
                                "name": user[0].first_name})
 
-    return make_response(jsonify({"success": user[0].id}), 201)  # return the user's id
+    return make_response(jsonify({"success": user[0].id}), 201)
 
 
-@grand_view.route('/users/reset/<string:user_id>', methods=['PUT'], strict_slashes=False)
+@grand_view.route('/users/reset/<string:user_id>', methods=['PUT'],
+                  strict_slashes=False)
 def get_from_pool(user_id):
     ''' get the reset code for a certain user '''
 
@@ -65,8 +70,12 @@ def get_from_pool(user_id):
     if not user:
         return make_response(jsonify({"error": "User not found"}), 404)
 
-    if "new_password" not in request.get_json() or "reset_code" not in request.get_json():
-        return make_response(jsonify({"error": "missing reset code or password"}), 400)
+    if "new_password" not in request.get_json() or\
+            "reset_code" not in request.get_json():
+
+        return make_response(jsonify({"error":
+                                      "missing reset code or password"}),
+                             400)
 
     cur.execute('SELECT * FROM pool WHERE user_id = %s and code = %s',
                 (user.id, request.get_json()["reset_code"]))

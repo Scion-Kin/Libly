@@ -9,19 +9,24 @@ from flask import jsonify, make_response
 def hot_list(user_id):
     ''' Method for getting a hot list '''
 
-    fav_authors = [i for i in storage.all("FavoriteAuthor").values() if i.user_id == user_id]
-    fav_genres = [i for i in storage.all("FavoriteGenre").values() if i.user_id == user_id]
+    fav_authors = [i for i in storage.all("FavoriteAuthor").values()
+                   if i.user_id == user_id]
+    fav_genres = [i for i in storage.all("FavoriteGenre").values()
+                  if i.user_id == user_id]
 
     hot_books = {}
     fav_books = []
 
     if len(fav_authors) > 0:
-        
+
         for i in fav_authors:
-            book_authors = [j for j in storage.all("BookAuthor").values() if j.author_id == i.author_id]
+            book_authors = [j for j in storage.all("BookAuthor").values()
+                            if j.author_id == i.author_id]
 
             for book_author in book_authors:
-                reviews = len([j for j in storage.all('Review').values() if j.book_id == book_author.book_id])
+                reviews = len([j for j in storage.all('Review').values()
+                              if j.book_id == book_author.book_id])
+
                 book = (storage.get("Book", book_author.book_id)).to_dict()
                 book["reviews_count"] = reviews
                 hot_books[book["id"]] = reviews
@@ -31,10 +36,13 @@ def hot_list(user_id):
         hot_list2 = {}
 
         for i in fav_genres:
-            book_genres = [j for j in storage.all("BookGenre").values() if j.genre_id == i.genre_id]
+            book_genres = [j for j in storage.all("BookGenre").values()
+                           if j.genre_id == i.genre_id]
 
             for book_genre in book_genres:
-                reviews = len([j for j in storage.all('Review').values() if j.book_id == book_genre.book_id])
+                reviews = len([j for j in storage.all('Review').values()
+                              if j.book_id == book_genre.book_id])
+
                 book = (storage.get("Book", book_genre.book_id)).to_dict()
                 book["reviews_count"] = reviews
                 hot_list2[book["id"]] = reviews
@@ -42,7 +50,7 @@ def hot_list(user_id):
         hot_books = {**hot_books, **hot_list2}
 
     # sort the items based on the review count and pick the first ten
-    hot_books = sorted(hot_books, key=lambda item: item[1], reverse=True)[:10] 
+    hot_books = sorted(hot_books, key=lambda item: item[1], reverse=True)[:10]
     for i in fav_books:
         if i["id"] not in hot_books:
             del i

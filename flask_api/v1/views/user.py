@@ -29,7 +29,8 @@ def get_users():
     return jsonify(users)
 
 
-@grand_view.route('/users/<string:user_id>', methods=['GET'], strict_slashes=False)
+@grand_view.route('/users/<string:user_id>', methods=['GET'],
+                  strict_slashes=False)
 def get_user(user_id):
     ''' get a certain user from the database '''
 
@@ -46,14 +47,17 @@ def get_user(user_id):
     return jsonify(users)
 
 
-@grand_view.route('/users/<string:user_id>/reviews', methods=['GET'], strict_slashes=False)
+@grand_view.route('/users/<string:user_id>/reviews', methods=['GET'],
+                  strict_slashes=False)
 def get_user_reviews(user_id):
     ''' get reviews made by a certain user from the database '''
     user = storage.get(User, user_id)
     if not user:
         abort(404)
 
-    all_reviews = [i.to_dict() for i in storage.all(Review).values() if i.user_id == user_id]
+    all_reviews = [i.to_dict() for i in storage.all(Review).values()
+                   if i.user_id == user_id]
+
     return jsonify(all_reviews) if len(all_reviews) > 0 else abort(404)
 
 
@@ -65,8 +69,9 @@ def activate(user_id):
     if not user:
         abort(404)
 
-    if user.confirmed == True:
-        return make_response(jsonify({"error": "account already activated"}), 409)
+    if user.confirmed:
+        return make_response(jsonify({"error": "account already activated"}),
+                             409)
 
     else:
         user.confirmed = True
@@ -79,13 +84,18 @@ def activate(user_id):
 def login():
     ''' log in the user '''
 
-    all = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
+    all = [i for i in storage.all(User).values()
+           if i.email == request.get_json()["email"]]
 
     if len(all) == 0:
         return make_response(jsonify({"error": "User not found"}), 404)
 
-    if all[0].confirmed != True:
-        return make_response(jsonify({"error": "You have not confirmed your email. Please check your email inbox and activate your account"}), 401)
+    if not all[0].confirmed:
+        return make_response(jsonify({"error":
+                                      "You have not confirmed your email.\
+                                       Please check your email inbox and\
+                                       activate your account"}),
+                             401)
 
     if all[0].password == request.get_json()["password"]:
         return jsonify({"user": all[0].to_dict()})
@@ -97,10 +107,14 @@ def login():
 def create_user():
     ''' creates a new user in the database '''
 
-    if "email" not in request.get_json() or "password" not in request.get_json():
+    if "email" not in request.get_json() or\
+            "password" not in request.get_json():
+
         return make_response(jsonify({"error": "Missing credential(s)"}), 400)
 
-    all_users = [i for i in storage.all(User).values() if i.email == request.get_json()["email"]]
+    all_users = [i for i in storage.all(User).values()
+                 if i.email == request.get_json()["email"]]
+
     if len(all_users) > 0:
         return make_response(jsonify({"error": "email already exists"}), 400)
 
@@ -110,7 +124,8 @@ def create_user():
     return make_response(jsonify(new_user.to_dict()), 201)
 
 
-@grand_view.route('/users/<string:user_id>', methods=['PUT'], strict_slashes=False)
+@grand_view.route('/users/<string:user_id>', methods=['PUT'],
+                  strict_slashes=False)
 def update_user(user_id):
     ''' creates a new user in the database '''
 
@@ -118,24 +133,33 @@ def update_user(user_id):
     if not user:
         abort(404)
 
-    if "onboarded" in request.get_json() and "adminPassword" not in request.get_json():
+    if "onboarded" in request.get_json() and\
+            "adminPassword" not in request.get_json():
+
         try:
             user.onboarded = bool(request.get_json()["onboarded"])
             user.save()
             return jsonify(user.to_dict())
 
         except ValueError:
-            return make_response(jsonify({"error": "onboarded value must be boolean"}), 400)
+            return make_response(jsonify({"error":
+                                          "onboarded value must be boolean"}),
+                                 400)
 
-    if "adminPassword" in request.get_json() or "password" in request.get_json():
+    if "adminPassword" in request.get_json() or\
+            "password" in request.get_json():
+
         admins = []
         if "adminPassword" in request.get_json():
             admins = [i for i in storage.all(User).values() if
-                      i.user_type == "librarian" and 
+                      i.user_type == "librarian" and
                       i.password == request.get_json()["adminPassword"]]
 
         ignore = ['id', 'created_at', 'updated_at', 'onboarded']
-        if len(admins) > 0 or (request.get_json()["password"] and user.password == request.get_json()["password"]):
+        if len(admins) > 0 or\
+                (request.get_json()["password"]
+                 and user.password == request.get_json()["password"]):
+
             for key, value in request.get_json().items():
                 if key not in ignore:
                     setattr(user, key, value)
@@ -144,22 +168,28 @@ def update_user(user_id):
             user.save()
             return jsonify(user.to_dict())
         else:
-            return make_response(jsonify({"error": "incorrect or missing password"}), 401)
+            return make_response(jsonify({"error":
+                                          "incorrect or missing password"}),
+                                 401)
 
     return make_response(jsonify({"error": "unauthorized"}), 401)
 
 
-@grand_view.route('/users/<string:user_id>', methods=['DELETE'], strict_slashes=False)
+@grand_view.route('/users/<string:user_id>', methods=['DELETE'],
+                  strict_slashes=False)
 def delete_user(user_id):
     ''' creates a new user in the database '''
 
     user = storage.get(User, user_id)
-    admins = [i for i in storage.all(User).values() if i.user_type == "librarian"]
+    admins = [i for i in storage.all(User).values()
+              if i.user_type == "librarian"]
+
     admins = [i.password for i in admins]
 
     if user is not None:
-        if request.get_json()["password"] and user.password == request.get_json()["password"] or\
-        request.get_json()["password"] in admins:
+        if request.get_json()["password"] and\
+            user.password == request.get_json()["password"] or\
+                request.get_json()["password"] in admins:
 
             try:
                 if user.pic != 'user-avatar.jpg':
@@ -172,6 +202,8 @@ def delete_user(user_id):
             storage.save()
             return jsonify({})
         else:
-            return make_response(jsonify({"error": "incorrect or missing password"}), 401)
+            return make_response(jsonify({"error":
+                                          "incorrect or missing password"}),
+                                 401)
 
     abort(404)

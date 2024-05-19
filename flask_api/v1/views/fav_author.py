@@ -16,11 +16,14 @@ def get_fav_authors():
     return jsonify(all) if len(all) > 0 else abort(404)
 
 
-@grand_view.route('/<string:user_id>/favs/authors', methods=['GET'], strict_slashes=False)
+@grand_view.route('/<string:user_id>/favs/authors', methods=['GET'],
+                  strict_slashes=False)
 def get_user_fav_authors(user_id):
     ''' get all favorite instances from the database by a certain user '''
 
-    favs = [i.to_dict() for i in storage.all(FavoriteAuthor).values() if i.user_id == user_id]
+    favs = [i.to_dict() for i in storage.all(FavoriteAuthor).values()
+            if i.user_id == user_id]
+
     return jsonify(favs) if len(favs) > 0 else abort(404)
 
 
@@ -47,13 +50,15 @@ def create_author_fav():
     if len(all) > 0:
         return make_response(jsonify({"error": "Already favorited"}), 403)
 
-    new_fav = FavoriteAuthor(user_id=request.get_json()["user_id"], author_id=request.get_json()["author_id"])
+    new_fav = FavoriteAuthor(user_id=request.get_json()["user_id"],
+                             author_id=request.get_json()["author_id"])
     new_fav.save()
 
     return make_response(jsonify(new_fav.to_dict()), 201)
 
 
-@grand_view.route('/favs/authors/<string:fav_id>', methods=['DELETE'], strict_slashes=False)
+@grand_view.route('/favs/authors/<string:fav_id>', methods=['DELETE'],
+                  strict_slashes=False)
 def delete_author_fav(fav_id):
     ''' creates a favorite instance from the database '''
 

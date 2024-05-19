@@ -27,7 +27,8 @@ def get_books():
     return jsonify(books)
 
 
-@grand_view.route('/books/<string:book_id>', methods=['GET'], strict_slashes=False)
+@grand_view.route('/books/<string:book_id>', methods=['GET'],
+                  strict_slashes=False)
 def get_book(book_id):
     ''' get a certain book from the database '''
     book = storage.get(Book, book_id)
@@ -44,13 +45,16 @@ def create_book():
     if "title" not in request.get_json() or "ISBN" not in request.get_json():
         return make_response(jsonify({"error": "Missing title or ISBN"}), 400)
 
-    if "genres" not in request.get_json() or len(request.get_json()["genres"]) < 1:
+    if "genres" not in request.get_json() or\
+            len(request.get_json()["genres"]) < 1:
         return make_response(jsonify({"error": "Missing genre(s)"}), 400)
 
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
@@ -64,11 +68,13 @@ def create_book():
 
     # Let's make a book and authors relationship
 
-    if "authors" in request.get_json() and len(request.get_json()["authors"]) > 0:
+    if "authors" in request.get_json() and\
+            len(request.get_json()["authors"]) > 0:
         for i in request.get_json()["authors"]:
             author = storage.get(Author, i)
             if not author:
-                all_rels = [i for i in storage.all(BookAuthor).values() if i.book_id == new_book.id]
+                all_rels = [i for i in storage.all(BookAuthor).values()
+                            if i.book_id == new_book.id]
                 if len(all_rels) > 0:
                     for i in all_rels:
                         storage.delete(i)
@@ -83,19 +89,22 @@ def create_book():
                 except FileNotFoundError:
                     pass
 
-                return make_response(jsonify({"error": "author not found"}), 404)
+                return make_response(jsonify({"error": "author not found"}),
+                                     404)
 
             new_author_rel = BookAuthor(book_id=new_book.id, author_id=i)
             new_author_rel.save()
 
     else:
-        default_author = [i for i in storage.all(Author).values() if i.first_name == "Unknown"]
+        default_author = [i for i in storage.all(Author).values()
+                          if i.first_name == "Unknown"]
         if len(default_author) < 1:
             default_author = Author(first_name="Unknown", last_name="Unknown")
             default_author.save()
         else:
             default_author = default_author[0]
-        new_author_rel = BookAuthor(book_id=new_book.id, author_id=default_author.id)
+        new_author_rel = BookAuthor(book_id=new_book.id,
+                                    author_id=default_author.id)
         new_author_rel.save()
 
     # Now let's make a book and genres relationship
@@ -103,16 +112,20 @@ def create_book():
     for i in request.get_json()["genres"]:
         genre = storage.get(Genre, i)
         if not genre:
-            all_rels = [i for i in storage.all(BookGenre).values() if i.book_id == new_book.id]
+            all_rels = [i for i in storage.all(BookGenre).values() if
+                        i.book_id == new_book.id]
             if len(all_rels) > 0:
                 for i in all_rels:
                     storage.delete(i)
                     storage.save()
 
-            all_rels = [i for i in storage.all(BookAuthor).values() if i.book_id == new_book.id]
+            all_rels = [i for i in storage.all(BookAuthor).values()
+                        if i.book_id == new_book.id]
 
-            # No length check since if the loop got function got here, there is definitely a book authors relationship
-            for i in all_rels: 
+            """ No length check since if the loop got function got here,
+            there is definitely a book and authors relationship """
+
+            for i in all_rels:
                 storage.delete(i)
                 storage.save()
 
@@ -133,14 +146,17 @@ def create_book():
     return make_response(jsonify(new_book.to_dict()), 201)
 
 
-@grand_view.route('/books/<string:book_id>', methods=['PUT'], strict_slashes=False)
+@grand_view.route('/books/<string:book_id>', methods=['PUT'],
+                  strict_slashes=False)
 def update_book(book_id):
     ''' alter info about a certain book from the database '''
 
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
@@ -158,14 +174,18 @@ def update_book(book_id):
     book.save()
     return jsonify(book.to_dict())
 
-@grand_view.route('/books/<string:book_id>', methods=['DELETE'], strict_slashes=False)
+
+@grand_view.route('/books/<string:book_id>', methods=['DELETE'],
+                  strict_slashes=False)
 def delete_book(book_id):
     ''' alter info about a certain book from the database '''
 
     if "password" not in request.get_json():
         return make_response(jsonify({"error": "unauthorized"}), 401)
 
-    admins = [i for i in storage.all("User").values() if i.user_type == 'librarian' and i.password == request.get_json()["password"]]
+    admins = [i for i in storage.all("User").values()
+              if i.user_type == 'librarian'
+              and i.password == request.get_json()["password"]]
 
     if len(admins) == 0:
         return make_response(jsonify({"error": "unauthorized"}), 401)
@@ -176,7 +196,7 @@ def delete_book(book_id):
 
     try:
         os.remove('web_client/static/books/' + book.file_name)
-        os.remove('web_client/static/images' + book.pic)
+        os.remove('web_client/static/images/' + book.pic)
 
     except FileNotFoundError:
         pass
