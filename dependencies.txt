@@ -1,6 +1,13 @@
-flask
-node.js
-pymupdf
-pillow
-sqlalchemy
-mysqldbclient
+node.js {
+    nodemailer
+    express
+    body-parser
+    cors
+}
+
+flask {
+    pymupdf
+    pillow
+    sqlalchemy
+    mysqldbclient
+}
