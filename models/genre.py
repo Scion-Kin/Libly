@@ -17,7 +17,8 @@ class Genre(BaseModel, Base):
     book_genre = relationship('BookGenre',
                               backref="genre",
                               cascade="all, delete, delete-orphan")
-    fav_genre = relationship("FavoriteGenre", backref="genre", cascade="all, delete, delete-orphan")
+    fav_genre = relationship("FavoriteGenre", backref="genre",
+                             cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """ initializes a genre instance """

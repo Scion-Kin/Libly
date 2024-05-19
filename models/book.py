@@ -23,8 +23,11 @@ class Book(BaseModel, Base):
     book_author = relationship('BookAuthor',
                                backref="book",
                                cascade="all, delete, delete-orphan")
-    fav_book = relationship("FavoriteBook", backref="book", cascade="all, delete, delete-orphan")
-    reviews = relationship("Review", backref="book", cascade="all, delete, delete-orphan")
+    fav_book = relationship("FavoriteBook", backref="book",
+                            cascade="all, delete, delete-orphan")
+
+    reviews = relationship("Review", backref="book",
+                           cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """ initializes a book instance """

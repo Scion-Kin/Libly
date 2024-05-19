@@ -3,7 +3,7 @@
 from models.base_model import BaseModel, Base
 from models.favorite_author import FavoriteAuthor
 from models.favorite_book import FavoriteBook
-from models.favorite_genre  import FavoriteGenre
+from models.favorite_genre import FavoriteGenre
 from sqlalchemy import Column, String, Boolean
 from sqlalchemy.orm import relationship
 
@@ -21,10 +21,14 @@ class User(BaseModel, Base):
     middle_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=False)
     pic = Column(String(128), default="user-avatar.jpg")
-    reviews = relationship("Review", backref="user", cascade="all, delete, delete-orphan")
-    fav_books = relationship("FavoriteBook", backref="user", cascade="all, delete, delete-orphan")
-    fav_authors = relationship("FavoriteAuthor", backref="user", cascade="all, delete, delete-orphan")
-    fav_genres = relationship("FavoriteGenre", backref="user", cascade="all, delete, delete-orphan")
+    reviews = relationship("Review", backref="user",
+                           cascade="all, delete, delete-orphan")
+    fav_books = relationship("FavoriteBook", backref="user",
+                             cascade="all, delete, delete-orphan")
+    fav_authors = relationship("FavoriteAuthor", backref="user",
+                               cascade="all, delete, delete-orphan")
+    fav_genres = relationship("FavoriteGenre", backref="user",
+                              cascade="all, delete, delete-orphan")
 
     def __init__(self, *args, **kwargs):
         """ initializes a user instance """
