@@ -13,41 +13,44 @@ import requests
 def read_book(book_id):
     ''' manage authors '''
 
-    if session and session['logged'] == True:
+    if not session or not session['logged']:
+        return redirect(url_for('home'))
 
-        data = requests.get(f'https://usernet.tech/api/v1/books/{book_id}')
+    data = requests.get(f'https://usernet.tech/api/v1/books/{book_id}')
 
-        if data.status_code == 200:
-            for i in data.json():
-                file_name = 'web_client/static/books/' + data.json()[i]["data"]["file_name"]
+    if data.status_code == 200:
+        book = [data.json()[i]["data"] for i in data.json()]
 
-                # Open the PDF file using PyMuPDF
-                pdf_document = fitz.open(file_name)
+        file_name = book[0]["file_name"]
+        file_name = 'web_client/static/books/' + file_name
 
-                page_images = []
+        # Open the PDF file using PyMuPDF
+        pdf_document = fitz.open(file_name)
 
-                # Iterate through each page and convert to image
-                for page_num in range(len(pdf_document)):
-                    # Render the page as a Pixmap
-                    page_pixmap = pdf_document[page_num].get_pixmap()
+        page_images = []
 
-                    # Convert Pixmap to an image
-                    image = Image.frombytes(
-                        "RGB",
-                        [page_pixmap.width, page_pixmap.height],
-                        page_pixmap.samples
-                    )
+        # Iterate through each page and convert to image
+        for page_num in range(len(pdf_document)):
+            # Render the page as a Pixmap
+            page_pixmap = pdf_document[page_num].get_pixmap()
 
-                    # Convert image to bytes
-                    img_bytes = io.BytesIO()
-                    image.save(img_bytes, format="PNG")
-                    img_bytes.seek(0)
+            # Convert Pixmap to an image
+            image = Image.frombytes(
+                "RGB",
+                [page_pixmap.width, page_pixmap.height],
+                page_pixmap.samples
+            )
 
-                    # Append image data to the list
-                    page_images.append(img_bytes.getvalue())
+            # Convert image to bytes
+            img_bytes = io.BytesIO()
+            image.save(img_bytes, format="PNG")
+            img_bytes.seek(0)
 
-                # Pass the list of image data to the HTML template
+            # Append image data to the list
+            page_images.append(img_bytes.getvalue())
 
-                return render_template('read.html', data=page_images)
+        # Pass the list of image data to the HTML template
 
-    return redirect(url_for('home'))
+        return render_template('read.html', data=page_images)
+
+    abort(404)

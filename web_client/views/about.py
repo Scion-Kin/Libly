@@ -5,7 +5,7 @@ from web_client.views import client_view
 from flask import render_template
 
 
-@client_view.route('/about', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/about', strict_slashes=False)
 def about():
     ''' sign the user up '''
 

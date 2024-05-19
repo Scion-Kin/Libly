@@ -7,11 +7,12 @@ from uuid import uuid4
 import requests
 
 
-@client_view.route('/signup', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/signup', methods=['GET', 'POST'],
+                   strict_slashes=False)
 def signup():
     ''' sign the user up '''
 
-    if session and session['logged'] == True:
+    if not session or not session['logged']:
         return redirect(url_for('home'))
 
     if request.method == 'POST':
@@ -24,7 +25,8 @@ def signup():
             "last_name": request.form.get('last_name'),
             "password": request.form.get('password')
         }
-        response = requests.post('https://usernet.tech/api/v1/users', json=details, headers=headers)
+        response = requests.post('https://usernet.tech/api/v1/users',
+                                 json=details, headers=headers)
 
         if response.status_code == 201:
 
@@ -36,10 +38,12 @@ def signup():
             }
 
             # send request to the node api to send the confirmation email
-            response = requests.post('https://usernet.tech/mail/signup', json=details, headers=headers)
+            response = requests.post('https://usernet.tech/mail/signup',
+                                     json=details, headers=headers)
 
             return redirect(url_for('client_view.login'))
 
-        return render_template('signup.html', uuid=uuid4(), error=response.json()["error"])
+        return render_template('signup.html', uuid=uuid4(),
+                               error=response.json()["error"])
 
     return render_template('signup.html', uuid=uuid4())

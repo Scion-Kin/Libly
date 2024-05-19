@@ -2,12 +2,14 @@
 ''' The login manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort, request, redirect, url_for, make_response
+from flask import render_template, session, abort,\
+    request, redirect, url_for, make_response
 from uuid import uuid4
 import requests
 
 
-@client_view.route('/login', methods=['GET', 'POST'], strict_slashes=False)
+@client_view.route('/login', methods=['GET', 'POST'],
+                   strict_slashes=False)
 def login():
     ''' log the user in '''
 
@@ -20,7 +22,9 @@ def login():
                                  json={"email": email, "password": password})
 
         if response.status_code != 200:
-            return render_template('login.html', error=response.json()["error"], uuid=uuid4())
+            return render_template('login.html',
+                                   error=response.json()["error"],
+                                   uuid=uuid4())
 
         else:
             user = response.json()["user"]
@@ -31,7 +35,8 @@ def login():
             session["user_type"] = user["user_type"]
             session["onboarded"] = user["onboarded"]
             session["first_name"] = user["first_name"]
-            session["middle_name"] = user["middle_name"] if user["middle_name"] else ' '
+            session["middle_name"] = (user["middle_name"]
+                                      if user["middle_name"] else ' ')
             session["last_name"] = user["last_name"]
             session["user_pic"] = user["pic"]
 
