@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
-sudo apt install gunicorn
-sudo apt install python3
-sudo apt install nodejs # replace with the actual latest install procedure
-sudo apt install certbot
+sudo apt-get install gunicorn
+sudo apt-get install python3
+curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+sudo apt-get install certbot
 pip3 install -r requirements.txt
 npm install -g nodemailer express body-parser cors
