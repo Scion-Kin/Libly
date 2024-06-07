@@ -94,9 +94,9 @@ WantedBy=multi-user.target
 echo "$nginx_conf" | sudo tee /etc/nginx/sites-available/default > /dev/null
 sudo rm /etc/nginx/sites-enabled/default
 sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service
-echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service
-echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service
+echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service > /dev/null
+echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/null
+echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
 sudo service flask_api start
 sudo service node_api start
 sudo service web_server start
