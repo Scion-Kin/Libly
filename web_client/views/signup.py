@@ -12,9 +12,6 @@ import requests
 def signup():
     ''' sign the user up '''
 
-    if not session or not session['logged']:
-        return redirect(url_for('home'))
-
     if request.method == 'POST':
 
         headers = {"Content-Type": "application/json"}
