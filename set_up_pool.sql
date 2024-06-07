@@ -1,4 +1,3 @@
 -- set up the pool table
 
-USE 'libly';
-CREATE TABLE IF NOT EXISTS `pool`(`user_id` VARCHAR(128), `code` INT(20));
+CREATE TABLE IF NOT EXISTS libly.`pool`(`user_id` VARCHAR(128), `code` INT(20));

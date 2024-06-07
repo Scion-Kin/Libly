@@ -8,20 +8,17 @@ sudo apt install nginx -y
 nginx_conf=\
 "
 # Default server configuration
+
 server {
-        listen 80;
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
         server_name usernet.tech web-01.usernet.tech; # change the domain if any domain changes have occured
 
         # Redirect all HTTP requests to HTTPS
-        return 301 https://$host$request_uri;
-}
-
-server {
-        listen 443 ssl;
+        #return 301 https://$host$request_uri;
 
         add_header X-Served-By 322536-web-01;
-
-        server_name usernet.tech web-01.usernet.tech; # change the domain if any domain changes have occured
 
         client_max_body_size 100M;
 
@@ -102,6 +99,9 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service > /dev/null
 echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/null
 echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
+cat setup_mysql_dev.sql | sudo mysql -u root
+sudo service start mysql
+sudo systemctl enable mysql
 sudo systemctl daemon-reload
 sudo service flask_api start
 sudo service node_api start
