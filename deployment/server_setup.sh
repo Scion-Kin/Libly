@@ -42,7 +42,7 @@ server {
                 proxy_pass http://0.0.0.0:3000/;
         }
 }
-"
+" # make sure to change the server names or domains accordingly
 
 flask_api_service=\
 "
