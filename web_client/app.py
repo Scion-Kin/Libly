@@ -28,8 +28,8 @@ def b64encode_filter(s):
 def home():
     ''' The home page route '''
 
-    if not session or not session['logged']:
-        return redirect(url_for('home'))
+    if not session or not session["logged"]:
+        return render_template('index.html', uuid=uuid4())
 
     if request.method == 'POST':
         keywords = request.form.get('keywords')
@@ -87,8 +87,6 @@ def home():
         return render_template('feed.html', uuid=uuid4(),
                                error="No books found in the database.",
                                pic=session["user_pic"])
-
-    return render_template('index.html', uuid=uuid4())
 
 
 @app.errorhandler(404)
