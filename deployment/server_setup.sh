@@ -97,6 +97,7 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service > /dev/null
 echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/null
 echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
+sudo systemctl daemon-reload
 sudo service flask_api start
 sudo service node_api start
 sudo service web_server start
