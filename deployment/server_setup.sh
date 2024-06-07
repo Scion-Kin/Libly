@@ -23,12 +23,12 @@ server {
 
         server_name usernet.tech web-01.usernet.tech; # change the domain if any domain changes have occured
 
+        client_max_body_size 100M;
+
         location /api/ {
                 include proxy_params;
                 proxy_pass http://0.0.0.0:5000/api/;
         }
-
-        client_max_body_size 100M;
 
         location / {
                 include proxy_params;
@@ -39,13 +39,18 @@ server {
                 include proxy_params;
                 proxy_pass http://0.0.0.0:5050/;
         }
+
+        location /mail {
+                include proxy_params;
+                proxy_pass http://0.0.0.0:3000/;
+        }
 }
 "
 
 flask_api_service=\
 "
 [Unit]
-Description=Gunicorn instance to serve myproject
+Description=Gunicorn instance to serve the flask APi
 After=network.target
 
 [Service]
@@ -59,26 +64,26 @@ WantedBy=multi-user.target
 "
 
 node_api_service=\
-"
+'
 [Unit]
-Description=Gunicorn instance to serve myproject
+Description=Node instance to serve the node API
 After=network.target
 
 [Service]
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/Libly/node_api/
-PATH=/usr/lib/node_modules
-ExecStart=node app.js
+Environment="NODE_PATH=/usr/lib/node_modules"
+ExecStart=/usr/bin/node /home/ubuntu/Libly/node_api/app.js
 
 [Install]
 WantedBy=multi-user.target
-"
+'
 
 web_server_service=\
 "
 [Unit]
-Description=Gunicorn instance to serve myproject
+Description=Gunicorn instance to serve the web server
 After=network.target
 
 [Service]
