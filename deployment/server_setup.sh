@@ -91,9 +91,8 @@ ExecStart=gunicorn --workers 4 --bind 0.0.0.0:5050 --access-logfile /tmp/web_ser
 WantedBy=multi-user.target
 "
 
-sudo echo "" > /etc/nginx/sites-available
-sudo echo "$nginx_conf" > /etc/nginx/sites-available
-sudo ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled  
+sudo echo "$nginx_conf" > /etc/nginx/sites-available/default
+sudo ln -s /etc/nginx/sites-available /etc/nginx/sites-enabled
 sudo echo "$flask_api_service" > /etc/systemd/system/flask_api.service
 sudo echo "$node_api_service" > /etc/systemd/system/node_api.service
 sudo echo "$web_server_service" > /etc/systemd/system/web_server.service
