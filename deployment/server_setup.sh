@@ -106,6 +106,7 @@ sudo systemctl enable mysql
 sudo systemctl enable flask_api
 sudo systemctl enable node_api
 sudo systemctl enable web_server
+sudo service nginx start
 sudo service flask_api start
 sudo service node_api start
 sudo service web_server start
