@@ -2,6 +2,7 @@
 
 sudo apt-get install gunicorn -y
 sudo apt-get install python3 -y
+sudo apt install python3-pip
 curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install certbot -y

@@ -99,7 +99,8 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service > /dev/null
 echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/null
 echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
-cat setup_mysql_dev.sql | sudo mysql -u root
+cat /home/ubuntu/Libly/setup_mysql_dev.sql | sudo mysql -u root
+cat /home/ubuntu/Libly/set_up_pool.sql | sudo mysql -u root
 sudo service start mysql
 sudo systemctl daemon-reload
 sudo systemctl enable mysql
@@ -110,4 +111,3 @@ sudo service nginx start
 sudo service flask_api start
 sudo service node_api start
 sudo service web_server start
-sudo service nginx start
