@@ -1,3 +1,2 @@
-node_api/node_modules/
-web_client/__pycache__
-web_client/views/__pycache__
+*node_modules/
+*__pycache__/
