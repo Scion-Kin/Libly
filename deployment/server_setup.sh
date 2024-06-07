@@ -101,8 +101,11 @@ echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/
 echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
 cat setup_mysql_dev.sql | sudo mysql -u root
 sudo service start mysql
-sudo systemctl enable mysql
 sudo systemctl daemon-reload
+sudo systemctl enable mysql
+sudo systemctl enable flask_api
+sudo systemctl enable node_api
+sudo systemctl enable web_server
 sudo service flask_api start
 sudo service node_api start
 sudo service web_server start
