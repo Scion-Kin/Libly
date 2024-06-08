@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
-sudo apt install gunicorn -y
-sudo apt install nginx -y
-
 nginx_conf=\
 "
 # Default server configuration
@@ -99,6 +94,11 @@ sudo ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 echo "$flask_api_service" | sudo tee /etc/systemd/system/flask_api.service > /dev/null
 echo "$node_api_service" | sudo tee /etc/systemd/system/node_api.service > /dev/null
 echo "$web_server_service" | sudo tee /etc/systemd/system/web_server.service > /dev/null
+
+echo "..." && echo "Hi there, the certbot script which is going to set up your https is going to start"
+echo "..." && echo "Please follow the prompts carefully. And make sure your DNS is set up correctly before starting" && echo "..."
+
+sudo certbot --nginx
 cat /home/ubuntu/Libly/setup_mysql_dev.sql | sudo mysql -u root
 cat /home/ubuntu/Libly/set_up_pool.sql | sudo mysql -u root
 sudo service start mysql

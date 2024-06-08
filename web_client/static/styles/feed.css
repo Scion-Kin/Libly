@@ -151,12 +151,6 @@ h2 {
     margin-left: auto;
 }
 
-@media (max-width: 900px) {
-    #books-activity .history-book {
-        margin: auto;
-    }
-}
-
 .review {
     display: flex;
     gap: 10px;
