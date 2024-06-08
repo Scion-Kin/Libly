@@ -32,12 +32,12 @@ server {
                 proxy_pass http://0.0.0.0:5050/;
         }
 
-        location /static {
+        location /static/ {
                 include proxy_params;
                 proxy_pass http://0.0.0.0:5050/;
         }
 
-        location /mail {
+        location /mail/ {
                 include proxy_params;
                 proxy_pass http://0.0.0.0:3000/;
         }
