@@ -54,7 +54,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/Libly/
-ExecStart=gunicorn --workers 4 --bind 0.0.0.0:5000 --access-logfile /tmp/flask_api.log --error-logfile /tmp/flask_api-error.log flask_api.v1.app:app
+ExecStart=gunicorn --workers 3 --bind 0.0.0.0:5000 --access-logfile /tmp/flask_api.log --error-logfile /tmp/flask_api-error.log flask_api.v1.app:app
 
 [Install]
 WantedBy=multi-user.target
@@ -87,7 +87,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/Libly/
-ExecStart=gunicorn --workers 4 --bind 0.0.0.0:5050 --access-logfile /tmp/web_server.log --error-logfile /tmp/web_server-error.log web_client.app:app
+ExecStart=gunicorn --workers 3 --bind 0.0.0.0:5050 --access-logfile /tmp/web_server.log --error-logfile /tmp/web_server-error.log web_client.app:app
 
 [Install]
 WantedBy=multi-user.target
