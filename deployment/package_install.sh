@@ -5,11 +5,10 @@ sudo apt-get install python3 -y
 sudo apt install python3-pip
 curl -sL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
-sudo apt-get install certbot -y
-sudo apt install certbot python3-certbot-nginx -y
+sudo apt-get install certbot python3-certbot-nginx -y
 
 echo "..." && echo "Hi there, the certbot script which is going to set up your https is going to start"
-echo "..." && echo "Please follow the prompts carefully" && echo "..."
+echo "..." && echo "Please follow the prompts carefully. And make sure your DNS is set up correctly before starting" && echo "..."
 
 sudo certbot --nginx
 sudo apt-get install mysql-client mysql-server -y
