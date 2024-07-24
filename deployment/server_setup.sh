@@ -43,7 +43,8 @@ flask_api_service=\
 "
 [Unit]
 Description=Gunicorn instance to serve the flask APi
-After=network.target
+After=network.target mysql.service
+Requires=mysql.service
 
 [Service]
 User=ubuntu
