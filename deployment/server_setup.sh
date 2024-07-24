@@ -29,7 +29,7 @@ server {
 
         location /static/ {
                 include proxy_params;
-                proxy_pass http://0.0.0.0:5050/;
+                proxy_pass http://0.0.0.0:5050;
         }
 
         location /mail/ {
