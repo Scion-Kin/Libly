@@ -2,7 +2,7 @@
 ''' The login manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort,\
+from flask import render_template, session, abort, \
     request, redirect, url_for, make_response
 from uuid import uuid4
 import requests

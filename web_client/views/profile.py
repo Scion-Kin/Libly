@@ -4,7 +4,8 @@
 from web_client.views import client_view
 from flask import session, redirect, url_for, render_template, abort
 from uuid import uuid4
-import requests
+import aiohttp
+import asyncio
 
 
 @client_view.route('/profile/<string:user_id>', strict_slashes=False)
@@ -14,62 +15,73 @@ def profile(user_id):
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    user = requests.get('https://usernet.tech/api/v1/users/{}'.format(user_id))
-    user = [user.json()[i] for i in user.json()][0]["data"]\
-        if user.status_code == 200 else abort(404)
+    async def fetch(session, url):
+        ''' fetches data asynchronously '''
+        async with session.get(url) as response:
+            return await response.json(), response.status
 
-    reviews = requests.get('https://usernet.tech/api/v1/users/{}/reviews'
-                           .format(user_id))
-    reviews = reviews.json() if reviews.status_code == 200 else []
+    async def get_user_data(user_id):
+        links = [
+            'https://usernet.tech/api/v1/users/{}'.format(user_id),
+            'https://usernet.tech/api/v1/users/{}/reviews'.format(user_id),
+            'https://usernet.tech/api/v1/{}/favs/authors'.format(user_id),
+            'https://usernet.tech/api/v1/{}/favs/books'.format(user_id),
+            'https://usernet.tech/api/v1/{}/favs/genres'.format(user_id)
+        ]
 
-    fav_authors = requests.get('https://usernet.tech/api/v1/{}/favs/authors'
-                               .format(user_id))
-    if fav_authors.status_code == 200:
-        fav_authors = fav_authors.json()
-        all = []
-        for i in fav_authors:
-            author = requests.get('https://usernet.tech/api/v1/authors/{}'
-                                  .format(i["author_id"])).json()
-            for j in author:
-                all.append(author[j]["data"])
+        async with aiohttp.ClientSession() as session:
+            tasks = [fetch(session, url) for url in links]
+            responses = await asyncio.gather(*tasks)
 
-        fav_authors = all
-    else:
-        fav_authors = []
+            user = responses[0][0] if responses[0][1] == 200 else abort(404)
+            user = list(user.values())[0]["data"]
+            print(user)
 
-    fav_books = requests.get('https://usernet.tech/api/v1/{}/favs/books'
-                             .format(user_id))
+            reviews = responses[1][0] if responses[1][1] == 200 else []
 
-    if fav_books.status_code == 200:
-        fav_books = fav_books.json()
-        all = []
-        for i in fav_books:
-            book = requests.get('https://usernet.tech/api/v1/books/{}'
-                                .format(i["book_id"])).json()
-            for j in book:
-                all.append(book[j]["data"])
+            async def fetch_details(url, obs, id_type):
+                ''' Fetches the sub-contents '''
+                tasks = [fetch(session, url.format(i[id_type])) for i in obs]
+                fav = await asyncio.gather(*tasks)
+                fav = [i[0] for i in fav]
+                return [list(i.values())[0]["data"] for i in fav]
 
-        fav_books = all
-    else:
-        fav_books = []
+            fav_authors = responses[2]
+            if fav_authors[1] == 200:
+                url = 'https://usernet.tech/api/v1/authors/{}'
+                fav_authors = await fetch_details(url, fav_authors[0],
+                                                  'author_id')
+            else:
+                fav_authors = []
 
-    fav_genres = requests.get('https://usernet.tech/api/v1/{}/favs/genres'
-                              .format(user_id))
+            fav_books = responses[3]
 
-    if fav_genres.status_code == 200:
-        fav_genres = fav_genres.json()
-        all = []
-        for i in fav_genres:
-            genre = requests.get('https://usernet.tech/api/v1/genres/{}'
-                                 .format(i["genre_id"])).json()
-            for j in genre:
-                all.append(genre[j]["data"])
+            if fav_books[1] == 200:
+                url = 'https://usernet.tech/api/v1/books/{}'
+                fav_books = await fetch_details(url, fav_books[0],
+                                                'book_id')
+            else:
+                fav_books = []
 
-        fav_genres = all
-    else:
-        fav_genres = []
+            fav_genres = responses[4]
 
-    return render_template('profile.html', pic=session["user_pic"],
-                           authors=fav_authors, books=fav_books,
-                           genres=fav_genres, reviews=reviews,
-                           user=user, uuid=uuid4())
+            if fav_genres[1] == 200:
+                url = 'https://usernet.tech/api/v1/genres/{}'
+                fav_genres = await fetch_details(url, fav_genres[0],
+                                                 'genre_id')
+            else:
+                fav_books = []
+
+            return {
+                "user": user, "reviews": reviews, "fav_authors": fav_authors,
+                "fav_books": fav_books, "fav_genres": fav_genres
+            }
+
+    user_data = asyncio.run(get_user_data(user_id))
+
+    return render_template(
+        'profile.html', pic=session["user_pic"],
+        authors=user_data["fav_authors"], books=user_data["fav_books"],
+        genres=user_data["fav_genres"], reviews=user_data["reviews"],
+        user=user_data["user"], uuid=uuid4()
+    )

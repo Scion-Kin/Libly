@@ -2,7 +2,7 @@
 ''' Defines a route for user onboarding '''
 
 from web_client.views import client_view
-from flask import render_template, session, request,\
+from flask import render_template, session, request, \
     redirect, url_for, jsonify
 from uuid import uuid4
 import requests

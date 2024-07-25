@@ -6,3 +6,4 @@ pillow
 sqlalchemy
 mysqlclient
 requests
+aiohttp
