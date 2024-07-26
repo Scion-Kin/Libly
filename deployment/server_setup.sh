@@ -10,9 +10,6 @@ server {
 
         server_name usernet.tech web-01.usernet.tech; # change the domain if any domain changes have occured
 
-        # Redirect all HTTP requests to HTTPS
-        #return 301 https://$host$request_uri;
-
         add_header X-Served-By 322536-web-01;
 
         client_max_body_size 100M;
@@ -50,7 +47,7 @@ Requires=mysql.service
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/Libly/
-ExecStart=gunicorn --workers 3 --bind 0.0.0.0:5000 --access-logfile /tmp/flask_api.log --error-logfile /tmp/flask_api-error.log flask_api.v1.app:app
+ExecStart=gunicorn --workers 2 --bind 0.0.0.0:5000 --access-logfile /tmp/flask_api.log --error-logfile /tmp/flask_api-error.log flask_api.v1.app:app
 
 [Install]
 WantedBy=multi-user.target
@@ -83,7 +80,7 @@ After=network.target
 User=ubuntu
 Group=www-data
 WorkingDirectory=/home/ubuntu/Libly/
-ExecStart=gunicorn --workers 3 --bind 0.0.0.0:5050 --access-logfile /tmp/web_server.log --error-logfile /tmp/web_server-error.log web_client.app:app
+ExecStart=gunicorn --workers 2 --bind 0.0.0.0:5050 --access-logfile /tmp/web_server.log --error-logfile /tmp/web_server-error.log web_client.app:app
 
 [Install]
 WantedBy=multi-user.target
@@ -102,12 +99,12 @@ echo "..." && echo "Please follow the prompts carefully. And make sure your DNS 
 sudo certbot --nginx
 cat /home/ubuntu/Libly/setup_mysql_dev.sql | sudo mysql -u root
 cat /home/ubuntu/Libly/set_up_pool.sql | sudo mysql -u root
-sudo service start mysql
 sudo systemctl daemon-reload
 sudo systemctl enable mysql
 sudo systemctl enable flask_api
 sudo systemctl enable node_api
 sudo systemctl enable web_server
+sudo service start mysql
 sudo service nginx start
 sudo service flask_api start
 sudo service node_api start
