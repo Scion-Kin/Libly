@@ -95,13 +95,13 @@ button, .confirm input[type="submit"] {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    min-width: 30px;
-    min-height: 30px;
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: 25px;
 }
 
 .trash {
-    background-image: url('/static/images/trash-icon.svg');
-    border: 3px solid rgb(216, 49, 49);
+    background-image: url('/static/images/trash-icon.png');
 }
 
 .button_container {
