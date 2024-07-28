@@ -95,8 +95,8 @@ button, .confirm input[type="submit"] {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
-    min-width: 50px;
-    min-height: 50px;
+    min-width: 40px;
+    min-height: 40px;
     border-radius: 25px;
 }
 
