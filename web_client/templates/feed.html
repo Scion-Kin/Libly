@@ -19,9 +19,9 @@
         <a href="manage/users"><section class="quote"> <h4>Manage Users</h4> </section></a>
         <a href="/statistics"><section class="quote"> <h4>View Statistics</h4> </section></a>
     </section>
-    <h2 style="margin: 50px 20px;">Directories</h2>
-    <section>
-        <nav id="views-menu" class="options" style="margin: 10px auto;">
+    <h2 style="margin: 40px 20px;">Directories</h2>
+    <section style="margin-bottom: 40px;">
+        <nav id="views-menu" class="options" style="margin: 10px;">
             <a href="/authors"><button id="authors">All Authors</button></a>
             <a href="/books"><button id="books">All Books</button></a>
             <a href="/genres"><button id="genres">All Genres</button></a>
@@ -58,17 +58,16 @@
                     </section>
                 {% endfor %}
             </section>
-
-            <h2>Recent activity</h2>
-            <section id="review-activity">
-                <section id="reviews" class="black-white">
-
-                </section>
-                <section id="books-activity" class="black-white">
-
-                </section>
-            </section>
         </section>
     {% endif %}
 {% endif %}
+<h2>Recent activity</h2>
+<section id="review-activity">
+    <section id="reviews" class="black-white">
+
+    </section>
+    <section id="books-activity" class="black-white">
+
+    </section>
+</section>
 {% endblock %}

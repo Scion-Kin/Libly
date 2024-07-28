@@ -184,7 +184,6 @@ button {
 }
 
 #user-menu {
-    background-color: #059e542d;
     position: fixed;
     display: none;
     top: 10%;
@@ -192,7 +191,7 @@ button {
     width: 35%;
     padding: 10px;
     backdrop-filter: blur(10px);
-    border-radius: 15px;
+    border-radius: 25px;
     z-index: 300;
 }
 
@@ -200,6 +199,13 @@ button {
     padding: 0;
     margin: 0;
     border: none;
+}
+
+.user-hello {
+    padding: 10px;
+    border-radius: 0px 35px 35px 20px;
+    width: fit-content;
+    text-align: left;
 }
 
 .history {

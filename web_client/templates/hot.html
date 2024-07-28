@@ -5,7 +5,10 @@
 {% endblock %}
 {% block body %}
     {% if hot_books|length > 0 %}
-        <h4>Hi {{ name }}! <br>Here are the top ten hot books from your favorite authors and genres.</h4>
+        <section class="black-white user-hello">
+            <h3>Hi {{ name }}!</h3> 
+            <h4>Here are the top ten hot books from your favorite authors and genres.</h4>
+        </section>
         <section id="about-book">
             <section id="book_list">
                 {% for i in hot_books %}
@@ -25,8 +28,11 @@
             </section>
         </section>
     {% else %}
-        <h4>Hi {{ name }}! <br>You haven't marked any favorite authors or genres. <br>
+    <section class="black-white user-hello">
+        <h3>Hi {{ name }}!</h3>
+        <h4>You haven't marked any favorite authors or genres. <br>
             Make sure to mark your favorites, in order to see your hot list selection.
         </h4>
+    </section>
     {% endif %}
 {% endblock %}

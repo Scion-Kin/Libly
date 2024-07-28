@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       Array.from(blackWhite).forEach(element => {
-        element.style.backgroundColor = 'black';
+        element.style.backgroundColor = '#181a1b';
       });
 
       Array.from(quotes).forEach(element => {

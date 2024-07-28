@@ -9,6 +9,13 @@ from uuid import uuid4
 import requests
 
 
+def returner(**kwargs):
+    ''' I'm avoiding the repition of things using this function '''
+
+    return render_template('stats.html', uuid=uuid4(), pic=session["user_pic"],
+                           name=session["first_name"], **kwargs)
+
+
 @client_view.route('/statistics', methods=['GET', 'POST'],
                    strict_slashes=False)
 def get_statistics():
@@ -22,91 +29,53 @@ def get_statistics():
 
     if request.method == "POST":
         if not request.form.get('number') or not request.form.get('time'):
-            return render_template('stats.html', uuid=uuid4(),
-                                   pic=session["user_pic"],
-                                   name=session["first_name"],
-                                   error="Please specify a duration")
+            return returner(error="Please specify a duration")
 
         time = request.form.get('time')
+        number = int(request.form.get('number'))
+        objects = {"authors", "books", "genres", "reviews", "users"}
+
         if time == 'days':
-            number = int(request.form.get('number'))
-            response = requests.get('https://usernet.tech/api/v1/\
-                                    report/days/{}'.format(number))
+            url = 'https://usernet.tech/api/v1/report/days/{}'
+            response = requests.get(url.format(number))
 
             if response.status_code == 200:
-                return render_template('stats.html', stats={
-                                        "authors": response.json()["authors"],
-                                        "books": response.json()["books"],
-                                        "genres": response.json()["genres"],
-                                        "reviews": response.json()["reviews"],
-                                        "users": response.json()["users"]},
-                                       uuid=uuid4(), pic=session["user_pic"],
-                                       name=session["first_name"],
-                                       days=(int(request.form.get('number'))))
+                stats = {i: response.json()[i] for i in objects}
+                return returner(stats=stats, days=number)
 
         else:
+            url = 'https://usernet.tech/api/v1/report/year/{}'
             if time == "year":
-                response = requests.get('https://usernet.tech/api/v1\
-                                        /report/year/{}'
-                                        .format(request.form.get('number')))
+                response = requests.get(url.format(number))
             else:
-                if int(request.form.get('number')) > 12 or\
-                        int(request.form.get('number')) < 1:
+                if number > 12 or number < 1:
 
-                    return render_template('stats.html',
-                                           pic=session["user_pic"],
-                                           uuid=uuid4(),
-                                           name=session["first_name"],
-                                           error="Invalid month")
+                    return returner(error="Invalid month")
 
-                response = requests.get('https://usernet.tech/api/v1\
-                                        /report/year/{}'
-                                        .format(date.today().year))
+                response = requests.get(url.format(date.today().year))
 
             if response.status_code == 200:
 
                 if time == "month":
-                    month = int(request.form.get('number')) - 1
-                    stats = {"authors": response.json()[month]["authors"],
-                             "books": response.json()[month]["books"],
-                             "genres": response.json()[month]["genres"],
-                             "reviews": response.json()[month]["reviews"],
-                             "users": response.json()[month]["users"]}
+                    month = number - 1
+                    stats = {i: response.json()[month][i] for i in objects}
 
-                    return render_template('stats.html',
-                                           stats=stats, uuid=uuid4(),
-                                           pic=session["user_pic"],
-                                           name=session["first_name"],
-                                           month_name=month_name[month + 1],
-                                           month=(month + 1))
+                    return returner(stats=stats, month=(month + 1),
+                                    month_name=month_name[month + 1])
 
                 else:
-                    year = int(request.form.get('number'))
-                    all = {"authors": [], "books": [], "genres": [],
-                           "reviews": [], "users": []}
+                    all = {i: [] for i in objects}
 
                     for i in response.json():
-                        all["authors"] += i["authors"]
-                        all["books"] += i["books"]
-                        all["genres"] += i["genres"]
-                        all["reviews"] += i["reviews"]
-                        all["users"] += i["users"]
+                        for obj in objects:
+                            all[obj] += i[obj]
 
-                    return render_template('stats.html',
-                                           stats=all, year=(int(year)),
-                                           uuid=uuid4(),
-                                           pic=session["user_pic"],
-                                           name=session["first_name"],
-                                           time=request.form.get('number'))
+                    return returner(stats=all, year=(number),
+                                    time=request.form.get('number'))
 
-        return render_template('stats.html', uuid=uuid4(),
-                               pic=session["user_pic"],
-                               name=session["first_name"],
-                               error=response.json()["error"])
+        return returner(error=response.json()["error"])
 
-    return render_template('stats.html', uuid=uuid4(),
-                           pic=session["user_pic"],
-                           name=session["first_name"])
+    return returner()
 
 
 @client_view.route('/statistics/numbers', methods=['GET', 'POST'],
@@ -122,89 +91,50 @@ def get_statistics_numbers():
 
     if request.method == "POST":
         if not request.form.get('number') or not request.form.get('time'):
-            return render_template('stats.html', uuid=uuid4(),
-                                   pic=session["user_pic"],
-                                   name=session["first_name"],
-                                   error="Please specify a duration")
+            return returner(error="Please specify a duration")
 
         time = request.form.get('time')
+        number = int(request.form.get('number'))
+        objects = {"authors", "books", "genres", "reviews", "users"}
+
         if time == 'days':
-            response = requests.get('https://usernet.tech/api/v1\
-                                    /report/days/{}'
-                                    .format(int(request.form.get('number'))))
+            url = 'https://usernet.tech/api/v1/report/days/{}'
+            response = requests.get(url.format(number))
 
             if response.status_code == 200:
-                numbers = {"authors": len(response.json()["authors"]),
-                           "books": len(response.json()["books"]),
-                           "genres": len(response.json()["genres"]),
-                           "reviews": len(response.json()["reviews"]),
-                           "users": len(response.json()["users"])}
+                numbers = {i: len(response.json()[i]) for i in objects}
 
-                return render_template('stats.html', numbers=numbers,
-                                       uuid=uuid4(), pic=session["user_pic"],
-                                       name=session["first_name"],
-                                       days=(int(request.form.get('number'))))
+                return returner(numbers=numbers, days=number)
 
         else:
+            url = 'https://usernet.tech/api/v1/report/year/{}'
+
             if time == "year":
-                response = requests.get('https://usernet.tech/api/v1\
-                                        /report/year/{}'
-                                        .format(request.form.get('number')))
+                response = requests.get(url.format(number))
             else:
-                if int(request.form.get('number')) > 12 or\
-                        int(request.form.get('number')) < 1:
-                    return render_template('stats.html',
-                                           pic=session["user_pic"],
-                                           uuid=uuid4(),
-                                           name=session["first_name"],
-                                           error="Invalid month")
-                response = requests.get('https://usernet.tech/api/v1\
-                                        /report/year/{}'
-                                        .format(date.today().year))
+                if number > 12 or number < 1:
+                    return returner(error="Invalid month")
+                response = requests.get(url.format(date.today().year))
 
             if response.status_code == 200:
 
                 if time == "month":
-                    month = int(request.form.get('number')) - 1
-                    numbers = {
-                        "authors": len(response.json()[month]["authors"]),
-                        "books": len(response.json()[month]["books"]),
-                        "genres": len(response.json()[month]["genres"]),
-                        "reviews": len(response.json()[month]["reviews"]),
-                        "users": len(response.json()[month]["users"])
-                    }
+                    month = number - 1
+                    nums = {i: len(response.json()[month][i]) for i in objects}
 
-                    return render_template('stats.html', numbers=numbers,
-                                           uuid=uuid4(),
-                                           pic=session["user_pic"],
-                                           name=session["first_name"],
-                                           month_name=month_name[month + 1],
-                                           month=(month + 1))
+                    return returner(numbers=nums, month=(month + 1),
+                                    month_name=month_name[month + 1])
 
                 else:
-                    year = int(request.form.get('number'))
-                    numbers = {"authors": 0, "books": 0, "genres": 0,
-                               "reviews": 0, "users": 0}
+                    numbers = {i: 0 for i in objects}
 
                     for i in response.json():
-                        numbers["authors"] += len(i["authors"])
-                        numbers["books"] += len(i["books"])
-                        numbers["genres"] += len(i["genres"])
-                        numbers["reviews"] += len(i["reviews"])
-                        numbers["users"] += len(i["users"])
+                        for obj in objects:
+                            numbers[obj] += len(i[obj])
 
-                    return render_template('stats.html',
-                                           numbers=numbers, uuid=uuid4(),
-                                           pic=session["user_pic"],
-                                           name=session["first_name"],
-                                           time=request.form.get('number'),
-                                           year=(int(year)))
+                    return returner(numbers=numbers, year=(number),
+                                    time=number)
 
-        return render_template('stats.html', uuid=uuid4(),
-                               pic=session["user_pic"],
-                               name=session["first_name"],
-                               error=response.json()["error"])
+        return returner(error=response.json()["error"])
 
-    return render_template('stats.html', uuid=uuid4(),
-                           pic=session["user_pic"],
-                           name=session["first_name"])
+    return returner()

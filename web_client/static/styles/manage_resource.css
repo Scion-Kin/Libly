@@ -164,10 +164,10 @@ form {
 }
 
 .error {
-    color: red;
+    color: white;
     padding: 10px;
     border-radius: 10px;
-    background-color: rgba(163, 57, 57, 0.363);
+    background-color: rgb(163, 57, 57);
 }
 
 textarea {

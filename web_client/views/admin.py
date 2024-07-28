@@ -2,7 +2,7 @@
 ''' The admin manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort,\
+from flask import render_template, session, abort, \
      request, jsonify, redirect, url_for
 from werkzeug.utils import secure_filename
 from uuid import uuid4

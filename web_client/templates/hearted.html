@@ -11,7 +11,10 @@
         {% if fav_authors|length == 0 and fav_books|length == 0 and fav_genres|length == 0 %}
             <h3>Sorry. You haven't marked any favorites yet.</h3>
         {% else %}
-            <h3>Hi {{ name }}! <br>Here are your favorites ❤️</h3>
+            <section class="black-white user-hello">
+               <h3>Hi {{ name }}! </h3>
+               <h4>Here are your favorites ❤️</h4> 
+            </section>
             {% if fav_books|length > 0 %}
                 <h4>Books</h4>
                 <section class="book_list">
