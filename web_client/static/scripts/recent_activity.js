@@ -3,6 +3,9 @@ const books = document.getElementById('books-activity');
 const reviewsTitle = document.createElement('h4');
 const booksTitle = document.createElement('h4');
 const today = new Date();
+const SDA = new Date(today); // seven days ago! Haha! What a subtle coincidence!
+SDA.setDate(today.getDate() - 7);
+console.log(SDA);
 
 books.appendChild(booksTitle);
 reviews.append(reviewsTitle);
@@ -14,10 +17,12 @@ fetch('https://usernet.tech/api/v1/reviews')
       reviewsTitle.textContent = 'Recent reviews:';
 
       for (const i in data) {
-        const date = (data[i].data.updated_at).split('T')[0].split('-');
+        const fullDate = (data[i].data.updated_at).split('T')[0].split('-');
+        const date = Number(fullDate[2]), month = Number(fullDate[1]);
+        const datePasses = SDA.getMonth() < month ? true : SDA.getDate() > date ? false : true;
 
         // get data from the last 2 days
-        if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 7) <= Number(date[2])) {
+        if (datePasses) {
           const review = document.createElement('section');
           const reviewText = document.createElement('p');
           const owner = document.createElement('section');
@@ -92,10 +97,12 @@ fetch('https://usernet.tech/api/v1/books')
     if (!data.error) {
       booksTitle.textContent = 'Recently added books';
       for (const i in data) {
-        const date = (data[i].data.updated_at).split('T')[0].split('-');
+        const fullDate = (data[i].data.updated_at).split('T')[0].split('-');
+        const date = Number(fullDate[2]), month = Number(fullDate[1]);
+        const datePasses = SDA.getMonth() < month ? true : SDA.getDate() > date ? false : true;
 
         // get data from the last 2 days
-        if (Number(date[1]) === today.getMonth() + 1 && (today.getDate() - 7) <= Number(date[2])) {
+        if (datePasses) {
           const book = document.createElement('section');
           const button = document.createElement('button');
 

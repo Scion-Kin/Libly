@@ -41,6 +41,7 @@ def get_statistics():
 
             if response.status_code == 200:
                 stats = {i: response.json()[i] for i in objects}
+                stats = dict(sorted(stats.items(), key=lambda item: item[0]))
                 return returner(stats=stats, days=number)
 
         else:
@@ -59,12 +60,14 @@ def get_statistics():
                 if time == "month":
                     month = number - 1
                     stats = {i: response.json()[month][i] for i in objects}
+                    stats = sorted(stats.items(), key=lambda item: item[0])
 
-                    return returner(stats=stats, month=(month + 1),
+                    return returner(stats=dict(stats), month=(month + 1),
                                     month_name=month_name[month + 1])
 
                 else:
                     all = {i: [] for i in objects}
+                    all = dict(sorted(all.items(), key=lambda item: item[0]))
 
                     for i in response.json():
                         for obj in objects:
@@ -103,37 +106,39 @@ def get_statistics_numbers():
 
             if response.status_code == 200:
                 numbers = {i: len(response.json()[i]) for i in objects}
+                numbers = sorted(numbers.items(), key=lambda item: item[0])
 
-                return returner(numbers=numbers, days=number)
+                return returner(numbers=dict(numbers), days=number)
 
         else:
             url = 'https://usernet.tech/api/v1/report/year/{}'
+            year = number if time == 'year' else date.today().year
 
-            if time == "year":
-                response = requests.get(url.format(number))
-            else:
-                if number > 12 or number < 1:
-                    return returner(error="Invalid month")
-                response = requests.get(url.format(date.today().year))
+            if time != 'year' and number > 12 or number < 1:
+                return returner(error="Invalid month")
+
+            response = requests.get(url.format(year))
 
             if response.status_code == 200:
 
                 if time == "month":
                     month = number - 1
                     nums = {i: len(response.json()[month][i]) for i in objects}
+                    nums = sorted(nums.items(), key=lambda item: item[0])
 
-                    return returner(numbers=nums, month=(month + 1),
+                    return returner(numbers=dict(nums), month=(month + 1),
                                     month_name=month_name[month + 1])
 
                 else:
                     numbers = {i: 0 for i in objects}
+                    numbers = dict(sorted(numbers.items(),
+                                          key=lambda item: item[0]))
 
                     for i in response.json():
                         for obj in objects:
                             numbers[obj] += len(i[obj])
 
-                    return returner(numbers=numbers, year=(number),
-                                    time=number)
+                    return returner(numbers=numbers, year=number, time=number)
 
         return returner(error=response.json()["error"])
 
