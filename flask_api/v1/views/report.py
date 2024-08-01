@@ -29,8 +29,7 @@ def year_report(year):
 
     days = 366 if calendar.isleap(year) else 365
     period = datetime.now() - timedelta(days=days)
-    full = [i.to_dict() for i in storage.all().values() if
-            i.created_at >= period]
+    full = [i for i in storage.all().values() if i.created_at >= period]
 
     all_months = []
 
