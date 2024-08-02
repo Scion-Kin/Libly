@@ -99,6 +99,6 @@ def get_statistics_numbers():
         stats = query(list(time.keys())[0], list(time.values())[0], 'numbers')
 
         return returner(numbers=stats, **time,
-                        month_name=month_name[list(time.values()[0])])
+                        month_name=month_name[list(time.values())[0]])
 
     return returner()
