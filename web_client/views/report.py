@@ -96,7 +96,7 @@ def get_statistics_numbers():
             return returner(error="Please specify a duration")
 
         time = {request.form.get('time'): int(request.form.get('number'))}
-        stats = query(list(time.keys())[0], list(time.values()[0]), 'numbers')
+        stats = query(list(time.keys())[0], list(time.values())[0], 'numbers')
 
         return returner(numbers=stats, **time,
                         month_name=month_name[time.values()[0]])
