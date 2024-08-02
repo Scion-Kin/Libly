@@ -16,67 +16,68 @@ def returner(**kwargs):
                            name=session["first_name"], **kwargs)
 
 
+def query(time: str, number: int, query_type: str):
+    ''' The process of querying should be done once '''
+    objects = {"Author", "Book", "Genre", "Review", "User"}
+
+    if time == 'days':
+        url = 'https://usernet.tech/api/v1/report/days/{}'
+        response = requests.get(url.format(number))
+
+        if response.status_code == 200:
+            stats = {i: response.json()[i] if query_type == 'stats' else
+                     len(response.json()[i]) for i in objects}
+            return dict(sorted(stats.items(), key=lambda item: item[0]))
+
+    else:
+        url = 'https://usernet.tech/api/v1/report/year/{}'
+        year = number if time == 'year' else date.today().year
+
+        if time != 'year' and number > 12 or number < 1:
+            return returner(error="Invalid month")
+
+        response = requests.get(url.format(year))
+
+        if response.status_code == 200:
+
+            if time == "month":
+                month = number - 1
+                stats = {i: response.json()[month][i] if query_type == 'stats'
+                         else len(response.json()[month][i]) for i in objects}
+
+                return dict(sorted(stats.items(), key=lambda item: item[0]))
+
+            else:
+                all = {i: [] if query_type == 'stats' else 0 for i in objects}
+                all = dict(sorted(all.items(), key=lambda item: item[0]))
+
+                for i in response.json():
+                    for obj in objects:
+                        all[obj] += (i[obj] if query_type == 'stats' else
+                                     len(i[obj]))
+
+                return all
+
+        return returner(error=response.json()["error"])
+
+
 @client_view.route('/statistics', methods=['GET', 'POST'],
                    strict_slashes=False)
 def get_statistics():
     ''' This queries the api for new database material '''
 
-    if not session or not session['logged']:
-        return redirect(url_for('home'))
-
-    if session["user_type"] != 'librarian':
+    if not session or not session['logged'] or \
+            session["user_type"] != 'librarian':
         abort(404)
 
     if request.method == "POST":
         if not request.form.get('number') or not request.form.get('time'):
             return returner(error="Please specify a duration")
 
-        time = request.form.get('time')
-        number = int(request.form.get('number'))
-        objects = {"authors", "books", "genres", "reviews", "users"}
+        time = {request.form.get('time'): int(request.form.get('number'))}
+        stats = query(list(time.keys())[0], list(time.values())[0], 'stats')
 
-        if time == 'days':
-            url = 'https://usernet.tech/api/v1/report/days/{}'
-            response = requests.get(url.format(number))
-
-            if response.status_code == 200:
-                stats = {i: response.json()[i] for i in objects}
-                stats = dict(sorted(stats.items(), key=lambda item: item[0]))
-                return returner(stats=stats, days=number)
-
-        else:
-            url = 'https://usernet.tech/api/v1/report/year/{}'
-            if time == "year":
-                response = requests.get(url.format(number))
-            else:
-                if number > 12 or number < 1:
-
-                    return returner(error="Invalid month")
-
-                response = requests.get(url.format(date.today().year))
-
-            if response.status_code == 200:
-
-                if time == "month":
-                    month = number - 1
-                    stats = {i: response.json()[month][i] for i in objects}
-                    stats = sorted(stats.items(), key=lambda item: item[0])
-
-                    return returner(stats=dict(stats), month=(month + 1),
-                                    month_name=month_name[month + 1])
-
-                else:
-                    all = {i: [] for i in objects}
-                    all = dict(sorted(all.items(), key=lambda item: item[0]))
-
-                    for i in response.json():
-                        for obj in objects:
-                            all[obj] += i[obj]
-
-                    return returner(stats=all, year=(number),
-                                    time=request.form.get('number'))
-
-        return returner(error=response.json()["error"])
+        return returner(stats=stats, **time)
 
     return returner()
 
@@ -86,60 +87,18 @@ def get_statistics():
 def get_statistics_numbers():
     ''' The all authors page  '''
 
-    if not session or not session['logged']:
-        return redirect(url_for('home'))
-
-    if session["user_type"] != 'librarian':
+    if not session or not session['logged'] or \
+            session["user_type"] != 'librarian':
         abort(404)
 
     if request.method == "POST":
         if not request.form.get('number') or not request.form.get('time'):
             return returner(error="Please specify a duration")
 
-        time = request.form.get('time')
-        number = int(request.form.get('number'))
-        objects = {"authors", "books", "genres", "reviews", "users"}
+        time = {request.form.get('time'): int(request.form.get('number'))}
+        stats = query(list(time.keys())[0], list(time.values()[0]), 'numbers')
 
-        if time == 'days':
-            url = 'https://usernet.tech/api/v1/report/days/{}'
-            response = requests.get(url.format(number))
-
-            if response.status_code == 200:
-                numbers = {i: len(response.json()[i]) for i in objects}
-                numbers = sorted(numbers.items(), key=lambda item: item[0])
-
-                return returner(numbers=dict(numbers), days=number)
-
-        else:
-            url = 'https://usernet.tech/api/v1/report/year/{}'
-            year = number if time == 'year' else date.today().year
-
-            if time != 'year' and number > 12 or number < 1:
-                return returner(error="Invalid month")
-
-            response = requests.get(url.format(year))
-
-            if response.status_code == 200:
-
-                if time == "month":
-                    month = number - 1
-                    nums = {i: len(response.json()[month][i]) for i in objects}
-                    nums = sorted(nums.items(), key=lambda item: item[0])
-
-                    return returner(numbers=dict(nums), month=(month + 1),
-                                    month_name=month_name[month + 1])
-
-                else:
-                    numbers = {i: 0 for i in objects}
-                    numbers = dict(sorted(numbers.items(),
-                                          key=lambda item: item[0]))
-
-                    for i in response.json():
-                        for obj in objects:
-                            numbers[obj] += len(i[obj])
-
-                    return returner(numbers=numbers, year=number, time=number)
-
-        return returner(error=response.json()["error"])
+        return returner(numbers=stats, **time,
+                        month_name=month_name[time.values()[0]])
 
     return returner()
