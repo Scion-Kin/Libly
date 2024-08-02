@@ -68,7 +68,7 @@
                 <th>Count</th>
                 {% for i in numbers %}
                 <tr>
-                    <td>New {{ i }}</td>
+                    <td>New {{ i }}s</td>
                     <td> {{ numbers[i] }} </td>
                 </tr>
                 {% endfor %}
@@ -90,7 +90,7 @@
 
     {% elif stats %}
         {% if days %}
-            <h2>Here are new resources from the last {{ days }} {% if days == 1 %} day {% else %} days {% endif %}:</h2>
+            <h2>Here are new resources from the last {{ days }} {% if days == 1 %} day {% else %} days{% endif %}:</h2>
         {% elif month %}
             <h2>Here are the statistics from {{ month_name }}</h2>
         {% elif year %}
@@ -101,27 +101,22 @@
 
             {% for j in stats %}
                 
-                {% if j == "authors" %} <h3>Authors</h3>
-                {% elif j == "books" %} <h3>Books</h3>
-                {% elif j == "genres" %} <h3>Genres</h3>
-                {% elif j == "reviews" %} <h3>Reviews</h3>
-                {% else %} <h3>Users</h3>
-                {% endif %}
+                <h3> {{ j }}s </h3>
 
                 {% if stats[j]|length > 0 %}
                     {% for i in stats[j] %}
                         <section class="resource">
-                            {% if j == "authors" or j == "users" %} <h4>{{ i.first_name }} {{ i.last_name }}</h4>
-                            {% elif j == "books" %} <h4> {{ i.title }} </h4>
-                            {% elif j == "genres" %} <h4> {{ i.name }} </h4>
+                            {% if j == "Author" or j == "User" %} <h4>{{ i.first_name }} {{ i.last_name }}</h4>
+                            {% elif j == "Book" %} <h4> {{ i.title }} </h4>
+                            {% elif j == "Genre" %} <h4> {{ i.name }} </h4>
                             {% else %} <h4> {{ i.text }} </h4>
                             {% endif %}
                             <section class="data">
-                                {% if j != "reviews" %}
+                                {% if j != "Review" %}
                                 <img src="/static/images/{{ i.pic }}?{{ uuid }}">
                                 {% endif %}
                             </section>
-                        </section>   
+                        </section>
                     {% endfor %}
                 {% else %}
                     <section class="resource">

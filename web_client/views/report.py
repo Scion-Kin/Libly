@@ -77,7 +77,8 @@ def get_statistics():
         time = {request.form.get('time'): int(request.form.get('number'))}
         stats = query(list(time.keys())[0], list(time.values())[0], 'stats')
 
-        return returner(stats=stats, **time)
+        return returner(stats=stats, **time,
+                        month_name=month_name[list(time.values())[0]])
 
     return returner()
 
