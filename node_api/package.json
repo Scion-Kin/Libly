@@ -1,5 +1,8 @@
 {
   "dependencies": {
-    "nodemailer": "^6.9.13"
+    "nodemailer": "^6.10.1",
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "body-parser": "^2.2.0"
   }
 }

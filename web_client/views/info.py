@@ -6,6 +6,9 @@ from flask import render_template, session, request, redirect, url_for
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 @client_view.route('/about/book', methods=['GET', 'POST'],
                    strict_slashes=False)
@@ -17,14 +20,14 @@ def book_info():
 
     if request.method == 'POST':
 
-        response = requests.get('https://usernet.tech/api/v1/books/{}'
-                                .format(request.form.get('id')))
+        response = requests.get('https://{}/api/v1/books/{}'
+                                .format(HOST, request.form.get('id')))
 
         if response.status_code == 200:
             for i in response.json():
 
-                reviews = requests.get('https://usernet.tech/api/v1/{}/reviews'
-                                       .format(request.form.get('id')))
+                reviews = requests.get('https://{}/api/v1/{}/reviews'
+                                       .format(HOST, request.form.get('id')))
 
                 if reviews.status_code == 200:
                     return render_template('info.html',

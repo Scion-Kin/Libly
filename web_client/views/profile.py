@@ -7,6 +7,9 @@ from uuid import uuid4
 import aiohttp
 import asyncio
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 @client_view.route('/profile/<string:user_id>', strict_slashes=False)
 def profile(user_id):
@@ -22,11 +25,11 @@ def profile(user_id):
 
     async def get_user_data(user_id):
         links = [
-            'https://usernet.tech/api/v1/users/{}'.format(user_id),
-            'https://usernet.tech/api/v1/users/{}/reviews'.format(user_id),
-            'https://usernet.tech/api/v1/{}/favs/authors'.format(user_id),
-            'https://usernet.tech/api/v1/{}/favs/books'.format(user_id),
-            'https://usernet.tech/api/v1/{}/favs/genres'.format(user_id)
+            'https://{}/api/v1/users/{}'.format(HOST, user_id),
+            'https://{}/api/v1/users/{}/reviews'.format(HOST, user_id),
+            'https://{}/api/v1/{}/favs/authors'.format(HOST, user_id),
+            'https://{}/api/v1/{}/favs/books'.format(HOST, user_id),
+            'https://{}/api/v1/{}/favs/genres'.format(HOST, user_id)
         ]
 
         async with aiohttp.ClientSession() as session:
@@ -41,14 +44,14 @@ def profile(user_id):
 
             async def fetch_details(url, obs, id_type):
                 ''' Fetches the sub-contents '''
-                tasks = [fetch(session, url.format(i[id_type])) for i in obs]
+                tasks = [fetch(session, url.format(HOST, i[id_type])) for i in obs]
                 fav = await asyncio.gather(*tasks)
                 fav = [i[0] for i in fav]
                 return [list(i.values())[0]["data"] for i in fav]
 
             fav_authors = responses[2]
             if fav_authors[1] == 200:
-                url = 'https://usernet.tech/api/v1/authors/{}'
+                url = 'https://{}/api/v1/authors/{}'
                 fav_authors = await fetch_details(url, fav_authors[0],
                                                   'author_id')
             else:
@@ -57,7 +60,7 @@ def profile(user_id):
             fav_books = responses[3]
 
             if fav_books[1] == 200:
-                url = 'https://usernet.tech/api/v1/books/{}'
+                url = 'https://{}/api/v1/books/{}'
                 fav_books = await fetch_details(url, fav_books[0],
                                                 'book_id')
             else:
@@ -66,7 +69,7 @@ def profile(user_id):
             fav_genres = responses[4]
 
             if fav_genres[1] == 200:
-                url = 'https://usernet.tech/api/v1/genres/{}'
+                url = 'https://{}/api/v1/genres/{}'
                 fav_genres = await fetch_details(url, fav_genres[0],
                                                  'genre_id')
             else:

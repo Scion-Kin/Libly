@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('Document is ready.');
-
   const all = document.getElementById('all');
   const authors = document.getElementById('authors');
   const books = document.getElementById('books');

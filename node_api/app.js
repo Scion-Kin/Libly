@@ -16,8 +16,8 @@ const transporter = nodemailer.createTransport({
   host: 'smtp-relay.brevo.com',
   port: 587,
   auth: {
-    user: process.argv[2],
-    pass: process.argv[3]
+    user: process.env.SMTP_USERNAME || process.argv[2],
+    pass: process.env.SMTP_PASSWORD || process.argv[3]
   }
 });
 
@@ -29,7 +29,7 @@ app.post('/signup', (req, res) => {
     data = data.replace(/{% name %}/g, `${req.body.first_name} ${req.body.last_name}`);
 
     const mailOptions = {
-      from: 'mugabo@centralbees.com',
+      from: process.env.SMTP_SENDER,
       to: req.body.email,
       subject: 'Welcome to Libly! Please comfim your email.',
       text: data

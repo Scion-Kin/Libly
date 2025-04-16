@@ -1,3 +1,5 @@
+import { host } from "./API_HOST";
+
 const reviews = document.getElementById('reviews');
 const books = document.getElementById('books-activity');
 const reviewsTitle = document.createElement('h4');
@@ -5,12 +7,11 @@ const booksTitle = document.createElement('h4');
 const today = new Date();
 const SDA = new Date(today); // seven days ago! Haha! What a subtle coincidence!
 SDA.setDate(today.getDate() - 7);
-console.log(SDA);
 
 books.appendChild(booksTitle);
 reviews.append(reviewsTitle);
 
-fetch('https://usernet.tech/api/v1/reviews')
+fetch(`https://${host}/api/v1/reviews`)
   .then(function (response) { return response.json(); })
   .then(function (data) {
     if (!data.error) {
@@ -33,7 +34,7 @@ fetch('https://usernet.tech/api/v1/reviews')
           const submit = document.createElement('button');
           const identifier = document.createElement('p');
 
-          fetch(`https://usernet.tech/api/v1/books/${data[i].data.book_id}`)
+          fetch(`https://${host}/api/v1/books/${data[i].data.book_id}`)
             .then(function (response) { return response.json(); })
             .then(function (bookData) {
               if (!bookData.error) {
@@ -56,7 +57,7 @@ fetch('https://usernet.tech/api/v1/reviews')
               }
             });
 
-          fetch(`https://usernet.tech/api/v1/users/${data[i].data.user_id}`)
+          fetch(`https://${host}/api/v1/users/${data[i].data.user_id}`)
             .then(function (response) { return response.json(); })
             .then(function (userData) {
               if (!userData.error) {
@@ -91,7 +92,7 @@ fetch('https://usernet.tech/api/v1/reviews')
     }
   });
 
-fetch('https://usernet.tech/api/v1/books')
+fetch(`https://${host}/api/v1/books`)
   .then(function (response) { return response.json(); })
   .then(function (data) {
     if (!data.error) {

@@ -6,17 +6,19 @@ from flask import render_template, abort, session, redirect, url_for
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 @client_view.route('/author/<string:author_id>', strict_slashes=False)
 def author(author_id):
     ''' The author page '''
 
     if not session or not session['logged']:
-
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/authors/{}'
-                            .format(author_id))
+    response = requests.get('https://{}/api/v1/authors/{}'
+                            .format(HOST, author_id))
 
     if response.status_code == 200:
         for i in response.json():
@@ -38,8 +40,8 @@ def genre(genre_id):
 
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/genres/{}'
-                            .format(genre_id))
+    response = requests.get('https://{}/api/v1/genres/{}'
+                            .format(HOST, genre_id))
 
     if response.status_code == 200:
 

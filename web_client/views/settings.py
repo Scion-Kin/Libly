@@ -2,12 +2,15 @@
 ''' The user manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, abort, \
-    request, jsonify, redirect, url_for
+from flask import render_template, session, \
+    request, redirect, url_for
 from werkzeug.utils import secure_filename
 from uuid import uuid4
 import requests
 import os
+
+from os import getenv
+HOST = getenv('API_HOST')
 
 
 @client_view.route('/settings', methods=['GET', 'POST'],
@@ -46,8 +49,8 @@ def manage_user():
                                        pic=session["user_pic"])
 
         headers = {"Content-Type": "application/json"}
-        response = requests.put('https://usernet.tech/api/v1/users/{}'
-                                .format(session['user_id']),
+        response = requests.put('https://{}/api/v1/users/{}'
+                                .format(HOST, session['user_id']),
                                 headers=headers, json=details)
 
         if response.status_code == 200:

@@ -1,7 +1,10 @@
+import { host } from "./API_HOST";
+
 $(function () {
   const title = document.title.split(' ')[0];
+  
   if (title === 'Info') {
-    const url = 'https://usernet.tech/api/v1/books';
+    const url = `https://${host}/api/v1/books`;
 
     $.ajax({
       type: 'GET',
@@ -45,7 +48,7 @@ $(function () {
       for (let i = 0; i < reviews.length; i++) {
         const owner = $(reviews[i]).find('.owner');
         const userId = $(owner).attr('id').split('_')[1];
-        $.get(`https://usernet.tech/api/v1/users/${userId}`, function (data, textStatus) {
+        $.get(`https://${host}/api/v1/users/${userId}`, function (data, textStatus) {
           for (let j in data) {
             const avatar = document.createElement('img');
             avatar.alt = `${data[j].data.first_name}'s profile picture`;
@@ -70,7 +73,7 @@ $(function () {
     $.ajax({
       type: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      url: 'https://usernet.tech/api/v1/reviews',
+      url: `https://${host}/api/v1/reviews`,
       data: JSON.stringify({
         user_id: getCookie(),
         book_id: $('#make-review form').attr('id'),

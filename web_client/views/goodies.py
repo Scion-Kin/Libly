@@ -2,9 +2,12 @@
 ''' This defines routes for some app goodies '''
 
 from web_client.views import client_view
-from flask import render_template, session, request, redirect, url_for
+from flask import render_template, session, redirect, url_for
 from uuid import uuid4
 import requests
+
+from os import getenv
+HOST = getenv('API_HOST')
 
 
 @client_view.route('/hearted',  strict_slashes=False)
@@ -14,14 +17,14 @@ def hearted():
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    fav_authors = requests.get('https://usernet.tech/api/v1/{}/favs/authors'
-                               .format(session["user_id"]))
+    fav_authors = requests.get('https://{}/api/v1/{}/favs/authors'
+                               .format(HOST, session["user_id"]))
     if fav_authors.status_code == 200:
         fav_authors = fav_authors.json()
         all = []
         for i in fav_authors:
-            author = requests.get('https://usernet.tech/api/v1/authors/{}'
-                                  .format(i["author_id"])).json()
+            author = requests.get('https://{}/api/v1/authors/{}'
+                                  .format(HOST, i["author_id"])).json()
             for j in author:
                 all.append(author[j]["data"])
 
@@ -29,15 +32,15 @@ def hearted():
     else:
         fav_authors = []
 
-    fav_books = requests.get('https://usernet.tech/api/v1/{}/favs/books'
-                             .format(session["user_id"]))
+    fav_books = requests.get('https://{}/api/v1/{}/favs/books'
+                             .format(HOST, session["user_id"]))
 
     if fav_books.status_code == 200:
         fav_books = fav_books.json()
         all = []
         for i in fav_books:
-            book = requests.get('https://usernet.tech/api/v1/books/{}'
-                                .format(i["book_id"])).json()
+            book = requests.get('https://{}/api/v1/books/{}'
+                                .format(HOST, i["book_id"])).json()
             for j in book:
                 all.append(book[j]["data"])
 
@@ -45,15 +48,15 @@ def hearted():
     else:
         fav_books = []
 
-    fav_genres = requests.get('https://usernet.tech/api/v1/{}/favs/genres'
-                              .format(session["user_id"]))
+    fav_genres = requests.get('https://{}/api/v1/{}/favs/genres'
+                              .format(HOST, session["user_id"]))
 
     if fav_genres.status_code == 200:
         fav_genres = fav_genres.json()
         all = []
         for i in fav_genres:
-            genre = requests.get('https://usernet.tech/api/v1/genres/{}'
-                                 .format(i["genre_id"])).json()
+            genre = requests.get('https://{}/api/v1/genres/{}'
+                                 .format(HOST, i["genre_id"])).json()
             for j in genre:
                 all.append(genre[j]["data"])
 
@@ -74,8 +77,8 @@ def hot():
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    hot = requests.get('https://usernet.tech/api/v1/hot/{}'
-                       .format(session["user_id"]))
+    hot = requests.get('https://{}/api/v1/hot/{}'
+                       .format(HOST, session["user_id"]))
 
     return render_template('hot.html',
                            hot_books=hot.json(), name=session["first_name"],

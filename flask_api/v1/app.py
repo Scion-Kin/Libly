@@ -3,7 +3,7 @@
 from models import storage
 from flask_api.v1.views import grand_view
 from os import environ
-from flask import Flask, render_template, make_response, jsonify
+from flask import Flask, make_response, jsonify
 from flask_cors import CORS
 
 
@@ -55,8 +55,8 @@ def invalid_json(error):
 
 if __name__ == "__main__":
     """ Main Function """
-    host = environ.get('HBNB_API_HOST')
-    port = environ.get('HBNB_API_PORT')
+    host = environ.get('LIBLY_API_HOST')
+    port = environ.get('LIBLY_API_PORT')
     if not host:
         host = '0.0.0.0'
     if not port:

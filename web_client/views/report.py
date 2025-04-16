@@ -8,6 +8,9 @@ from calendar import month_name
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 def returner(**kwargs):
     ''' I'm avoiding the repition of things using this function '''
@@ -21,8 +24,8 @@ def query(time: str, number: int, query_type: str):
     objects = {"Author", "Book", "Genre", "Review", "User"}
 
     if time == 'days':
-        url = 'https://usernet.tech/api/v1/report/days/{}'
-        response = requests.get(url.format(number))
+        url = 'https://{}/api/v1/report/days/{}'.format(HOST, number)
+        response = requests.get(url)
 
         if response.status_code == 200:
             stats = {i: response.json()[i] if query_type == 'stats' else
@@ -30,13 +33,13 @@ def query(time: str, number: int, query_type: str):
             return dict(sorted(stats.items(), key=lambda item: item[0]))
 
     else:
-        url = 'https://usernet.tech/api/v1/report/year/{}'
+        url = 'https://{}/api/v1/report/year/{}'
         year = number if time == 'year' else date.today().year
 
         if time != 'year' and number > 12 or number < 1:
             return returner(error="Invalid month")
 
-        response = requests.get(url.format(year))
+        response = requests.get(url.format(HOST, year))
 
         if response.status_code == 200:
 

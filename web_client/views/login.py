@@ -7,6 +7,9 @@ from flask import render_template, session, abort, \
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 @client_view.route('/login', methods=['GET', 'POST'],
                    strict_slashes=False)
@@ -17,7 +20,7 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        response = requests.post('https://usernet.tech/api/v1/login',
+        response = requests.post(f'https://{HOST}/api/v1/login',
                                  headers={'Content-Type': 'application/json'},
                                  json={"email": email, "password": password})
 
@@ -35,8 +38,7 @@ def login():
             session["user_type"] = user["user_type"]
             session["onboarded"] = user["onboarded"]
             session["first_name"] = user["first_name"]
-            session["middle_name"] = (user["middle_name"]
-                                      if user["middle_name"] else ' ')
+            session["middle_name"] = (user["middle_name"] or ' ')
             session["last_name"] = user["last_name"]
             session["user_pic"] = user["pic"]
 

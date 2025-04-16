@@ -2,11 +2,14 @@
 ''' The admin manager '''
 
 from web_client.views import client_view
-from flask import render_template, session, redirect, url_for
+from flask import render_template, session, redirect, url_for, abort
 import fitz
 import io
 from PIL import Image
 import requests
+
+from os import getenv
+HOST = getenv('API_HOST')
 
 
 @client_view.route('/read/<string:book_id>', strict_slashes=False)
@@ -16,7 +19,7 @@ def read_book(book_id):
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    data = requests.get(f'https://usernet.tech/api/v1/books/{book_id}')
+    data = requests.get(f'https://{HOST}/api/v1/books/{book_id}')
 
     if data.status_code == 200:
         book = [data.json()[i]["data"] for i in data.json()]

@@ -3,12 +3,14 @@
 
 from web_client.views import client_view
 from flask import render_template, session, abort, \
-     request, jsonify, redirect, url_for
+     request, redirect, url_for
 from werkzeug.utils import secure_filename
 from uuid import uuid4
 import requests
 import os
 
+from os import getenv
+HOST = getenv('API_HOST')
 
 @client_view.route('/manage/authors', methods=['GET', 'POST'],
                    strict_slashes=False)
@@ -30,7 +32,7 @@ def manage_authors():
                 "pic": secure_filename(file.filename),
                 "password": request.form.get('password')}
 
-        response = requests.post('https://usernet.tech/api/v1/authors',
+        response = requests.post(f'https://{HOST}/api/v1/authors',
                                  headers=headers, json=json)
 
         file.save(os.path.join('web_client/static/images',
@@ -53,8 +55,10 @@ def manage_books():
     if session['user_type'] != 'librarian':
         abort(404)
 
-    genres = requests.get('https://usernet.tech/api/v1/genres')
-    authors = requests.get('https://usernet.tech/api/v1/authors')
+    g = requests.get(f'https://{HOST}/api/v1/genres')
+    genres = g.json() if g.status_code == 200 else []
+    a = requests.get(f'https://{HOST}/api/v1/authors')
+    authors = a.json() if a.status_code == 200 else []
 
     if request.method == 'POST':
         book_file = request.files['file']
@@ -72,7 +76,7 @@ def manage_books():
             "password": request.form.get('password')
         }
 
-        response = requests.post('https://usernet.tech/api/v1/books',
+        response = requests.post(f'https://{HOST}/api/v1/books',
                                  headers=headers, json=json)
 
         if response.status_code == 201:
@@ -83,8 +87,8 @@ def manage_books():
                                 secure_filename(book_cover.filename)))
 
             except FileNotFoundError:
-                requests.delete('https://usernet.tech/api/v1/books/{}'
-                                .format(response.json()['id']),
+                requests.delete('https://{}/api/v1/books/{}'
+                                .format(HOST, response.json()['id']),
                                 headers=headers,
                                 json={"password":
                                       request.form.get('password')})
@@ -93,8 +97,8 @@ def manage_books():
         return redirect(url_for('client_view.manage_books'))
 
     return render_template('manage_resource.html', title="Books",
-                           pic=session["user_pic"], genres=genres.json(),
-                           authors=authors.json(), uuid=uuid4())
+                           pic=session["user_pic"], genres=genres,
+                           authors=authors, uuid=uuid4())
 
 
 @client_view.route('/manage/genres', methods=['GET', 'POST'],
@@ -113,7 +117,7 @@ def manage_genres():
 
     if request.method == 'POST':
         headers = {"Content-Type": "application/json"}
-        response = requests.post('https://usernet.tech/api/v1/genres',
+        response = requests.post(f'https://{HOST}/api/v1/genres',
                                  headers=headers,
                                  json=json)
 

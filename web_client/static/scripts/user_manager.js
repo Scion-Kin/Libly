@@ -1,3 +1,5 @@
+import { host } from "./API_HOST";
+
 document.addEventListener('DOMContentLoaded', function () {
   const logOut = document.getElementById('log-out');
   const showMenu = document.getElementById('user-menu');
@@ -45,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let favId = love.getAttribute('fav-id');
     const stripped = favType.replace(/s/g, '_id'); // remove the 's' at the end to interact with the response better
 
-    fetch(`https://usernet.tech/api/v1/${userId}/favs/${favType}`)
+    fetch(`https://${host}/api/v1/${userId}/favs/${favType}`)
       .then(function (response) {
         return response.json();
       })
@@ -62,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     love.addEventListener('click', function () {
       if (favId) {
-        fetch(`https://usernet.tech/api/v1/favs/${favType}/${favId}`, {
+        fetch(`https://${host}/api/v1/favs/${favType}/${favId}`, {
           method: 'DELETE'
         })
           .then(function (response) {
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function () {
           };
         }
 
-        fetch(`https://usernet.tech/api/v1/favs/${favType}/`, {
+        fetch(`https://${host}/api/v1/favs/${favType}/`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(content)

@@ -1,3 +1,5 @@
+import { host } from "./API_HOST";
+
 $(function () {
   const userId = getUserId();
   let count = 0;
@@ -5,7 +7,7 @@ $(function () {
     $(i).find('button').click(function () {
       if (!$(i).find('button').attr('selected')) {
         $.ajax({
-          url: 'https://usernet.tech/api/v1/favs/genres',
+          url: `https://${host}/api/v1/favs/genres`,
           type: 'POST',
           headers: { 'Content-Type': 'application/json' },
           data: JSON.stringify({
@@ -21,7 +23,7 @@ $(function () {
         });
       } else {
         $.ajax({
-          url: `https://usernet.tech/api/v1/favs/genres/${$(i).attr('selected')}`,
+          url: `https://${host}/api/v1/favs/genres/${$(i).attr('selected')}`,
           type: 'DELETE',
           success: function (data, textStatus) {
             count -= 1;

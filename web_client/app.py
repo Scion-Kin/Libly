@@ -2,15 +2,17 @@
 ''' This is the web server '''
 
 from web_client.views import client_view
-from flask import Flask, Blueprint, render_template, abort,\
+from flask import Flask, render_template,\
     session, request, redirect, url_for, make_response
 from uuid import uuid4
+from os import getenv
 import requests
 import base64
 
 app = Flask(__name__)
 
-app.secret_key = 'hellolibly'
+app.secret_key = getenv('FLASK_SECRET_KEY', None)
+HOST = getenv('API_HOST')
 
 app.register_blueprint(client_view)
 
@@ -35,7 +37,7 @@ def home():
         keywords = request.form.get('keywords')
 
         headers = {"Content-Type": "application/json"}
-        response = requests.post('https://usernet.tech/api/v1/search',
+        response = requests.post(f'https://{HOST}/api/v1/search',
                                  headers=headers,
                                  json={"keywords": keywords})
 
@@ -76,8 +78,8 @@ def home():
         if session["onboarded"] is False:
             return redirect(url_for('client_view.onboarding'))
 
-        books = requests.get('https://usernet.tech/api/v1/hot/{}'
-                             .format(session["user_id"])).json()
+        books = requests.get('https://{}/api/v1/hot/{}'
+                             .format(HOST, session["user_id"])).json()
 
         if "error" not in books:
             return render_template('feed.html', admin=False, books=books[:5],

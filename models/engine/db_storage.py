@@ -1,9 +1,8 @@
 #!/usr/bin/python3
 ''' Defines a mysql model storage class '''
 
-import models
 from models.author import Author
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.book_author import BookAuthor
 from models.book_genre import BookGenre
 from models.book import Book
@@ -14,7 +13,7 @@ from models.genre import Genre
 from models.review import Review
 from models.user import User
 from os import getenv
-import sqlalchemy
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -32,11 +31,11 @@ class DBStorage:
 
     def __init__(self):
         """Instantiate a DBStorage object"""
-        LIBLY_MYSQL_USER = 'libly_user'
-        LIBLY_MYSQL_PWD = 'libDev'
-        LIBLY_MYSQL_HOST = 'localhost'
-        LIBLY_MYSQL_DB = 'libly'
-        LIBLY_ENV = 'production'
+        LIBLY_MYSQL_USER = getenv('MYSQL_USER', 'libly_user')
+        LIBLY_MYSQL_PWD = getenv('MYSQL_PASSWORD', 'libDev')
+        LIBLY_MYSQL_HOST = getenv('MYSQL_HOST', 'localhost')
+        LIBLY_MYSQL_DB = getenv('MYSQL_DB', 'libly')
+        LIBLY_ENV = getenv('LIBLY_ENV', 'production')
         self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.
                                       format(LIBLY_MYSQL_USER,
                                              LIBLY_MYSQL_PWD,

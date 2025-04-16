@@ -6,6 +6,9 @@ from flask import render_template, abort, session, redirect, url_for
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
+
 
 @client_view.route('/authors', strict_slashes=False)
 def authors():
@@ -14,7 +17,7 @@ def authors():
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/authors/')
+    response = requests.get(f'https://{HOST}/api/v1/authors/')
 
     if response.status_code == 200:
         data = [response.json()[i]["data"] for i in response.json()]
@@ -32,7 +35,7 @@ def books():
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/books/')
+    response = requests.get(f'https://{HOST}/api/v1/books/')
 
     if response.status_code == 200:
         data = [response.json()[i]["data"] for i in response.json()]
@@ -50,7 +53,7 @@ def genres():
     if not session or not session['logged']:
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/genres/')
+    response = requests.get(f'https://{HOST}/api/v1/genres/')
 
     if response.status_code == 200:
         data = [response.json()[i]["data"] for i in response.json()]

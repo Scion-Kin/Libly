@@ -2,9 +2,12 @@
 ''' The sign up route '''
 
 from web_client.views import client_view
-from flask import render_template, request, session, url_for, redirect
+from flask import render_template, request, url_for, redirect
 from uuid import uuid4
 import requests
+
+from os import getenv
+HOST = getenv('API_HOST')
 
 
 @client_view.route('/signup', methods=['GET', 'POST'],
@@ -22,7 +25,7 @@ def signup():
             "last_name": request.form.get('last_name'),
             "password": request.form.get('password')
         }
-        response = requests.post('https://usernet.tech/api/v1/users',
+        response = requests.post(f'https://{HOST}/api/v1/users',
                                  json=details, headers=headers)
 
         if response.status_code == 201:
@@ -35,7 +38,7 @@ def signup():
             }
 
             # send request to the node api to send the confirmation email
-            response = requests.post('https://usernet.tech/mail/signup',
+            response = requests.post(f'https://{HOST}/mail/signup',
                                      json=details, headers=headers)
 
             return redirect(url_for('client_view.login'))

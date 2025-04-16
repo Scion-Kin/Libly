@@ -1,7 +1,9 @@
+import { host } from "./API_HOST";
+
 $(function () {
   const title = document.title.split(' ')[1];
 
-  const url = `https://usernet.tech/api/v1/${title.toLowerCase()}`;
+  const url = `https://${host}/api/v1/${title.toLowerCase()}`;
 
   let displayed = false;
 
@@ -53,7 +55,7 @@ $(function () {
         if (title === 'Authors' || title === 'Genres' || title === 'Users' || title === 'Books') {
           $(img).attr('src', `/static/images/${resourceData.pic}`);
         } else if (title === 'Reviews') {
-          const imgUrl = `https://usernet.tech/api/v1/users/${resourceData.user_id}`;
+          const imgUrl = `https://${host}/api/v1/users/${resourceData.user_id}`;
           $.get(imgUrl, function (data, textStatus) {
             for (const k in data) {
               $(img).attr('src', `/static/images/${data[k].data.pic}`);

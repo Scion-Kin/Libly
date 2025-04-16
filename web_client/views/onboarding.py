@@ -3,10 +3,12 @@
 
 from web_client.views import client_view
 from flask import render_template, session, request, \
-    redirect, url_for, jsonify
+    redirect, url_for
 from uuid import uuid4
 import requests
 
+from os import getenv
+HOST = getenv('API_HOST')
 
 @client_view.route('/onboarding', methods=['GET', 'POST'],
                    strict_slashes=False)
@@ -19,7 +21,7 @@ def onboarding():
     if session["onboarded"]:
         return redirect(url_for('home'))
 
-    response = requests.get('https://usernet.tech/api/v1/genres')
+    response = requests.get(f'https://{HOST}/api/v1/genres')
     if response.status_code == 200:
         genres = []
         for i in response.json():
@@ -37,8 +39,8 @@ def onboarding():
         else:
             headers = {'Content-Type': 'application/json'}
             json = {"onboarded": True}
-            altered = requests.put('https://usernet.tech/api/v1/users/{}'
-                                   .format(session["user_id"]),
+            altered = requests.put('https://{}/api/v1/users/{}'
+                                   .format(HOST, session["user_id"]),
                                    headers=headers, json=json)
 
             if altered.status_code == 200:

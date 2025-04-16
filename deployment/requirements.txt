@@ -1,4 +1,6 @@
-flask>=3.0.2
+gunicorn
+dotenv
+flask
 flask-cors
 sqlalchemy
 pymupdf
