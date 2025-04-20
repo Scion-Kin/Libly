@@ -24,16 +24,52 @@ BPurple='\033[1;35m'      # Purple
 BCyan='\033[1;36m'        # Cyan
 Color_Off='\033[0;37m'    # White
 
+command_exists() {
+  command -v "$@" >/dev/null 2>&1
+}
+
+user_can_sudo() {
+  # Check if sudo is installed
+  command_exists sudo || return 1
+  # Termux can't run sudo, so we can detect it and exit the function early.
+  case "$PREFIX" in
+  *com.termux*) return 1 ;;
+  esac
+  # The following command has 3 parts:
+  #
+  # 1. Run `sudo` with `-v`. Does the following:
+  #    • with privilege: asks for a password immediately.
+  #    • without privilege: exits with error code 1 and prints the message:
+  #      Sorry, user <username> may not run sudo on <hostname>
+  #
+  # 2. Pass `-n` to `sudo` to tell it to not ask for a password. If the
+  #    password is not required, the command will finish with exit code 0.
+  #    If one is required, sudo will exit with error code 1 and print the
+  #    message:
+  #    sudo: a password is required
+  #
+  # 3. Check for the words "may not run sudo" in the output to really tell
+  #    whether the user has privileges or not. For that we have to make sure
+  #    to run `sudo` in the default locale (with `LANG=`) so that the message
+  #    stays consistent regardless of the user's locale.
+  #
+  ! LANG= sudo -n -v 2>&1 | grep -q "may not run sudo"
+}
+
+if ! user_can_sudo; then
+  echo -e "${BRed}Error: You need to have sudo privileges to run this script, else it won't work.${Color_Off}"
+  exit 1
+fi
+
+if [ ! -d "$HOME/.Libly" ]; then
+  echo "Error: ~/.Libly not found. Please deploy the project correctly by running the deploy.sh script."
+  exit 1
+fi
 
 ## Check if zsh is installed
 if ! command -v zsh &> /dev/null
 then
     printf "${BRed} zsh could not be found. Please install zsh before running this script.\n"
-    exit 1
-fi
-# Check if the script is run as root
-if [ "$EUID" -eq 0 ]; then
-    printf "${BRed} This script must be run as a non-root user. Please run it as a non-root user, with sudo privileges.\n"
     exit 1
 fi
 
@@ -129,7 +165,7 @@ server {
 }
 " # make sure to change the server names or domains accordingly
 
-source ../venv/bin/activate
+source ~/.Libly/venv/bin/activate
 
 libly_api=\
 "
@@ -145,7 +181,7 @@ WorkingDirectory=$WD/
 Environment=\"MYSQL_DB=$mysql_database\"
 Environment=\"MYSQL_USER=$mysql_username\"
 Environment=\"MYSQL_PASSWORD=$mysql_password\"
-ExecStart=$WD/../venv/bin/python3 -m gunicorn --workers 2 --bind 0.0.0.0:5000 --access-logfile /var/log/libly/libly_api.log --error-logfile /var/log/libly/libly_api-error.log flask_api.v1.app:app
+ExecStart=$HOME/.Libly/venv/bin/python3 -m gunicorn --workers 2 --bind 0.0.0.0:5000 --access-logfile /var/log/libly/libly_api.log --error-logfile /var/log/libly/libly_api-error.log flask_api.v1.app:app
 
 [Install]
 WantedBy=multi-user.target
@@ -185,7 +221,7 @@ Group=www-data
 WorkingDirectory=$WD/
 Environment=\"API_HOST=$server_domain\"
 Environment=\"FLASK_SECRET_KEY=$flask_secret_key\"
-ExecStart=$WD/../venv/bin/python3 -m gunicorn --workers 2 --bind 0.0.0.0:5050 --access-logfile /var/log/libly/libly_web.log --error-logfile /var/log/libly/libly_web-error.log web_client.app:app
+ExecStart=$HOME/.Libly/venv/bin/python3 -m gunicorn --workers 2 --bind 0.0.0.0:5050 --access-logfile /var/log/libly/libly_web.log --error-logfile /var/log/libly/libly_web-error.log web_client.app:app
 
 [Install]
 WantedBy=multi-user.target
@@ -228,7 +264,7 @@ cat setup_mysql_dev.sql | sudo mysql -u root
 python3 "setup_admin.py"
 printf "${BGreen} done!\n\n${Color_Off}"
 
-sed -i "s#undefined#$server_domain#" "$WD/web_client/static/scripts/API_HOST.js"
+sed -i "s#undefined#'$server_domain'#" "$WD/web_client/static/scripts/API_HOST.js"
 
 sudo systemctl daemon-reload
 sudo systemctl enable mysql

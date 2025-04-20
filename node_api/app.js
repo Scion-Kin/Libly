@@ -37,9 +37,9 @@ app.post('/signup', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        res.json({ error: 'Email sending failed' });
+        res.json({ error: 'Email sending failed', error });
       } else {
-        res.json({ success: 'Email sent successfully' });
+        res.json({ success: 'Email sent successfully', info});
       }
     });
   } catch (error) {
@@ -51,7 +51,7 @@ app.post('/signup', (req, res) => {
 app.post('/reset', (req, res) => {
   try {
     const mailOptions = {
-      from: 'mugabo@centralbees.com',
+      from: process.env.SMTP_SENDER,
       to: req.body.email,
       subject: `Password reset for ${req.body.name}`,
       text: `Your code is \n ${req.body.reset_code} \n If you didn't request this code, ignore this email.`
@@ -59,9 +59,9 @@ app.post('/reset', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        res.json({ error: 'Email sending failed' });
+        res.json({ error: 'Email sending failed', error });
       } else {
-        res.json({ success: 'Email sent successfully' });
+        res.json({ success: 'Email sent successfully', info});
       }
     });
   } catch (error) {

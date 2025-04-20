@@ -1,4 +1,4 @@
-import { host } from "./API_HOST";
+import { host } from "./API_HOST.js";
 
 document.addEventListener('DOMContentLoaded', function () {
   const logOut = document.getElementById('log-out');

@@ -1,12 +1,12 @@
-import { host } from "./API_HOST";
+import { host } from "./API_HOST.js";
 
 const reviews = document.getElementById('reviews');
 const books = document.getElementById('books-activity');
 const reviewsTitle = document.createElement('h4');
 const booksTitle = document.createElement('h4');
 const today = new Date();
-const SDA = new Date(today); // seven days ago! Haha! What a subtle coincidence!
-SDA.setDate(today.getDate() - 7);
+const SDA = new Date();
+SDA.setDate(today.getDate() - 7); // seven days ago! Haha! What a subtle coincidence!
 
 books.appendChild(booksTitle);
 reviews.append(reviewsTitle);

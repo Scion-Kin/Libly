@@ -1,4 +1,4 @@
-import { host } from "./API_HOST";
+import { host } from "./API_HOST.js";
 
 $(function () {
   const title = document.title.split(' ')[0];

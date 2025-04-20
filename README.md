@@ -11,7 +11,7 @@ Libly is widely accessible as a online web application.
 This is provided as a libray where users can read books, mark favorite books, authors and genres.
 
 To access libly, users have to
-* visit [Libly](https://usernet.com)
+* visit [Libly](https://libly.liny.studio)
 * Head over to account creation (Mandatory)
 * Verify their account details
 * Read books online that they are interested in
