@@ -56,6 +56,7 @@ $(function () {
             $(link).attr('href', `/profile/${userId}`);
             const username = document.createElement('p');
             $(username).text(`${data[j].data.first_name} ${data[j].data.last_name}`);
+            $(username).addClass('username');
             $(avatar).attr('src', `/static/images/${data[j].data.pic}`);
             $(link).append(avatar);
             $(owner).append(link);

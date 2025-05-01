@@ -155,18 +155,21 @@ def update_user(user_id):
                       i.user_type == "librarian" and
                       i.password == request.get_json()["adminPassword"]]
 
-        ignore = ['id', 'created_at', 'updated_at', 'onboarded']
+        ignore = ['id', 'created_at', 'updated_at', 'onboarded', 'email']
         if len(admins) > 0 or\
                 (request.get_json()["password"]
                  and user.password == request.get_json()["password"]):
 
             for key, value in request.get_json().items():
-                if key not in ignore:
+                if key not in ignore and value:
                     setattr(user, key, value)
+
             if "new_password" in request.get_json():
                 user.password = request.get_json()["new_password"]
+
             user.save()
             return jsonify(user.to_dict())
+
         else:
             return make_response(jsonify({"error":
                                           "incorrect or missing password"}),

@@ -10,8 +10,8 @@ main {
 }
 
 .author, .book, .genre, .user {
-    width: 60%;
-    height: 200px;
+    /*! width: 60%; */
+    min-height: 200px;
     border-radius: 20px;
     padding: 20px;
     margin: 20px auto;
@@ -19,7 +19,7 @@ main {
     background-image: url('/static/images/author-avatar.jpeg');
     background-repeat: no-repeat;
     background-size: contain;
-    background-position: left;
+    background-position: right;
 }
 
 #info {
@@ -97,19 +97,6 @@ main {
     background-image: url('/static/images/user-avatar.jpg');
 }
 
-.description {
-    float: right;
-}
-
-.title {
-    background-color: #316FF6;
-    color: white;
-    padding: 10px;
-    padding-right: 5px;
-    border-radius: 10px;
-    margin: 0
-}
-
 .description button {
     padding: 10px;
     background-color: #316FF6;
@@ -119,35 +106,34 @@ main {
 }
 
 .naming {
-    background-color: white;
-    color: #316FF6;
-    padding: 5px;
+    /*! background-color: white; */
+    /*! color: #316FF6; */
+    padding: 15px;
     border-radius: 10px;
+    font-size: large;
+    font-weight: 900;
 }
 
 .go {
-    background-color: #059e54 !important;
+    /*! background-color: #059e54 !important; */
 }
 
 @media (max-width: 900px) {
 
     .description {
-        float: left;
-        backdrop-filter: blur(20px);
+        /*! float: left; */
+        backdrop-filter: blur(500px);
         padding: 20px;
         border-radius: 15px;
-        width: 80%;
         height: fit-content;
     }
     
     .book-description {
-        margin-top: -15px;
         padding: 0px 5px;
     }
     
     .naming {
         display: block;
-        margin-top: 5px;
     }
     
     .result-box {

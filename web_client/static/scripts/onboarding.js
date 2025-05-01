@@ -18,26 +18,30 @@ $(function () {
             count += 1;
             $(i).find('button').css('background-color', '#059e54');
             $(i).find('button').attr('selected', data.id);
+            $(i).find('button').attr('fav_id', data.id);
             $('#done').val(count);
+          },
+          error: function (jqxhr, textStatus, error) {
+            console.log('Error:', error);
+            alert('Something went wrong. Please try again.');
           }
         });
       } else {
         $.ajax({
-          url: `https://${host}/api/v1/favs/genres/${$(i).attr('selected')}`,
+          url: `https://${host}/api/v1/favs/genres/${$(i).find('button').attr('fav_id')}`,
           type: 'DELETE',
           success: function (data, textStatus) {
             count -= 1;
             $(i).find('button').css('background-color', '#316FF6');
             $(i).find('button').removeAttr('selected');
             $('#done').val(count);
+          },
+          error: function (jqxhr, textStatus, error) {
+            console.log('Error:', error);
+            alert('Something went wrong. Please try again.');
           }
         });
       }
-
-      $(document).on('ajaxError', function (event, jqxhr, settings, thrownError) {
-        alert('Something went wrong. Please try again.');
-        console.log(thrownError);
-      });
     });
   }
 

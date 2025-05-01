@@ -1,0 +1,96 @@
+import { host } from "./API_HOST.js";
+
+$(function () {
+  let passwordFirst = document.createElement('input');
+  $(passwordFirst).attr('type', 'password');
+  $(passwordFirst).attr('placeholder', 'Input your new password');
+
+  let passwordLast = document.createElement('input');
+  $(passwordLast).attr('type', 'password');
+  $(passwordLast).attr('placeholder', 'Repeat password');
+
+  let codeInput = document.createElement('input');
+  $(codeInput).attr('type', 'tel');
+  $(codeInput).attr('placeholder', 'Input code from email');
+
+  let reqButton = document.createElement('button'); // code request button
+  $(reqButton).text('Get code');
+
+  let verButton = document.createElement('button'); // code verifier button
+  $(verButton).text('Verify code');
+
+  let resButton = document.createElement('button'); // password reset button
+  $(resButton).text('Reset');
+
+  let error = document.createElement('h4');
+  $(error).addClass('error');
+
+  let user_id;
+  let reset_code;
+  
+  $('#reset').append(reqButton);
+  $(reqButton).click(function (event) {
+      event.preventDefault();
+      $.ajax({
+          url: `https://${host}/api/v1/pool`,
+          type: 'POST',
+          headers: { "Content-Type": "application/json" },
+          data: JSON.stringify({ email: $('#reset input[type=email]').val() }),
+          success: function (data, textStatus) {
+              user_id = data.success;
+              $('#reset').html([codeInput, verButton]);
+          }
+      });
+  });
+
+  $(verButton).click(function (event) {
+      event.preventDefault();
+      $.ajax({
+          url: `https://${host}/api/v1/pool/${user_id}`,
+          type: 'POST',
+          headers: { "Content-Type": "application/json" },
+          data: JSON.stringify({ "reset_code": $(codeInput).val() }),
+          success: function (data, textStatus) {
+              reset_code = $(codeInput).val();
+              $('#reset').html([passwordFirst, passwordLast ,resButton]);
+          } 
+      });
+  });
+
+  $(resButton).click(function (event) {
+      event.preventDefault();
+      if ($(passwordFirst).val().length < 8) {
+          $(error).text("Password must be 8 or more characters");
+          $('#reset').append(error);
+      }
+
+      else if ($(passwordFirst).val() === $(passwordLast).val()) {
+          $.ajax({
+              url: `https://${host}/api/v1/users/reset/${user_id}`,
+              type: 'PUT',
+              headers: { "Content-Type": "application/json" },
+              data: JSON.stringify({ "reset_code": reset_code, "new_password": $(passwordLast).val() }),
+              success: function (data, textStatus) {
+                  window.location.href = '/';
+              }
+          });
+      }
+      else {
+          $(error).text("The passwords your don't match");
+          $('#reset').append(error);
+      }
+  });
+  $(document).on('ajaxError', function( event, jqxhr, settings, thrownError ) {
+      if (jqxhr.status === 404) {
+          $(error).text('User not found.');
+      } else if (jqxhr.status === 400){
+          $(error).text('Please input all details.');
+      } else if (jqxhr.status === 403) {
+          $(error).text('Wrong reset code');
+      } else {
+          $(error).text('Something went wrong. Please try again');
+      }
+
+      $('#reset').append(error);
+  });
+});

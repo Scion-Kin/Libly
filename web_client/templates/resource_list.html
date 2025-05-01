@@ -8,7 +8,7 @@
 {% endblock %}
 {% block body %}
 <section id="about-book">
-    <h2>{% if type == "Authors" %} Authors {% elif type == "Books" %} Books {% else %} Genres {% endif %}</h2>
+    <h2 style="color: white;">{% if type == "Authors" %} Authors {% elif type == "Books" %} Books {% else %} Genres {% endif %}</h2>
     <section id="book_list">
         {% for i in all %}
             <section class="book history">

@@ -77,7 +77,7 @@ fetch(`https://${host}/api/v1/reviews`)
           reviewText.appendChild(name);
           reviewText.appendChild(form);
           reviewText.append(data[i].data.text);
-          reviewText.className = 'text';
+          reviewText.className = 'text markdown';
           review.className = 'review';
           review.appendChild(owner);
           review.appendChild(reviewText);
@@ -105,19 +105,17 @@ fetch(`https://${host}/api/v1/books`)
         // get data from the last 2 days
         if (datePasses) {
           const book = document.createElement('section');
-          const button = document.createElement('button');
+          const h3 = document.createElement('h3');
 
-          button.textContent = data[i].data.title;
-          button.addEventListener('click', function () {
+          h3.textContent = data[i].data.title;
+          h3.addEventListener('click', function () {
             window.location.href = `/read/${data[i].data.id}`;
             localStorage.setItem(`${data[i].data.title}`, `${data[i].data.id}@${data[i].data.pic}`);
           });
 
           book.className = 'history-book';
           book.style.backgroundImage = `url('/static/images/${data[i].data.pic}')`;
-          button.style.margin = '30px 20px';
-          button.style.maxWidth = '240px';
-          book.appendChild(button);
+          book.appendChild(h3);
           books.append(book);
         }
       }

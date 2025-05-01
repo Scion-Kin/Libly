@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         element.style.backgroundColor = 'black';
       });
 
-      Array.from(inputs).forEach(element => {
+      [...inputs, ...document.getElementsByClassName('history-book')].forEach(element => {
         element.style.backgroundColor = 'rgb(37, 40, 42)';
         element.style.color = '#e7e8e9';
       });
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         element.style.backgroundColor = 'white';
       });
 
-      Array.from(inputs).forEach(element => {
+      [...inputs, ...document.getElementsByClassName('history-book')].forEach(element => {
         element.style.backgroundColor = '#F0F2F5';
         element.style.color = '#181a1b';
       });

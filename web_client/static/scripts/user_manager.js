@@ -1,4 +1,6 @@
 import { host } from "./API_HOST.js";
+import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
+import hljs from 'https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/es/highlight.min.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   const logOut = document.getElementById('log-out');
@@ -8,6 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const help = document.getElementById('help');
   const love = document.getElementById('love');
   const profile = document.getElementById('profile');
+
+  Array.from(document.getElementsByClassName('markdown')).forEach(function (element) {
+    const text = element.innerHTML;
+    const html = marked(text.trim()); // I wonder why it's not processing '\n' in the text.
+    element.innerHTML = html;
+  });
+
+  hljs.highlightAll();
 
   profile.addEventListener('click', function () {
     window.location.href = `/profile/${getUserId()}`;
@@ -105,15 +115,13 @@ document.addEventListener('DOMContentLoaded', function () {
         })
           .then(function (response) {
             if (response.ok) {
-              return response.json();
+              const data = response.json();
+              love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
+              love.setAttribute('fav-id', data.id);
+              favId = data.id;
             } else {
               alert('Failed to make favorite');
             }
-          })
-          .then(function (data) {
-            love.style.backgroundImage = "url('/static/images/loved-icon.svg')";
-            love.setAttribute('fav-id', data.id);
-            favId = data.id;
           })
           .catch(error => {
             console.log(error);
@@ -132,23 +140,24 @@ document.addEventListener('DOMContentLoaded', function () {
     section.className = 'history-book';
     history.appendChild(section);
   } else {
-    // Loop through localStorage and store 2 keys in the keys array
     for (let i = 0; i <= 2; i++) {
       const key = localStorage.key(i);
       if (key !== 'darkmode-state') {
         const section = document.createElement('section');
         const button = document.createElement('button');
         button.textContent = key;
-        const id = localStorage.getItem(key).split('@')[0];
+        const id = localStorage.getItem(key).split('@') ? localStorage.getItem(key).split('@')[0] : null;
 
-        button.addEventListener('click', function () {
-          window.location.href = `/read/${id}`;
-        });
+        if (id) {
+          button.addEventListener('click', function () {
+            window.location.href = `/read/${id}`;
+          });
 
-        section.appendChild(button);
-        section.className = 'history-book';
-        section.style.backgroundImage = `url('/static/images/${localStorage.getItem(key).split('@')[1]}')`;
-        history.appendChild(section);
+          section.appendChild(button);
+          section.className = 'history-book';
+          section.style.backgroundImage = `url('/static/images/${localStorage.getItem(key).split('@')[1]}')`;
+          history.appendChild(section);
+        }
       }
     }
   }

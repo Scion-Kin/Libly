@@ -25,6 +25,7 @@ const transporter = nodemailer.createTransport({
 app.post('/signup', (req, res) => {
   try {
     let data = fs.readFileSync('confirmation_email.html', 'utf8');
+    data = data.replace(/{% host %}/g, req.body.host);
     data = data.replace(/{% id %}/g, req.body.id);
     data = data.replace(/{% name %}/g, `${req.body.first_name} ${req.body.last_name}`);
 
@@ -59,12 +60,13 @@ app.post('/reset', (req, res) => {
 
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
-        res.json({ error: 'Email sending failed', error });
+        res.status(500).json({ error: 'Email sending failed', error });
       } else {
         res.json({ success: 'Email sent successfully', info});
       }
     });
   } catch (error) {
+    console.error('Error sending email:', error);
     res.status(500).json({ error });
   }
 });

@@ -19,7 +19,7 @@
         <a href="manage/users"><section class="quote"> <h4>Manage Users</h4> </section></a>
         <a href="/statistics"><section class="quote"> <h4>View Statistics</h4> </section></a>
     </section>
-    <h2 style="margin: 40px 20px;">Directories</h2>
+    <h2 style="margin: 40px 20px; color: white;">Directories</h2>
     <section style="margin-bottom: 40px;">
         <nav id="views-menu" class="options" style="margin: 10px;">
             <a href="/authors"><button id="authors">All Authors</button></a>
@@ -39,14 +39,14 @@
                 <a href="/books"><button id="books">All Books</button></a>
                 <a href="/genres"><button id="genres">All Genres</button></a>
             </nav>       
-            <h2>Books you may like</h2>
+            <h2 style="color: white;">Books you may like</h2>
             <section class="suggested">
                 {% for book in books %}
                     <section class="suggested-book">
                         <img src="/static/images/{{ book.pic }}?{{ uuid }}" alt="{{ book.title }}'s cover image">
                         <h4>Title: {{ book.title }}</h4>
                         <b>Description:</b>
-                        <p>
+                        <p class="markdown">
                             {{ book.description }}
                         </p>
                         <a href="/read/{{ book.id }}" onclick="localStorage.setItem('{{ book.title }}', '{{ book.id }}@{{ book.pic }}')">
@@ -61,7 +61,7 @@
         </section>
     {% endif %}
 {% endif %}
-<h2>Recent activity</h2>
+<h2 style="color: white;">Recent activity</h2>
 <section id="review-activity">
     <section id="reviews" class="black-white">
 

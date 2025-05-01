@@ -243,7 +243,7 @@ sudo certbot --nginx
 # Then set up mysql
 # Edit the mysql setup script to include the mysql username and password
 printf "${BPurple} Setting up mysql... "
-sed -i "s#user#$mysql_username#" "setup_mysql_dev.sql"
+sed -i "s#username#$mysql_username#" "setup_mysql_dev.sql"
 sed -i "s#pwd#$mysql_password#" "setup_mysql_dev.sql"
 sed -i "s#db#$mysql_database#" "setup_mysql_dev.sql"
 printf "${BGreen} done!\n"

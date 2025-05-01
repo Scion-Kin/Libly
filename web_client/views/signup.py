@@ -32,6 +32,7 @@ def signup():
 
             details = {
                 "id": response.json()["id"],
+                "host": HOST,
                 "first_name": response.json()["first_name"],
                 "last_name": response.json()["last_name"],
                 "email": response.json()["email"]

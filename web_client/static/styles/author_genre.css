@@ -13,6 +13,9 @@ h2 {
 a {
     color: inherit;
     text-decoration: none;
+    display: flex;
+    border-radius: 9999px;
+    font-weight: 900;
 }
 
 img {
@@ -21,11 +24,18 @@ img {
     border-radius: 10px;
 }
 
-button span {
+a .title {
+    padding: 15px 2px;
+    font-size: large;
+}
+
+a .action {
     background-color: #088a54c7;
-    padding: 20px 5px 20px 20px;
     margin: 5px;
-    margin-left: -20px;
+    padding: 20px 10px;
+    line-height: 40px;
+    border-radius: 9999px 0;
+    color: white;
 }
 
 .book {
@@ -34,7 +44,7 @@ button span {
 }
 
 #about-book {
-    width: 95%;
+    /*! width: 95%; */
     margin: 0;
 }
 
@@ -73,7 +83,7 @@ button span {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: 10px;
+    /*! padding: 10px; */
     border-radius: 15px;
     background-color: inherit;
     backdrop-filter: blur(10px);

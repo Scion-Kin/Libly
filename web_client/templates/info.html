@@ -14,9 +14,9 @@
     <section id="description">
         <img src="/static/images/{{ info.pic }}?{{ uuid }}" alt="{{ info.title }}'s cover image">
         <article>
-            <h4> Title: {{ info.title }} </h4> 
+            <h4> Title: {{ info.title }} </h4>
             <h5>Description:</h5>
-            <p>
+            <p class="markdown">
                 {{ info.description }}
             </p>
         </article>
@@ -43,13 +43,13 @@
                     <section class="owner" id="{{ i }}_{{ reviews[i].user_id }}">
 
                     </section>
-                    <p class="text">{{ reviews[i].text }}</p>
+                    <p class="text markdown">{{ reviews[i].text }}</p>
                 </section>
             {% endfor %}
         </section>
     {% endif %}
     <section id="make-review">
-        <h4>Have you read this book?<br>Other readers will love your review!</h4>
+        <h4>Have you read this book?<br>Other readers will love your review! <span title="Markdown is supported">🛈</span></h4>
         <form id="{{ info.id }}">
             <textarea id="message" rows="4" cols="50"></textarea><br>
             <button id="create"></button>   

@@ -121,8 +121,9 @@ aside h3,  aside h2 {
 }
 
 .title {
-    background-color: #316FF6;
-    color: white;
+    font-size: large;
+    font-weight: 900;
+    color: #059f60;
     padding: 10px;
     padding-right: 5px;
     border-radius: 10px;
@@ -138,10 +139,11 @@ aside h3,  aside h2 {
 }
 
 .naming {
-    background-color: white;
     color: #316FF6;
+    text-decoration: underline;
     padding: 5px;
     border-radius: 10px;
+    display: block;
 }
 
 .go {

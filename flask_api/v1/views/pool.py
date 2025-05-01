@@ -48,24 +48,25 @@ def insert_into_pool():
 
     reset_code = random.randint(10000000, 99999999)
     db, cur = get_db()
-    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id,))
     # parameters must be a tuple
+    cur.execute('DELETE FROM pool WHERE user_id = %s', (user[0].id, ))
 
     cur.execute('INSERT INTO pool VALUES (%s, %s)', (user[0].id, reset_code))
     db.commit()
     db.close()
 
-    mail = requests.post('https://usernet.tech/mail/reset',
+    mail_server = getenv('MAIL_SERVER', request.host)
+    mail = requests.post(f'https://{mail_server}/mail/reset',
                          headers={"Content-Type": "application/json"},
                          json={"reset_code": reset_code,
                                "email": request.get_json()["email"],
                                "name": user[0].first_name})
 
-    if mail.status_code != 200:
+    if mail.ok:
         return make_response(jsonify({"success": user[0].id}), 201)
 
     else:
-        return make_response(jsonify({"error": "Could not send reset code. Try again later"}), 500)
+        return make_response(jsonify({"error": f"{mail.json()['error']}"}), 500)
 
 @grand_view.route('/users/reset/<string:user_id>', methods=['PUT'],
                   strict_slashes=False)
