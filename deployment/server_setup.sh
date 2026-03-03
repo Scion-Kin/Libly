@@ -1,28 +1,12 @@
 #!/usr/bin/env bash
 ## Copyright (c) 2025 Buffer Park and contributors
-## This program is free software: you can redistribute it and/or modify
-## it under the terms of the GNU General Public License as published by
-## the Free Software Foundation, either version 3 of the License, or
-## (at your option) any later version.
-## This program is distributed in the hope that it will be useful,
-## but WITHOUT ANY WARRANTY; without even the implied warranty of
-## MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-## GNU General Public License for more details.
-## You should have received a copy of the GNU General Public License
-## along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 ## This script deploys the Libly project on a server. (Hands off deployment)
 ## It sets up the server with the necessary configurations.
 
-# Bold colors
-BBlack='\033[1;30m'       # Black
-BRed='\033[1;31m'         # Red
-BGreen='\033[1;32m'       # Green
-BYellow='\033[1;33m'      # Yellow
-BBlue='\033[1;34m'        # Blue
-BPurple='\033[1;35m'      # Purple
-BCyan='\033[1;36m'        # Cyan
-Color_Off='\033[0;37m'    # White
+set -e
+
+source ./awesome.conf
 
 command_exists() {
   command -v "$@" >/dev/null 2>&1
@@ -86,8 +70,6 @@ if [[ $WD == *"deployment"* ]]; then
     WD=$(pwd)
 fi
 
-set -e
-
 printf "${BBlue} This script will set up the server for you. \n\n"
 printf "${BYellow} Please don't skip any inputs, or interrupt the script. Avoid putting '@' sign in mysql credentials ${Color_Off} \n\n"
 printf "${BYellow} If you don't understand something, please look at the documentation. \n\n"
@@ -137,7 +119,7 @@ server {
         listen 80 default_server;
         listen [::]:80 default_server;
 
-        server_name $server_domain; # change the domain if any domain changes have occured
+        server_name $server_domain;
 
         add_header X-Served-By '$server_domain';
 
